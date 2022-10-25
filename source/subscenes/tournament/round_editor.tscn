@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://fonts/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://subscenes/tournament/round_editor.gd" type="Script" id=2]
+
+[node name="RoundEditor" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Back" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -200.0
+margin_top = -50.0
+theme = ExtResource( 1 )
+text = "Go back"
+
+[node name="AddNew" type="MenuButton" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -50.0
+margin_right = 200.0
+theme = ExtResource( 1 )
+text = "Add new round"
+flat = false
+items = [ "Seed", null, 0, false, false, 0, 0, null, "", false, "Groups", null, 0, false, false, 1, 0, null, "", false, "Dual tournament", null, 0, false, false, 2, 0, null, "", false, "Single Elimination", null, 0, false, false, 3, 0, null, "", false, "Swiss round", null, 0, false, false, 4, 0, null, "", false ]
+
+[node name="Container" type="ScrollContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -60.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container"]
+margin_right = 1900.0
+margin_bottom = 1010.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="pressed" from="Back" to="." method="_on_Back_pressed"]

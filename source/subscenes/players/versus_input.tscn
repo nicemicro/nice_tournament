@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://subscenes/players/versus_input.gd" type="Script" id=1]
+[ext_resource path="res://fonts/default_theme.tres" type="Theme" id=2]
+
+[node name="VersusInput" type="HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+
+[node name="RaceLabel" type="Label" parent="."]
+margin_top = 5.0
+margin_right = 55.0
+margin_bottom = 41.0
+theme = ExtResource( 2 )
+text = "Vs. "
+
+[node name="Wins" type="LineEdit" parent="."]
+margin_left = 59.0
+margin_right = 177.0
+margin_bottom = 46.0
+theme = ExtResource( 2 )
+max_length = 2
+placeholder_text = "Wins"
+
+[node name="Colon" type="Label" parent="."]
+margin_left = 181.0
+margin_top = 5.0
+margin_right = 190.0
+margin_bottom = 41.0
+theme = ExtResource( 2 )
+text = ":"
+
+[node name="Losses" type="LineEdit" parent="."]
+margin_left = 194.0
+margin_right = 312.0
+margin_bottom = 46.0
+theme = ExtResource( 2 )
+max_length = 2
+placeholder_text = "Losses"
+
+[connection signal="text_changed" from="Wins" to="." method="_on_text_changed"]
+[connection signal="text_changed" from="Losses" to="." method="_on_text_changed"]

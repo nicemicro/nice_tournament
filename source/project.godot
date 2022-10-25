@@ -1,0 +1,64 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Resource",
+"class": "MapResource",
+"language": "GDScript",
+"path": "res://resources/map.gd"
+}, {
+"base": "Resource",
+"class": "PlayerResource",
+"language": "GDScript",
+"path": "res://resources/player.gd"
+}, {
+"base": "Resource",
+"class": "RoundResource",
+"language": "GDScript",
+"path": "res://resources/round_base.gd"
+}, {
+"base": "RoundResource",
+"class": "SeedRound",
+"language": "GDScript",
+"path": "res://resources/seed.gd"
+} ]
+_global_script_class_icons={
+"MapResource": "",
+"PlayerResource": "",
+"RoundResource": "",
+"SeedRound": ""
+}
+
+[application]
+
+config/name="NML 5"
+run/main_scene="res://start.tscn"
+
+[autoload]
+
+Global="*res://globals/globals.gd"
+Tournament="*res://globals/tournament.gd"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

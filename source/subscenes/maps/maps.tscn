@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://fonts/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://subscenes/maps/maps.gd" type="Script" id=2]
+
+[node name="Maps" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Back" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -200.0
+margin_top = -50.0
+theme = ExtResource( 1 )
+text = "Go back"
+
+[node name="AddNew" type="Button" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -50.0
+margin_right = 200.0
+theme = ExtResource( 1 )
+text = "Add new map"
+
+[node name="Container" type="GridContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -60.0
+columns = 5
+
+[connection signal="pressed" from="Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="AddNew" to="." method="_on_AddNew_pressed"]
