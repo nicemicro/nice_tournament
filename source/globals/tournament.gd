@@ -10,3 +10,13 @@ func isPlayerSeeded(player: PlayerResource) -> bool:
 			if gameRound is SeedRound and gameRound.hasPlayer(player):
 				return true
 	return false
+
+func addRound(newRound: RoundResource, level: int) -> bool:
+	if level < 0 or level > len(rounds):
+		assert(false, "Rounds tried to be created at higher levels than possible")
+		return false
+	if level == len(rounds):
+		rounds.append([rounds])
+	else:
+		rounds[level].append(rounds)
+	return true

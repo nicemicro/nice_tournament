@@ -34,6 +34,7 @@ text = "Number of players:"
 margin_left = 1802.0
 margin_right = 1920.0
 margin_bottom = 46.0
+rect_min_size = Vector2( 100, 0 )
 theme = ExtResource( 1 )
 text = "0"
 editable = false

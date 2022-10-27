@@ -6,6 +6,7 @@
 [node name="LevelContainer" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 2 )
@@ -36,4 +37,4 @@ theme = ExtResource( 1 )
 text = "Selected"
 align = 1
 
-[connection signal="toggled" from="CheckBox" to="." method="_on_CheckBox_toggled"]
+[connection signal="pressed" from="CheckBox" to="." method="_on_CheckBox_pressed"]

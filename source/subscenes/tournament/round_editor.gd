@@ -20,30 +20,41 @@ func addAllRounds():
 	var newScene
 	var newNode
 	var counter: int = 0
-	newScene = preload(levelContainerScenePath) 
-	newNode = newScene.instance()
-	newNode.setSelected(true)
-	newNode.setLevel(counter)
-	newNode.connect("selected", self, "levelSelected")
-	selectedLevel = counter
-	levelContainers.append(newNode)
-	tournamentContainer.add_child(newNode)
+	#TODO: add saved rounds here
+	addNewLevel()
+	selectedLevel = len(levelContainers) - 1
+	levelContainers[selectedLevel].setSelected(true)
 
 func _on_Back_pressed():
 	self.visible = false
 	emit_signal("backPressed")
 
 func _on_NewMenu_pressed(itemId: int):
+	var roundRes: RoundResource
+	var scenePath: String
 	match itemId:
 		0:
-			addNewSeedRound()
+			roundRes = SeedRound.new()
+			scenePath = seedScenePath
+	Tournament.addRound(roundRes, selectedLevel)
+	addNewRound(roundRes, scenePath)
+	if len(levelContainers) - 1 == selectedLevel:
+		addNewLevel()
 
-func addNewSeedRound() -> void:
-	#TODO first we need to add the seed round resource to the list!
-	var newScene = preload(seedScenePath)
+func addNewRound(roundRes: RoundResource, scenePath: String) -> void:
+	var newScene = load(scenePath)
 	var seedScene = newScene.instance()
 	levelContainers[selectedLevel].addRound(seedScene)
 
 func levelSelected(index: int):
 	selectedLevel = index
-	levelContainers[selectedLevel].setSelected(true)
+	for levelContainer in levelContainers:
+		levelContainer.setSelected(levelContainer.level == selectedLevel)
+
+func addNewLevel() -> void:
+	var newScene = preload(levelContainerScenePath)
+	var newNode = newScene.instance()
+	newNode.setLevel(len(levelContainers))
+	newNode.connect("selected", self, "levelSelected")
+	levelContainers.append(newNode)
+	tournamentContainer.add_child(newNode)
