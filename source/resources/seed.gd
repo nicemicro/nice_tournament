@@ -19,5 +19,29 @@ func addPlayer(newPlayer: PlayerResource) -> void:
 		seededPlayers.append(newPlayer)
 	output = len(seededPlayers)
 
+func removePlayer(player: PlayerResource) -> void:
+	if not hasPlayer(player):
+		printerr("Trying to act on a player not on the list")
+		return
+	var index: int = seededPlayers.find(player)
+	seededPlayers.pop_at(index)
+
+func movePlayer(player: PlayerResource, position: int) -> void:
+	if position < 0 or position >= len(seededPlayers):
+		printerr("Trying to move a player to an unavailable position")
+		return
+	if not hasPlayer(player):
+		printerr("Trying to act on a player not on the list")
+		return
+	var index: int = seededPlayers.find(player)
+	seededPlayers[index] = seededPlayers[position]
+	seededPlayers[position] = player
+
 func hasPlayer(player: PlayerResource) -> bool:
 	return player in seededPlayers
+
+func getOutput() -> int:
+	return len(seededPlayers)
+
+func setOutput(newOutput: int) -> void:
+	fail(newOutput)

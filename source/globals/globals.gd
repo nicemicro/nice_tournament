@@ -14,8 +14,8 @@ const RaceName: Dictionary = {
 	Race.RANDOM: "Random"
 }
 
-var players: Dictionary setget fail, getPlayers
-var maps: Dictionary setget fail, getMaps
+var players: Dictionary = {} setget fail, getPlayers
+var maps: Dictionary = {} setget fail, getMaps
 
 func fail(input) -> void:
 	assert (false, "You should not change this on the fly")

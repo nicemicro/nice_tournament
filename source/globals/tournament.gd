@@ -16,7 +16,7 @@ func addRound(newRound: RoundResource, level: int) -> bool:
 		assert(false, "Rounds tried to be created at higher levels than possible")
 		return false
 	if level == len(rounds):
-		rounds.append([rounds])
+		rounds.append([newRound])
 	else:
-		rounds[level].append(rounds)
+		rounds[level].append(newRound)
 	return true
