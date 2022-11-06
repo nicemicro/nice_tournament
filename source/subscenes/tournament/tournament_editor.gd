@@ -9,6 +9,7 @@ var selectedLevel: int = -1
 
 const levelContainerScenePath: String = "res://subscenes/tournament/level_container.tscn"
 const seedScenePath: String = "res://subscenes/tournament/seeded_players.tscn"
+const GroupEditScenePath: String = "res://subscenes/tournament/group_edit.tscn"
 
 signal backPressed
 
@@ -36,6 +37,9 @@ func _on_NewMenu_pressed(itemId: int):
 		0:
 			roundRes = SeedRound.new()
 			scenePath = seedScenePath
+		1:
+			roundRes = GroupRound.new()
+			scenePath = GroupEditScenePath
 	Tournament.addRound(roundRes, selectedLevel)
 	addNewRound(roundRes, scenePath)
 	if len(levelContainers) - 1 == selectedLevel:
@@ -43,9 +47,9 @@ func _on_NewMenu_pressed(itemId: int):
 
 func addNewRound(roundRes: RoundResource, scenePath: String) -> void:
 	var newScene = load(scenePath)
-	var seedScene = newScene.instance()
-	seedScene.attachResource(roundRes)
-	levelContainers[selectedLevel].addRound(seedScene)
+	var RoundScene = newScene.instance()
+	RoundScene.attachResource(roundRes)
+	levelContainers[selectedLevel].addRound(RoundScene)
 
 func levelSelected(index: int):
 	selectedLevel = index

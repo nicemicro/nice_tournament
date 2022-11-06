@@ -4,7 +4,7 @@ onready var mainMenu: VBoxContainer = $Menu
 onready var exitButton: Button = $ExitButton
 onready var playerManager: Control = $Players
 onready var mapManager: Control = $Maps
-onready var roundEditor: Control = $RoundEditor
+onready var roundEditor: Control = $TournamentEditor
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

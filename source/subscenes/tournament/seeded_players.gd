@@ -1,22 +1,20 @@
-extends VBoxContainer
+extends "res://subscenes/tournament/round_edit_base.gd"
 
-onready var playerNumber: LineEdit = $HBoxContainer/PlayerCounter
 onready var availableList: PopupMenu = $AvailablePlayers
 onready var addedList: VBoxContainer = $PlayerList
 
 const playerDisplayScenePath: String = "res://subscenes/tournament/seeded_player_display.tscn"
 
-var roundRes: SeedRound
 var availabePlayers: Array = []
 
 func _ready():
 	pass
 
-func attachResource(newRoundRes: SeedRound) -> void:
-	if roundRes != null:
-		printerr("Resource already set")
+func attachResource(newRoundRes: RoundResource) -> void:
+	if not newRoundRes is SeedRound:
+		assert(false, "This UI is for seed rounds only.")
 		return
-	roundRes = newRoundRes
+	.attachResource(newRoundRes)
 
 func refreshAvailabePlayers() -> void:
 	availableList.clear()
@@ -40,7 +38,7 @@ func _on_AvailablePlayers_id_pressed(id: int) -> void:
 	newNode.attachResource(availabePlayers[id])
 	newNode.connect("action", self, "_on_playerAction_pressed")
 	addedList.add_child(newNode)
-	playerNumber.text = str(roundRes.output)
+	playerNumberChange()
 	refreshAvailabePlayers()
 
 func _on_playerAction_pressed(playerRes: PlayerResource, actionId: int) -> void:
@@ -50,6 +48,7 @@ func _on_playerAction_pressed(playerRes: PlayerResource, actionId: int) -> void:
 		# Delete
 		roundRes.removePlayer(playerRes)
 		nodeToActOn.queue_free()
+		playerNumberChange()
 		return
 	var newPos: int
 	if actionId == 0:

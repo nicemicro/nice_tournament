@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://fonts/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://subscenes/tournament/round_edit_base.gd" type="Script" id=2]
+
+[node name="RoundEdiitBase" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 1920.0
+margin_bottom = 36.0
+theme = ExtResource( 1 )
+text = "Type"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_top = 40.0
+margin_right = 1920.0
+margin_bottom = 86.0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_top = 5.0
+margin_right = 1798.0
+margin_bottom = 41.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Number of players:"
+
+[node name="PlayerCounter" type="LineEdit" parent="HBoxContainer"]
+margin_left = 1802.0
+margin_right = 1920.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 100, 0 )
+theme = ExtResource( 1 )
+text = "0"
+editable = false

@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "RoundResource",
+"class": "GroupRound",
+"language": "GDScript",
+"path": "res://resources/groups.gd"
+}, {
 "base": "Resource",
 "class": "MapResource",
 "language": "GDScript",
@@ -30,6 +35,7 @@ _global_script_classes=[ {
 "path": "res://resources/seed.gd"
 } ]
 _global_script_class_icons={
+"GroupRound": "",
 "MapResource": "",
 "PlayerResource": "",
 "RoundResource": "",

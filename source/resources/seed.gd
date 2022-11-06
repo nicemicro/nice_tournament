@@ -1,16 +1,16 @@
 extends RoundResource
 class_name SeedRound
 
-var seededPlayers: Array = [] setget fail, getSeededPlayers
+var seededPlayers: Array = [] setget setSeededPlayers, getSeededPlayers
 
 func _init() -> void:
 	virtualInputMult = 1
 
-func fail(input) -> void:
-	assert (false, "You should not change this on the fly")
-
 func getSeededPlayers() -> Array:
 	return seededPlayers.duplicate()
+ 
+func setSeededPlayers(input) -> void:
+	fail(input)
 
 func addPlayer(newPlayer: PlayerResource) -> void:
 	if newPlayer in seededPlayers:

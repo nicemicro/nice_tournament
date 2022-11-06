@@ -4,7 +4,7 @@
 [ext_resource path="res://subscenes/players/players.tscn" type="PackedScene" id=2]
 [ext_resource path="res://start.gd" type="Script" id=3]
 [ext_resource path="res://subscenes/maps/maps.tscn" type="PackedScene" id=4]
-[ext_resource path="res://subscenes/tournament/round_editor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://subscenes/tournament/tournament_editor.tscn" type="PackedScene" id=5]
 
 [node name="Start" type="Control"]
 anchor_right = 1.0
@@ -68,7 +68,7 @@ visible = false
 [node name="Maps" parent="." instance=ExtResource( 4 )]
 visible = false
 
-[node name="RoundEditor" parent="." instance=ExtResource( 5 )]
+[node name="TournamentEditor" parent="." instance=ExtResource( 5 )]
 visible = false
 
 [connection signal="tree_exiting" from="." to="." method="_on_Start_tree_exiting"]
