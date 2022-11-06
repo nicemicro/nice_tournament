@@ -8,7 +8,7 @@ const playerDisplayScenePath: String = "res://subscenes/tournament/seeded_player
 var availabePlayers: Array = []
 
 func _ready():
-	pass
+	mapPoolEditor.visible = false
 
 func attachResource(newRoundRes: RoundResource) -> void:
 	if not newRoundRes is SeedRound:

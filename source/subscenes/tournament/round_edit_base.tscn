@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://fonts/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://subscenes/tournament/round_edit_base.gd" type="Script" id=2]
+[ext_resource path="res://subscenes/tournament/map_pool_editor.tscn" type="PackedScene" id=3]
 
 [node name="RoundEdiitBase" type="VBoxContainer"]
 anchor_right = 1.0
@@ -38,3 +39,7 @@ rect_min_size = Vector2( 100, 0 )
 theme = ExtResource( 1 )
 text = "0"
 editable = false
+
+[node name="MapPoolEditor" parent="." instance=ExtResource( 3 )]
+margin_top = 90.0
+margin_bottom = 176.0

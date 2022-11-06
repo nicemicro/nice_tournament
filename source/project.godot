@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "RoundResource",
+"class": "DualTourneyRound",
+"language": "GDScript",
+"path": "res://resources/dual_tourney_group.gd"
+}, {
+"base": "RoundResource",
 "class": "GroupRound",
 "language": "GDScript",
 "path": "res://resources/groups.gd"
@@ -35,6 +40,7 @@ _global_script_classes=[ {
 "path": "res://resources/seed.gd"
 } ]
 _global_script_class_icons={
+"DualTourneyRound": "",
 "GroupRound": "",
 "MapResource": "",
 "PlayerResource": "",
