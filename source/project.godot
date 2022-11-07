@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://resources/dual_tourney_group.gd"
 }, {
 "base": "RoundResource",
+"class": "EliminationRound",
+"language": "GDScript",
+"path": "res://resources/elimination.gd"
+}, {
+"base": "RoundResource",
 "class": "GroupRound",
 "language": "GDScript",
 "path": "res://resources/groups.gd"
@@ -41,6 +46,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "DualTourneyRound": "",
+"EliminationRound": "",
 "GroupRound": "",
 "MapResource": "",
 "PlayerResource": "",

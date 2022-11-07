@@ -4,7 +4,7 @@
 [ext_resource path="res://subscenes/tournament/round_edit_base.tscn" type="PackedScene" id=2]
 [ext_resource path="res://subscenes/tournament/dual_tourney_edit.gd" type="Script" id=3]
 
-[node name="GroupEdit" instance=ExtResource( 2 )]
+[node name="DualTourneyEdit" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 
 [node name="Label" parent="." index="0"]
