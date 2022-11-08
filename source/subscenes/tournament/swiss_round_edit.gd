@@ -1,6 +1,5 @@
 extends "res://subscenes/tournament/round_edit_base.gd"
 
-onready var pairNumInput: LineEdit = $PairNum/PairNumInput
 onready var neededWins: LineEdit = $NeededWins/WinInput
 
 func _ready():
@@ -8,20 +7,22 @@ func _ready():
 	playerNumberChange()
 
 func attachResource(newRoundRes: RoundResource) -> void:
-	if not newRoundRes is EliminationRound:
-		assert(false, "This UI is for elimination rounds only.")
+	if not newRoundRes is SwissRound:
+		assert(false, "This UI is for swiss rounds only.")
 		return
 	.attachResource(newRoundRes)
+	roundRes.input = 4
 
-func _on_PairNumInput_text_changed(new_text):
+func _on_PlayerCounter_text_changed(new_text):
 	if str(int(new_text)) != new_text:
-		pairNumInput.text = ""
-		roundRes.pairNum = 1
+		playerNumber.text = ""
+		roundRes.input = 4
 	else:
-		roundRes.pairNum = int(new_text)
-		if pairNumInput.text != str(roundRes.pairNum):
-			pairNumInput.text = str(roundRes.pairNum)
-	playerNumberChange()
+		roundRes.input = int(new_text)
+		if playerNumber.text != str(roundRes.output):
+			playerNumber.text = str(roundRes.output)
+	emit_signal("playerNumChange")
+
 
 func _on_WinInput_text_changed(new_text):
 	if str(int(new_text)) != new_text:
@@ -30,4 +31,3 @@ func _on_WinInput_text_changed(new_text):
 		return
 	roundRes.neededWins = int(new_text)
 	neededWins.text = str(roundRes.neededWins)
-

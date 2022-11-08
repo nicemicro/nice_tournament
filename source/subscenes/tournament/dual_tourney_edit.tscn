@@ -32,7 +32,7 @@ margin_right = 1920.0
 margin_bottom = 46.0
 theme = ExtResource( 1 )
 text = "2"
-max_length = 1
+max_length = 2
 placeholder_text = "1"
 
 [node name="WinsFirst" type="HBoxContainer" parent="." index="3"]

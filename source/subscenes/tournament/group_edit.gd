@@ -29,7 +29,8 @@ func _on_GroupNumInput_text_changed(new_text):
 		roundRes.groupNum = 1
 	else:
 		roundRes.groupNum = int(new_text)
-		groupNumInp.text = str(roundRes.groupNum)
+		if groupNumInp.text != str(roundRes.groupNum):
+			groupNumInp.text = str(roundRes.groupNum)
 	playerNumberChange()
 
 func _on_WinInput_text_changed(new_text):

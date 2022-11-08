@@ -22,3 +22,4 @@ func attachResource(newRoundRes: RoundResource) -> void:
 func playerNumberChange() -> void:
 	playerNumber.text = str(roundRes.output)
 	emit_signal("playerNumChange")
+
