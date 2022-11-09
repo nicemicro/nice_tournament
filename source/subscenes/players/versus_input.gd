@@ -19,9 +19,9 @@ func setLabel(text: String) -> void:
 	label.text = text
 
 func validate() -> bool:
-	if win.text == "" or loss.text == "":
+	if win.text != "" and str(int(win.text)) != win.text:
 		return false
-	if str(int(win.text)) != win.text or str(int(loss.text)) != loss.text:
+	if loss.text != "" and str(int(loss.text)) != loss.text:
 		return false
 	return true
 

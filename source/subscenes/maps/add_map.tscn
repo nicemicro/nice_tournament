@@ -5,6 +5,7 @@
 [ext_resource path="res://assets/folder-button.png" type="Texture" id=4]
 
 [node name="NewMap" type="WindowDialog"]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -45,15 +46,20 @@ placeholder_text = "Enter the map name"
 caret_blink = true
 caret_blink_speed = 0.5
 
-[node name="Label" type="Label" parent="Container"]
+[node name="MapRecord" type="GridContainer" parent="Container"]
 margin_top = 50.0
 margin_right = 1880.0
-margin_bottom = 86.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Container"]
+margin_top = 54.0
+margin_right = 1880.0
+margin_bottom = 90.0
 theme = ExtResource( 3 )
 text = "Map icon"
 
 [node name="Image" type="TextureButton" parent="Container"]
-margin_top = 90.0
+margin_top = 94.0
 margin_right = 1880.0
 margin_bottom = 970.0
 size_flags_horizontal = 3
@@ -91,6 +97,7 @@ margin_left = 10.0
 margin_top = 20.0
 margin_right = -10.0
 margin_bottom = -10.0
+rect_min_size = Vector2( 150, 52.5 )
 window_title = "Open a File"
 mode = 0
 access = 2

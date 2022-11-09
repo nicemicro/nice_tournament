@@ -95,8 +95,17 @@ func loadMaps() -> void:
 		icon.load("user://" + id + ".png")
 		maps[id] = MapResource.new(
 			mapData[id]["name"],
-			icon
+			icon,
+			processPreviousRecordData(mapData[id]["previousRecord"])
 		)
+
+func processPreviousRecordData(data: Dictionary) -> Dictionary:
+	var processedData: Dictionary = {}
+	for outerKey in data:
+		processedData[int(outerKey)] = {}
+		for innerKey in data[outerKey]:
+			processedData[int(outerKey)][int(innerKey)] = data[outerKey][innerKey]
+	return processedData
 
 func saveTournament() -> void:
 	pass
