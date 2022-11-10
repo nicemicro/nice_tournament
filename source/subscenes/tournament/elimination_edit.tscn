@@ -1,59 +1,60 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://fonts/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://subscenes/tournament/elimination_edit.gd" type="Script" id=2]
 [ext_resource path="res://subscenes/tournament/round_edit_base.tscn" type="PackedScene" id=3]
 
 [node name="EliminationEdit" instance=ExtResource( 3 )]
 script = ExtResource( 2 )
 
-[node name="PairNum" type="HBoxContainer" parent="." index="2"]
-margin_top = 90.0
+[node name="Label" parent="." index="0"]
+text = "Elimination"
+
+[node name="VirtualPointMult" parent="." index="2"]
+visible = false
+
+[node name="PairNum" type="HBoxContainer" parent="." index="3"]
+margin_top = 70.0
 margin_right = 1920.0
-margin_bottom = 136.0
+margin_bottom = 96.0
 
 [node name="Label" type="Label" parent="PairNum" index="0"]
 margin_top = 5.0
-margin_right = 1798.0
-margin_bottom = 41.0
+margin_right = 1858.0
+margin_bottom = 21.0
 size_flags_horizontal = 3
-theme = ExtResource( 1 )
 text = "Number of groups:"
 
 [node name="PairNumInput" type="LineEdit" parent="PairNum" index="1"]
-margin_left = 1802.0
+margin_left = 1862.0
 margin_right = 1920.0
-margin_bottom = 46.0
-theme = ExtResource( 1 )
+margin_bottom = 26.0
 text = "2"
 max_length = 2
 placeholder_text = "1"
 
-[node name="NeededWins" type="HBoxContainer" parent="." index="3"]
-margin_top = 140.0
+[node name="NeededWins" type="HBoxContainer" parent="." index="4"]
+margin_top = 100.0
 margin_right = 1920.0
-margin_bottom = 186.0
+margin_bottom = 126.0
 
 [node name="Label" type="Label" parent="NeededWins" index="0"]
 margin_top = 5.0
-margin_right = 1798.0
-margin_bottom = 41.0
+margin_right = 1858.0
+margin_bottom = 21.0
 size_flags_horizontal = 3
-theme = ExtResource( 1 )
 text = "Wins needed for a 1v1:"
 
 [node name="WinInput" type="LineEdit" parent="NeededWins" index="1"]
-margin_left = 1802.0
+margin_left = 1862.0
 margin_right = 1920.0
-margin_bottom = 46.0
-theme = ExtResource( 1 )
+margin_bottom = 26.0
 text = "2"
 max_length = 1
 placeholder_text = "1"
 
-[node name="MapPoolEditor" parent="." index="4"]
-margin_top = 190.0
-margin_bottom = 276.0
+[node name="MapPoolEditor" parent="." index="5"]
+margin_top = 130.0
+margin_bottom = 176.0
 
 [connection signal="text_changed" from="PairNum/PairNumInput" to="." method="_on_PairNumInput_text_changed"]
 [connection signal="text_changed" from="NeededWins/WinInput" to="." method="_on_WinInput_text_changed"]

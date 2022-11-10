@@ -7,12 +7,20 @@ onready var neededWins: LineEdit = $NeededWins/WinInput
 func _ready():
 	._ready()
 	playerNumberChange()
+	if roundRes != null:
+		groupSizeInp.text = str(roundRes.groupSize)
+		groupNumInp.text = str(roundRes.groupNum)
+		neededWins.text = str(roundRes.neededWins)
 
 func attachResource(newRoundRes: RoundResource) -> void:
 	if not newRoundRes is GroupRound:
 		assert(false, "This UI is for group rounds only.")
 		return
 	.attachResource(newRoundRes)
+	if groupNumInp != null:
+		groupSizeInp.text = str(roundRes.groupSize)
+		groupNumInp.text = str(roundRes.groupNum)
+		neededWins.text = str(roundRes.neededWins)
 
 func _on_GroupSizeInput_text_changed(new_text):
 	if str(int(new_text)) != new_text:

@@ -1,7 +1,7 @@
 extends RoundResource
 class_name SwissRound
 
-var neededWins: int = 3 setget setWins, getWins
+var neededWins: int = 2 setget setWins, getWins
 
 func _init() -> void:
 	virtualInputMult = 0
@@ -19,3 +19,10 @@ func setWins(newNum: int) -> void:
 
 func getWins() -> int:
 	return neededWins
+
+func toDict() -> Dictionary:
+	var returnDict: Dictionary = {}
+	returnDict["type"] = "swiss"
+	returnDict = _toDict(returnDict)
+	returnDict["neededWins"] = neededWins
+	return returnDict

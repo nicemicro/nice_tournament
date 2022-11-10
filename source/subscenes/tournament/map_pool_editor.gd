@@ -13,6 +13,8 @@ func attachResource(newRoundRes: RoundResource) -> void:
 		printerr("Resource already set")
 		return
 	roundRes = newRoundRes
+	for mapRes in roundRes.mapPool:
+		addMapNode(mapRes)
 
 func _on_MapChoice_pressed():
 	availableList.clear()
@@ -26,9 +28,12 @@ func _on_MapChoice_pressed():
 
 func _on_AvailableMaps_id_pressed(id):
 	roundRes.addMap(availableMaps[id])
+	addMapNode(availableMaps[id])
+
+func addMapNode(mapRes: MapResource):
 	var newScene: PackedScene = preload(mapDisplayScenePath)
 	var newNode: HBoxContainer = newScene.instance()
-	newNode.attachResource(availableMaps[id])
+	newNode.attachResource(mapRes)
 	newNode.connect("action", self, "_on_mapAction_pressed")
 	addedList.add_child(newNode)
 

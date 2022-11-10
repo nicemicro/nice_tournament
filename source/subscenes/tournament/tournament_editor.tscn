@@ -6,6 +6,7 @@
 [node name="RoundEditor" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Back" type="Button" parent="."]
@@ -15,7 +16,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -200.0
 margin_top = -50.0
-theme = ExtResource( 1 )
 text = "Go back"
 
 [node name="AddNew" type="MenuButton" parent="."]
@@ -23,7 +23,6 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -50.0
 margin_right = 200.0
-theme = ExtResource( 1 )
 text = "Add new round"
 flat = false
 items = [ "Seed", null, 0, false, false, 0, 0, null, "", false, "Groups", null, 0, false, false, 1, 0, null, "", false, "Dual tournament", null, 0, false, false, 2, 0, null, "", false, "Single Elimination", null, 0, false, false, 3, 0, null, "", false, "Swiss round", null, 0, false, false, 4, 0, null, "", false ]

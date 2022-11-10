@@ -43,3 +43,12 @@ func setWins(newNum: int) -> void:
 
 func getWins() -> int:
 	return neededWins
+
+func toDict() -> Dictionary:
+	var returnDict: Dictionary = {}
+	returnDict["type"] = "group"
+	returnDict = _toDict(returnDict)
+	returnDict["groupNum"] = groupNum
+	returnDict["groupSize"] = groupSize
+	returnDict["neededWins"] = neededWins
+	return returnDict

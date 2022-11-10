@@ -24,7 +24,21 @@ func addAllRounds():
 	var newScene
 	var newNode
 	var counter: int = 0
-	#TODO: add saved rounds here
+	var scenePath: String
+	for level in Tournament.rounds:
+		addNewLevel()
+		for roundRes in level:
+			if roundRes is SeedRound:
+				scenePath = seedScenePath
+			elif roundRes is GroupRound:
+				scenePath = GroupEditScenePath
+			elif roundRes is DualTourneyRound:
+				scenePath = DualTourneyEditScenePath
+			elif roundRes is EliminationRound:
+				scenePath = EliminationEditScenePath
+			elif roundRes is SwissRound:
+				scenePath = SwissRoundEditScenePath
+			addNewRound(roundRes, scenePath)
 	addNewLevel()
 	selectedLevel = len(levelContainers) - 1
 	levelContainers[selectedLevel].setSelected(true)

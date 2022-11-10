@@ -45,3 +45,14 @@ func getOutput() -> int:
 
 func setOutput(newOutput: int) -> void:
 	fail(newOutput)
+
+func toDict() -> Dictionary:
+	var returnDict: Dictionary = {}
+	returnDict["type"] = "seed"
+	returnDict = _toDict(returnDict)
+	var playerDict: Dictionary = {}
+	for playerIndex in range(len(seededPlayers)):
+		var playerRes: PlayerResource = seededPlayers[playerIndex]
+		playerDict[playerIndex] = Global.players.keys()[Global.players.values().find(playerRes)]
+	returnDict["players"] = playerDict
+	return returnDict

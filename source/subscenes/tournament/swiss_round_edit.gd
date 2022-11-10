@@ -5,13 +5,16 @@ onready var neededWins: LineEdit = $NeededWins/WinInput
 func _ready():
 	._ready()
 	playerNumberChange()
+	if roundRes != null:
+		neededWins.text = str(roundRes.neededWins)
 
 func attachResource(newRoundRes: RoundResource) -> void:
 	if not newRoundRes is SwissRound:
 		assert(false, "This UI is for swiss rounds only.")
 		return
 	.attachResource(newRoundRes)
-	roundRes.input = 4
+	if neededWins != null:
+		neededWins.text = str(roundRes.neededWins)
 
 func _on_PlayerCounter_text_changed(new_text):
 	if str(int(new_text)) != new_text:

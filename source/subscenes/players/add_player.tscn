@@ -36,7 +36,6 @@ size_flags_horizontal = 0
 margin_top = 5.0
 margin_right = 95.0
 margin_bottom = 41.0
-theme = ExtResource( 3 )
 text = "Name:"
 
 [node name="LineEdit" type="LineEdit" parent="Columns/Col1/Name"]
@@ -44,7 +43,6 @@ margin_left = 107.0
 margin_right = 457.0
 margin_bottom = 46.0
 rect_min_size = Vector2( 350, 0 )
-theme = ExtResource( 3 )
 placeholder_text = "Enter the player name"
 caret_blink = true
 caret_blink_speed = 0.5
@@ -53,14 +51,12 @@ caret_blink_speed = 0.5
 margin_top = 50.0
 margin_right = 630.0
 margin_bottom = 86.0
-theme = ExtResource( 3 )
 text = "Avatar"
 
 [node name="Avatar" type="TextureButton" parent="Columns/Col1"]
 margin_top = 90.0
 margin_right = 630.0
 margin_bottom = 346.0
-theme = ExtResource( 3 )
 texture_normal = ExtResource( 4 )
 
 [node name="Map" type="HSplitContainer" parent="Columns/Col1"]
@@ -72,7 +68,6 @@ margin_bottom = 392.0
 margin_top = 3.0
 margin_right = 142.0
 margin_bottom = 39.0
-theme = ExtResource( 3 )
 text = "Map veto:"
 
 [node name="OptionButton" type="OptionButton" parent="Columns/Col1/Map"]
@@ -89,7 +84,6 @@ size_flags_horizontal = 3
 [node name="Label2" type="Label" parent="Columns/Col2"]
 margin_right = 631.0
 margin_bottom = 36.0
-theme = ExtResource( 3 )
 text = "Race picks"
 
 [node name="RacePicks" type="VBoxContainer" parent="Columns/Col2"]
@@ -111,7 +105,6 @@ size_flags_horizontal = 3
 [node name="Label3" type="Label" parent="Columns/Col3"]
 margin_right = 631.0
 margin_bottom = 36.0
-theme = ExtResource( 3 )
 text = "Previous results"
 
 [node name="VersusInputs" type="VBoxContainer" parent="Columns/Col3"]
@@ -132,14 +125,12 @@ margin_bottom = -10.0
 [node name="CancelButton" type="Button" parent="Buttons"]
 margin_right = 112.0
 margin_bottom = 42.0
-theme = ExtResource( 3 )
 text = "Cancel"
 
 [node name="SaveButton" type="Button" parent="Buttons"]
 margin_left = 124.0
 margin_right = 340.0
 margin_bottom = 42.0
-theme = ExtResource( 3 )
 text = "Add Player"
 
 [node name="FileDialog" type="FileDialog" parent="."]

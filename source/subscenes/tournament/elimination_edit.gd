@@ -6,12 +6,18 @@ onready var neededWins: LineEdit = $NeededWins/WinInput
 func _ready():
 	._ready()
 	playerNumberChange()
+	if roundRes != null:
+		pairNumInput.text = str(roundRes.pairNum)
+		neededWins.text = str(roundRes.neededWins)
 
 func attachResource(newRoundRes: RoundResource) -> void:
 	if not newRoundRes is EliminationRound:
 		assert(false, "This UI is for elimination rounds only.")
 		return
 	.attachResource(newRoundRes)
+	if pairNumInput != null:
+		pairNumInput.text = str(roundRes.pairNum)
+		neededWins.text = str(roundRes.neededWins)
 
 func _on_PairNumInput_text_changed(new_text):
 	if str(int(new_text)) != new_text:

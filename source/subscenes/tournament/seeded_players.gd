@@ -9,12 +9,18 @@ var availabePlayers: Array = []
 
 func _ready():
 	mapPoolEditor.visible = false
+	if roundRes != null:
+		for playerRes in roundRes.seededPlayers:
+			addPlayerNode(playerRes)
 
 func attachResource(newRoundRes: RoundResource) -> void:
 	if not newRoundRes is SeedRound:
 		assert(false, "This UI is for seed rounds only.")
 		return
 	.attachResource(newRoundRes)
+	if addedList != null:
+		for playerRes in roundRes.seededPlayers:
+			addPlayerNode(playerRes)
 
 func refreshAvailabePlayers() -> void:
 	availableList.clear()
@@ -33,13 +39,16 @@ func _on_Button_pressed() -> void:
 
 func _on_AvailablePlayers_id_pressed(id: int) -> void:
 	roundRes.addPlayer(availabePlayers[id])
-	var newScene: PackedScene = preload(playerDisplayScenePath)
-	var newNode: HBoxContainer = newScene.instance()
-	newNode.attachResource(availabePlayers[id])
-	newNode.connect("action", self, "_on_playerAction_pressed")
-	addedList.add_child(newNode)
+	addPlayerNode(availabePlayers[id])
 	playerNumberChange()
 	refreshAvailabePlayers()
+
+func addPlayerNode(playerRes: PlayerResource) -> void:
+	var newScene: PackedScene = preload(playerDisplayScenePath)
+	var newNode: HBoxContainer = newScene.instance()
+	newNode.attachResource(playerRes)
+	newNode.connect("action", self, "_on_playerAction_pressed")
+	addedList.add_child(newNode)
 
 func _on_playerAction_pressed(playerRes: PlayerResource, actionId: int) -> void:
 	var playerIndex: int = roundRes.seededPlayers.find(playerRes)

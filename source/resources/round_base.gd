@@ -47,3 +47,19 @@ func moveMap(mapRes: MapResource, position: int) -> void:
 	var index: int = mapPool.find(mapRes)
 	mapPool[index] = mapPool[position]
 	mapPool[position] = mapRes
+
+func _toDict(data: Dictionary) -> Dictionary:
+	var mapPoolDict: Dictionary = {}
+	for mapIndex in range(len(mapPool)):
+		var map: MapResource = mapPool[mapIndex]
+		mapPoolDict[mapIndex] = Global.maps.keys()[Global.maps.values().find(map)]
+	data["input"] = input
+	data["output"] = output
+	data["virtualInputMult"] = virtualInputMult
+	data["mapPool"] = mapPoolDict
+	return data
+
+func toDict() -> Dictionary:
+	var returnDict: Dictionary = {}
+	returnDict = _toDict(returnDict)
+	return returnDict

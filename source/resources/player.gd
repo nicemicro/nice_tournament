@@ -13,6 +13,7 @@ func _init(
 ) -> void:
 	name = newName
 	avatar = newAvatar
+	mapVeto = newVeto
 	races = {}
 	for index in newRace:
 		races[int(index)] = int(newRace[index])

@@ -42,3 +42,14 @@ func setWins(newWins: Array) -> void:
 
 func getWins() -> Array:
 	return neededWins.duplicate()
+
+func toDict() -> Dictionary:
+	var returnDict: Dictionary = {}
+	returnDict["type"] = "dual"
+	returnDict = _toDict(returnDict)
+	returnDict["groupNum"] = groupNum
+	returnDict["neededWins"] = {}
+	returnDict["neededWins"][0] = neededWins[0]
+	returnDict["neededWins"][1] = neededWins[1]
+	returnDict["neededWins"][2] = neededWins[2]
+	return returnDict

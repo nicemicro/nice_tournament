@@ -34,3 +34,11 @@ func setWins(newNum: int) -> void:
 
 func getWins() -> int:
 	return neededWins
+
+func toDict() -> Dictionary:
+	var returnDict: Dictionary = {}
+	returnDict["type"] = "elimination"
+	returnDict = _toDict(returnDict)
+	returnDict["pairNum"] = pairNum
+	returnDict["neededWins"] = neededWins
+	return returnDict

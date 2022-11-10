@@ -6,6 +6,7 @@
 [node name="Players" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Back" type="Button" parent="."]
@@ -15,7 +16,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -200.0
 margin_top = -50.0
-theme = ExtResource( 1 )
 text = "Go back"
 
 [node name="AddNew" type="Button" parent="."]
@@ -23,7 +23,6 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -50.0
 margin_right = 200.0
-theme = ExtResource( 1 )
 text = "Add new player"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
