@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/space-background.png" type="Texture" id=1]
+[ext_resource path="res://themes_fonts/space_theme.tres" type="Theme" id=2]
+[ext_resource path="res://subscenes/broadcast/broadcast_main.gd" type="Script" id=3]
+[ext_resource path="res://assets/arrow_disabled.png" type="Texture" id=4]
+[ext_resource path="res://assets/arrow_hover.png" type="Texture" id=5]
+[ext_resource path="res://assets/arrow.png" type="Texture" id=6]
+
+[node name="BroadcastBG" type="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+texture = ExtResource( 1 )
+stretch_mode = 1
+script = ExtResource( 3 )
+
+[node name="GoBack" type="PanelContainer" parent="."]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 10.0
+margin_top = -110.0
+margin_right = 60.0
+margin_bottom = 110.0
+
+[node name="Button" type="TextureButton" parent="GoBack"]
+margin_left = 5.0
+margin_top = 10.0
+margin_right = 45.0
+margin_bottom = 210.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+disabled = true
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 5 )
+texture_hover = ExtResource( 5 )
+texture_disabled = ExtResource( 4 )
+
+[node name="GoForward" type="PanelContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -110.0
+margin_right = -10.0
+margin_bottom = 110.0
+
+[node name="Button" type="TextureButton" parent="GoForward"]
+margin_left = 5.0
+margin_top = 10.0
+margin_right = 45.0
+margin_bottom = 210.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+disabled = true
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 5 )
+texture_hover = ExtResource( 5 )
+texture_disabled = ExtResource( 4 )
+flip_h = true
+
+[node name="Level1" type="VBoxContainer" parent="."]
+anchor_bottom = 1.0
+margin_left = 80.0
+margin_top = 10.0
+margin_right = 620.0
+margin_bottom = -10.0
+
+[node name="Level2" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -270.0
+margin_top = 10.0
+margin_right = 270.0
+margin_bottom = -10.0
+
+[node name="Level3" type="VBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -620.0
+margin_top = 10.0
+margin_right = -80.0
+margin_bottom = -10.0

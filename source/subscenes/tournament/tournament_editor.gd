@@ -73,9 +73,9 @@ func _on_NewMenu_pressed(itemId: int):
 
 func addNewRound(roundRes: RoundResource, scenePath: String) -> void:
 	var newScene = load(scenePath)
-	var RoundScene = newScene.instance()
-	RoundScene.attachResource(roundRes)
-	levelContainers[selectedLevel].addRound(RoundScene)
+	var roundScene = newScene.instance()
+	roundScene.attachResource(roundRes)
+	levelContainers[selectedLevel].addRound(roundScene)
 
 func levelSelected(index: int):
 	selectedLevel = index

@@ -5,6 +5,7 @@ onready var exitButton: Button = $ExitButton
 onready var playerManager: Control = $Players
 onready var mapManager: Control = $Maps
 onready var roundEditor: Control = $TournamentEditor
+onready var broadcastScreen: TextureRect = $BroadcastBG
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,6 +34,12 @@ func _on_Tournament_pressed():
 	mainMenu.visible = false
 	exitButton.visible = false
 
+func _on_Play_pressed():
+	broadcastScreen.visible = true
+	broadcastScreen.start()
+	mainMenu.visible = false
+	exitButton.visible = false
+
 func _on_Button_pressed():
 	get_tree().quit()
 
@@ -44,5 +51,4 @@ func _on_Start_tree_exiting():
 	Global.savePlayers()
 	Global.saveMaps()
 	Global.saveTournament()
-
 

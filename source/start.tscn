@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://fonts/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://themes_fonts/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://subscenes/players/players.tscn" type="PackedScene" id=2]
 [ext_resource path="res://start.gd" type="Script" id=3]
 [ext_resource path="res://subscenes/maps/maps.tscn" type="PackedScene" id=4]
 [ext_resource path="res://subscenes/tournament/tournament_editor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://subscenes/broadcast/broadcast_main.tscn" type="PackedScene" id=6]
 
 [node name="Start" type="Control"]
 anchor_right = 1.0
@@ -71,8 +72,12 @@ visible = false
 [node name="TournamentEditor" parent="." instance=ExtResource( 5 )]
 visible = false
 
+[node name="BroadcastBG" parent="." instance=ExtResource( 6 )]
+visible = false
+
 [connection signal="tree_exiting" from="." to="." method="_on_Start_tree_exiting"]
 [connection signal="pressed" from="Menu/Maps" to="." method="_on_Maps_pressed"]
 [connection signal="pressed" from="Menu/Players" to="." method="_on_Players_pressed"]
 [connection signal="pressed" from="Menu/Tournament" to="." method="_on_Tournament_pressed"]
+[connection signal="pressed" from="Menu/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_Button_pressed"]

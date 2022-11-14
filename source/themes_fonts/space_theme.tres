@@ -1,0 +1,43 @@
+[gd_resource type="Theme" load_steps=12 format=2]
+
+[ext_resource path="res://themes_fonts/LiberationSans-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://themes_fonts/normal_button.tres" type="StyleBox" id=2]
+[ext_resource path="res://themes_fonts/hover_button.tres" type="StyleBox" id=3]
+[ext_resource path="res://themes_fonts/disabled_button.tres" type="StyleBox" id=4]
+[ext_resource path="res://themes_fonts/pressed_button.tres" type="StyleBox" id=5]
+[ext_resource path="res://themes_fonts/focused_button.tres" type="StyleBox" id=6]
+[ext_resource path="res://themes_fonts/panelcontainer.tres" type="StyleBox" id=7]
+[ext_resource path="res://themes_fonts/panelcontainer_transp.tres" type="StyleBox" id=8]
+[ext_resource path="res://themes_fonts/small_text.tres" type="DynamicFont" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 36
+outline_color = Color( 0.443137, 0.827451, 0.419608, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[resource]
+default_font = SubResource( 1 )
+Button/colors/font_color = Color( 0.352941, 0.866667, 0.407843, 1 )
+Button/colors/font_color_disabled = Color( 0.2332, 0.44, 0.25388, 1 )
+Button/colors/font_color_focus = Color( 0.5428, 0.92, 0.58052, 1 )
+Button/colors/font_color_hover = Color( 0.5742, 0.99, 0.61578, 1 )
+Button/colors/font_color_pressed = Color( 0.2668, 0.46, 0.28612, 1 )
+Button/styles/disabled = ExtResource( 4 )
+Button/styles/focus = ExtResource( 6 )
+Button/styles/hover = ExtResource( 3 )
+Button/styles/normal = ExtResource( 2 )
+Button/styles/pressed = ExtResource( 5 )
+Label/colors/font_color = Color( 0.352941, 0.866667, 0.407843, 1 )
+Label/fonts/font = SubResource( 1 )
+Label/styles/normal = SubResource( 2 )
+LabelSmall/base_type = "Label"
+LabelSmall/fonts/font = ExtResource( 9 )
+MarginContainer/constants/margin_bottom = 5
+MarginContainer/constants/margin_left = 5
+MarginContainer/constants/margin_right = 5
+MarginContainer/constants/margin_top = 5
+PanelContTransparent/base_type = "PanelContainer"
+PanelContTransparent/styles/panel = ExtResource( 8 )
+PanelContainer/styles/panel = ExtResource( 7 )

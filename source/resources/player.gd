@@ -58,6 +58,11 @@ func getVirtualPoints() -> int:
 func getRecord() -> Dictionary:
 	return previousRecord.duplicate()
 
+func recordVs(race: int, win: bool) -> int:
+	if win:
+		return previousRecord[race]["win"]
+	return previousRecord[race]["loss"]
+
 func getVetodMaps() -> MapResource:
 	return mapVeto
 

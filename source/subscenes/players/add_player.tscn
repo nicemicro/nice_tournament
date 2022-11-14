@@ -2,7 +2,7 @@
 
 [ext_resource path="res://subscenes/players/add_player.gd" type="Script" id=1]
 [ext_resource path="res://subscenes/players/race_selector.tscn" type="PackedScene" id=2]
-[ext_resource path="res://fonts/default_theme.tres" type="Theme" id=3]
+[ext_resource path="res://themes_fonts/default_theme.tres" type="Theme" id=3]
 [ext_resource path="res://assets/folder-button.png" type="Texture" id=4]
 
 [node name="NewPlayer" type="WindowDialog"]

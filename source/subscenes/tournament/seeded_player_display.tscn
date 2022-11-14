@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://fonts/default_theme_small.tres" type="Theme" id=1]
+[ext_resource path="res://themes_fonts/default_theme_small.tres" type="Theme" id=1]
 [ext_resource path="res://subscenes/tournament/seeded_player_display.gd" type="Script" id=2]
 
 [node name="SeedPlayerDisplay" type="HBoxContainer"]

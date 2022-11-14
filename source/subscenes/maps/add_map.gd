@@ -30,7 +30,7 @@ func _ready():
 				prevRecordGroup.add_child(createLabel("X"))
 				continue
 			var newInput: LineEdit = LineEdit.new()
-			newInput.theme = preload("res://fonts/default_theme.tres")
+			#newInput.theme = preload("res://themes_fonts/default_theme.tres")
 			newInput.text = ""
 			newInput.placeholder_text = "0"
 			newInput.connect("text_changed", self, "_on_recordLine_text_changed")
@@ -41,7 +41,7 @@ func createLabel(labelText: String) -> Label:
 	var newLabel: Label
 	newLabel = Label.new()
 	newLabel.text = labelText
-	newLabel.theme = preload("res://fonts/default_theme.tres")
+	#newLabel.theme = preload("res://themes_fonts/default_theme.tres")
 	return newLabel
 
 func show():
