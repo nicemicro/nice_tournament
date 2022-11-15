@@ -6,12 +6,10 @@ onready var openButton: TextureButton = $Main/OpenButton
 
 var roundRes: RoundResource
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	if roundRes != null:
-		displayResData()
+signal openFullScreen
 
-func attachResource(newRes: RoundResource):
+
+func attachResource(newRes: RoundResource) -> void:
 	if roundRes != null:
 		printerr("Resource already set")
 		return
@@ -19,8 +17,8 @@ func attachResource(newRes: RoundResource):
 	if detailContainer != null:
 		displayResData()
 
-func displayResData():
+func displayResData() -> void:
 	pass
 
-func _on_OpenButton_pressed():
-	pass # Replace with function body.
+func _on_OpenButton_pressed() -> void:
+	emit_signal("openFullScreen", roundRes)

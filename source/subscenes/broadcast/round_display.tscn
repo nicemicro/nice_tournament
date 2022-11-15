@@ -26,26 +26,37 @@ margin_bottom = 41.0
 text = "Title"
 align = 1
 
+[node name="HSeparator" type="HSeparator" parent="Main"]
+margin_top = 45.0
+margin_right = 1916.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 0, 10 )
+
 [node name="Container" type="VBoxContainer" parent="Main"]
 margin_left = 958.0
-margin_top = 45.0
+margin_top = 59.0
 margin_right = 958.0
-margin_bottom = 1032.0
+margin_bottom = 1018.0
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
 [node name="OpenButton" type="TextureButton" parent="Main"]
 margin_left = 858.0
-margin_top = 1036.0
+margin_top = 1022.0
 margin_right = 1058.0
-margin_bottom = 1076.0
+margin_bottom = 1062.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 3 )
+texture_pressed = ExtResource( 5 )
 texture_hover = ExtResource( 5 )
 texture_disabled = ExtResource( 3 )
-texture_focused = ExtResource( 5 )
 flip_v = true
+
+[node name="Empty" type="Control" parent="Main"]
+margin_top = 1066.0
+margin_right = 1916.0
+margin_bottom = 1076.0
+rect_min_size = Vector2( 30, 10 )
 
 [connection signal="pressed" from="Main/OpenButton" to="." method="_on_OpenButton_pressed"]

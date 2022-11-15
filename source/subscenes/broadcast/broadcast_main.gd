@@ -1,32 +1,53 @@
 extends TextureRect
 
-onready var backButton: TextureButton = $GoBack/Button
-onready var fwdButton: TextureButton = $GoForward/Button
+onready var backButton: TextureButton = $Start/GoBack/Button
+onready var fwdButton: TextureButton = $Start/GoForward/Button
+onready var startScreen: Control = $Start
+onready var subScreenPoint: Control = $SubScreen
 
 const seedScenePath: String = "res://subscenes/broadcast/seed_display.tscn"
+const seedFullscreenPath: String = "res://subscenes/broadcast/full_screen_round/seed_full_screen.tscn"
 
 var roundContainers: Array = []
 
 var roundStart: int = 0
 
-func _ready():
-	roundContainers.append($Level1)
-	roundContainers.append($Level2)
-	roundContainers.append($Level3)
+func _ready() -> void:
+	roundContainers.append($Start/Level1)
+	roundContainers.append($Start/Level2)
+	roundContainers.append($Start/Level3)
 
-func start():
+func start() -> void:
 	if len(Tournament.rounds) > 3:
 		fwdButton.disabled = false
 	var roundEnd = min(roundStart + 3, len(Tournament.rounds))
-	var scenePath: String
+	var newScene
 	for levelNum in range(roundStart, roundEnd):
 		var level = Tournament.rounds[levelNum]
 		for roundRes in level:
 			if roundRes is SeedRound:
-				scenePath = seedScenePath
+				newScene = preload(seedScenePath)
 			else:
 				continue
-			var newScene = load(scenePath)
 			var roundScene = newScene.instance()
 			roundScene.attachResource(roundRes)
+			roundScene.connect("openFullScreen", self, "openNewSubscreen")
 			roundContainers[levelNum-roundStart].add_child(roundScene)
+
+func openNewSubscreen(roundRes: RoundResource) -> void:
+	var newScene
+	if roundRes is SeedRound:
+		newScene = preload(seedFullscreenPath)
+	else:
+		return
+	var fullScreenScene = newScene.instance()
+	fullScreenScene.attachResource(roundRes)
+	fullScreenScene.connect("closeScreen", self, "showAllRounds")
+	subScreenPoint.add_child(fullScreenScene)
+	startScreen.visible = false
+	subScreenPoint.visible = true
+
+func showAllRounds() -> void:
+	startScreen.visible = true
+	subScreenPoint.visible = false
+	subScreenPoint.get_child(0).queue_free()

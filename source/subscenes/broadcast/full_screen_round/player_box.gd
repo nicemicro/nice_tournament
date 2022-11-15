@@ -1,4 +1,4 @@
-extends PanelContainer
+extends MarginContainer
 
 onready var nameField: Label = $HeaderFooter/Name
 onready var raceField: Label = $HeaderFooter/Split/InfoContainer/Race

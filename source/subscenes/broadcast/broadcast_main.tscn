@@ -15,19 +15,27 @@ texture = ExtResource( 1 )
 stretch_mode = 1
 script = ExtResource( 3 )
 
-[node name="GoBack" type="PanelContainer" parent="."]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 10.0
-margin_top = -110.0
-margin_right = 60.0
-margin_bottom = 110.0
+[node name="Start" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 15.0
+margin_right = -20.0
+margin_bottom = -15.0
 
-[node name="Button" type="TextureButton" parent="GoBack"]
-margin_left = 5.0
-margin_top = 10.0
-margin_right = 45.0
-margin_bottom = 210.0
+[node name="GoBack" type="PanelContainer" parent="Start"]
+margin_top = 410.0
+margin_right = 55.0
+margin_bottom = 640.0
+rect_min_size = Vector2( 55, 230 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Button" type="TextureButton" parent="Start/GoBack"]
+margin_left = 7.0
+margin_top = 15.0
+margin_right = 47.0
+margin_bottom = 215.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 disabled = true
@@ -36,21 +44,65 @@ texture_pressed = ExtResource( 5 )
 texture_hover = ExtResource( 5 )
 texture_disabled = ExtResource( 4 )
 
-[node name="GoForward" type="PanelContainer" parent="."]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -60.0
-margin_top = -110.0
-margin_right = -10.0
-margin_bottom = 110.0
+[node name="Empty" type="Control" parent="Start"]
+margin_left = 59.0
+margin_right = 74.0
+margin_bottom = 1050.0
+rect_min_size = Vector2( 15, 0 )
 
-[node name="Button" type="TextureButton" parent="GoForward"]
-margin_left = 5.0
-margin_top = 10.0
-margin_right = 45.0
-margin_bottom = 210.0
+[node name="Level1" type="VBoxContainer" parent="Start"]
+margin_left = 78.0
+margin_right = 637.0
+margin_bottom = 1050.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Empty2" type="Control" parent="Start"]
+margin_left = 641.0
+margin_right = 656.0
+margin_bottom = 1050.0
+rect_min_size = Vector2( 15, 0 )
+
+[node name="Level2" type="VBoxContainer" parent="Start"]
+margin_left = 660.0
+margin_right = 1219.0
+margin_bottom = 1050.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Empty3" type="Control" parent="Start"]
+margin_left = 1223.0
+margin_right = 1238.0
+margin_bottom = 1050.0
+rect_min_size = Vector2( 15, 0 )
+
+[node name="Level3" type="VBoxContainer" parent="Start"]
+margin_left = 1242.0
+margin_right = 1801.0
+margin_bottom = 1050.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Empty4" type="Control" parent="Start"]
+margin_left = 1805.0
+margin_right = 1820.0
+margin_bottom = 1050.0
+rect_min_size = Vector2( 15, 0 )
+
+[node name="GoForward" type="PanelContainer" parent="Start"]
+margin_left = 1824.0
+margin_top = 410.0
+margin_right = 1879.0
+margin_bottom = 640.0
+rect_min_size = Vector2( 55, 230 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Button" type="TextureButton" parent="Start/GoForward"]
+margin_left = 7.0
+margin_top = 15.0
+margin_right = 47.0
+margin_bottom = 215.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 disabled = true
@@ -60,27 +112,7 @@ texture_hover = ExtResource( 5 )
 texture_disabled = ExtResource( 4 )
 flip_h = true
 
-[node name="Level1" type="VBoxContainer" parent="."]
-anchor_bottom = 1.0
-margin_left = 80.0
-margin_top = 10.0
-margin_right = 620.0
-margin_bottom = -10.0
-
-[node name="Level2" type="VBoxContainer" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -270.0
-margin_top = 10.0
-margin_right = 270.0
-margin_bottom = -10.0
-
-[node name="Level3" type="VBoxContainer" parent="."]
-anchor_left = 1.0
+[node name="SubScreen" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -620.0
-margin_top = 10.0
-margin_right = -80.0
-margin_bottom = -10.0
