@@ -2,7 +2,7 @@ extends RoundResource
 class_name DualTourneyRound
 
 var groupNum: int = 2 setget setGroupNum, getGroupNum
-var neededWins: Array = [1, 2, 2] setget setWins, getWins
+var neededWins: Array = [1, 2, 2] setget setNeededWins, getNeededWins
 
 func _init() -> void:
 	virtualInputMult = 0
@@ -27,7 +27,7 @@ func setGroupNum(newNum: int) -> void:
 func getGroupNum() -> int:
 	return groupNum
 
-func setWins(newWins: Array) -> void:
+func setNeededWins(newWins: Array) -> void:
 	if len(newWins) != 3:
 		printerr("The required wins should be a 3 element array of ints")
 		return
@@ -40,7 +40,7 @@ func setWins(newWins: Array) -> void:
 			return
 	neededWins = newWins.duplicate()
 
-func getWins() -> Array:
+func getNeededWins() -> Array:
 	return neededWins.duplicate()
 
 func toDict() -> Dictionary:

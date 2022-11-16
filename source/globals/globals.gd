@@ -144,12 +144,19 @@ func loadTournament() -> void:
 					newRound = processSwissRound(roundDict)
 			processMapPool(newRound, roundDict["mapPool"])
 			newRound.virtualInputMult = roundDict["virtualInputMult"]
+			processPlayers(newRound, roundDict["players"])
 			levelRounds.append(newRound)
 		Tournament.rounds.append(levelRounds)
 
 func processMapPool(roundRes: RoundResource, mapDict: Dictionary) -> void:
 	for mapId in mapDict.values():
 		roundRes.addMap(maps[mapId])
+
+func processPlayers(roundRes: RoundResource, playerDict: Dictionary) -> void:
+	var playerList: Array = []
+	for playerId in playerDict.values():
+		playerList.append(players[playerId])
+	roundRes.receivePlayers(playerList)
 
 func processSwissRound(roundData: Dictionary) -> SwissRound:
 	var roundRes: SwissRound

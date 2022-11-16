@@ -2,7 +2,7 @@ extends RoundResource
 class_name EliminationRound
 
 var pairNum: int = 2 setget setPairNum, getPairNum
-var neededWins: int = 3 setget setWins, getWins
+var neededWins: int = 3 setget setNeededWins, getNeededWins
 
 func _init() -> void:
 	virtualInputMult = 0
@@ -27,12 +27,12 @@ func setPairNum(newNum: int) -> void:
 func getPairNum() -> int:
 	return pairNum
 
-func setWins(newNum: int) -> void:
+func setNeededWins(newNum: int) -> void:
 	if newNum < 1:
 		return
 	neededWins = newNum
 
-func getWins() -> int:
+func getNeededWins() -> int:
 	return neededWins
 
 func toDict() -> Dictionary:

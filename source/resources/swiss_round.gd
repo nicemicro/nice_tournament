@@ -1,10 +1,11 @@
 extends RoundResource
 class_name SwissRound
 
-var neededWins: int = 2 setget setWins, getWins
+var neededWins: int = 2 setget setNeededWins, getNeededWins
 
 func _init() -> void:
 	virtualInputMult = 0
+	input = 4
 
 func getOutput() -> int:
 	return input
@@ -12,13 +13,26 @@ func getOutput() -> int:
 func setOutput(newOutput: int) -> void:
 	fail(newOutput)
 
-func setWins(newNum: int) -> void:
+func setNeededWins(newNum: int) -> void:
 	if newNum < 1:
 		return
 	neededWins = newNum
 
-func getWins() -> int:
+func getNeededWins() -> int:
 	return neededWins
+
+func receivePlayers(incoming: Array) -> Array:
+	if len(_players) > 0:
+		printerr("Players already set.")
+		return incoming.duplicate()
+	var outgoing: Array = _receivePlayers(incoming)
+	_orderPlayerArray()
+	_generateGroupings()
+	_generateMatches()
+	return outgoing
+
+func _orderPlayerArray() -> void:
+	pass
 
 func toDict() -> Dictionary:
 	var returnDict: Dictionary = {}

@@ -12,7 +12,7 @@ signal playerNumChange
 func _ready():
 	if roundRes != null:
 		mapPoolEditor.attachResource(roundRes)
-		playerNumber.text = str(roundRes.input)
+		playerNumber.text = str(roundRes.output)
 		vpNumber.text = str(roundRes.virtualInputMult)
 		vpSlider.value = round(roundRes.virtualInputMult * 100)
 		emit_signal("playerNumChange")
@@ -24,7 +24,7 @@ func attachResource(newRoundRes: RoundResource) -> void:
 	roundRes = newRoundRes
 	if mapPoolEditor != null:
 		mapPoolEditor.attachResource(roundRes)
-		playerNumber.text = str(roundRes.input)
+		playerNumber.text = str(roundRes.output)
 		vpNumber.text = str(roundRes.virtualInputMult)
 		vpSlider.value = round(roundRes.virtualInputMult)
 		emit_signal("playerNumChange")

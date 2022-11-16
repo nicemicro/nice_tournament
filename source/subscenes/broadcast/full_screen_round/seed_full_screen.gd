@@ -15,7 +15,7 @@ func attachResource(newRes: RoundResource):
 	.attachResource(newRes)
 
 func displayResData():
-	for player in roundRes.seededPlayers:
+	for player in roundRes.getOutPlayerList():
 		var newScene = preload(playerBoxScenePath)
 		var newPlayerScene = newScene.instance()
 		newPlayerScene.attachResource(player)

@@ -30,6 +30,11 @@ _global_script_classes=[ {
 "path": "res://resources/map.gd"
 }, {
 "base": "Resource",
+"class": "MatchResource",
+"language": "GDScript",
+"path": "res://resources/match_resource.gd"
+}, {
+"base": "Resource",
 "class": "PlayerResource",
 "language": "GDScript",
 "path": "res://resources/player.gd"
@@ -54,6 +59,7 @@ _global_script_class_icons={
 "EliminationRound": "",
 "GroupRound": "",
 "MapResource": "",
+"MatchResource": "",
 "PlayerResource": "",
 "RoundResource": "",
 "SeedRound": "",

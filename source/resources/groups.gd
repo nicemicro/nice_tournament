@@ -3,7 +3,7 @@ class_name GroupRound
 
 var groupNum: int = 2 setget setGroupNum, getGroupNum
 var groupSize: int = 3 setget setGroupSize, getGroupSize
-var neededWins: int = 2 setget setWins, getWins
+var neededWins: int = 2 setget setNeededWins, getNeededWins
 
 func _init() -> void:
 	virtualInputMult = 0
@@ -36,12 +36,12 @@ func setGroupSize(newNum: int) -> void:
 func getGroupSize() -> int:
 	return groupSize
 
-func setWins(newNum: int) -> void:
+func setNeededWins(newNum: int) -> void:
 	if newNum < 1:
 		return
 	neededWins = newNum
 
-func getWins() -> int:
+func getNeededWins() -> int:
 	return neededWins
 
 func toDict() -> Dictionary:

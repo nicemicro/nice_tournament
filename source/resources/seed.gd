@@ -1,58 +1,68 @@
 extends RoundResource
 class_name SeedRound
 
-var seededPlayers: Array = [] setget setSeededPlayers, getSeededPlayers
-
 func _init() -> void:
 	virtualInputMult = 1
 
-func getSeededPlayers() -> Array:
-	return seededPlayers.duplicate()
- 
-func setSeededPlayers(input) -> void:
-	fail(input)
-
 func addPlayer(newPlayer: PlayerResource) -> void:
-	if newPlayer in seededPlayers:
+	if newPlayer in _players:
 		printerr("Trying to add a player already on the list")
 	else:
-		seededPlayers.append(newPlayer)
-	output = len(seededPlayers)
+		_players.append(newPlayer)
+	output = len(_players)
 
 func removePlayer(player: PlayerResource) -> void:
 	if not hasPlayer(player):
 		printerr("Trying to act on a player not on the list")
 		return
-	var index: int = seededPlayers.find(player)
-	seededPlayers.pop_at(index)
+	var index: int = _players.find(player)
+	_players.pop_at(index)
 
 func movePlayer(player: PlayerResource, position: int) -> void:
-	if position < 0 or position >= len(seededPlayers):
+	if position < 0 or position >= len(_players):
 		printerr("Trying to move a player to an unavailable position")
 		return
 	if not hasPlayer(player):
 		printerr("Trying to act on a player not on the list")
 		return
-	var index: int = seededPlayers.find(player)
-	seededPlayers[index] = seededPlayers[position]
-	seededPlayers[position] = player
+	var index: int = _players.find(player)
+	_players[index] = _players[position]
+	_players[position] = player
 
 func hasPlayer(player: PlayerResource) -> bool:
-	return player in seededPlayers
+	return player in _players
 
 func getOutput() -> int:
-	return len(seededPlayers)
+	return len(_players)
 
 func setOutput(newOutput: int) -> void:
 	fail(newOutput)
+
+func receivePlayers(incoming: Array) -> Array:
+	return incoming
+
+func isOver() -> bool:
+	return true
+
+func isStarted() -> bool:
+	return false
+
+func getOutPlayerList() -> Array:
+	var outPlayers: Array = []
+	var maxVirualPoint: int = 0
+	for playerRes in _players:
+		maxVirualPoint = max(maxVirualPoint, playerRes.virtualPoints)
+	for point in range(maxVirualPoint, -1, -1):
+		for playerRes in _players:
+			if playerRes.virtualPoints == point:
+				outPlayers.append(playerRes)
+	return outPlayers
+
+func getSeededPlayers() -> Array:
+	return _players.duplicate()
 
 func toDict() -> Dictionary:
 	var returnDict: Dictionary = {}
 	returnDict["type"] = "seed"
 	returnDict = _toDict(returnDict)
-	var playerDict: Dictionary = {}
-	for playerIndex in range(len(seededPlayers)):
-		var playerRes: PlayerResource = seededPlayers[playerIndex]
-		playerDict[playerIndex] = Global.players.keys()[Global.players.values().find(playerRes)]
-	returnDict["players"] = playerDict
 	return returnDict

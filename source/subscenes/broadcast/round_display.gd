@@ -4,6 +4,8 @@ onready var titleLabel: Label = $Main/Title
 onready var detailContainer: VBoxContainer = $Main/Container
 onready var openButton: TextureButton = $Main/OpenButton
 
+const groupDisplayPath: String = "res://subscenes/broadcast/single_group_display.tscn"
+
 var roundRes: RoundResource
 
 signal openFullScreen
@@ -18,7 +20,14 @@ func attachResource(newRes: RoundResource) -> void:
 		displayResData()
 
 func displayResData() -> void:
-	pass
+	for grouping in roundRes.getGroupings():
+		var newScene = preload(groupDisplayPath)
+		var newNode = newScene.instance()
+		newNode.addGroup(grouping)
+		detailContainer.add_child(newNode)
+		var newSeparator: HSeparator = HSeparator.new()
+		newSeparator.rect_min_size = Vector2(0, 5)
+		detailContainer.add_child(newSeparator)
 
 func _on_OpenButton_pressed() -> void:
 	emit_signal("openFullScreen", roundRes)

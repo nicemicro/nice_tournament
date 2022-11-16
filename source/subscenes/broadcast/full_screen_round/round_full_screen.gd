@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-onready var mainContainer: VBoxContainer =$PanelContainer/Main/Container
+onready var mainContainer: MarginContainer =$PanelContainer/Main/Container
 
 var roundRes: RoundResource
 

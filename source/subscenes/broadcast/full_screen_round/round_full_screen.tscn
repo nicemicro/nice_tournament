@@ -64,10 +64,10 @@ margin_bottom = 41.0
 text = "Title"
 align = 1
 
-[node name="Container" type="VBoxContainer" parent="PanelContainer/Main"]
-margin_left = 856.0
+[node name="Container" type="MarginContainer" parent="PanelContainer/Main"]
+margin_left = 851.0
 margin_top = 45.0
-margin_right = 856.0
+margin_right = 861.0
 margin_bottom = 1036.0
 size_flags_horizontal = 4
 size_flags_vertical = 3
