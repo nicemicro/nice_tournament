@@ -10,4 +10,15 @@ func attachResource(newRes: RoundResource):
 		return
 	.attachResource(newRes)
 
-
+func displayResData() -> void:
+	if roundRes.isStarted():
+		.displayResData()
+		return
+	for index in roundRes.input / 2:
+		var newScene = load(groupDisplayPath)
+		var newNode = newScene.instance()
+		newNode.addGroup([{}, {}])
+		detailContainer.add_child(newNode)
+		var newSeparator: HSeparator = HSeparator.new()
+		newSeparator.rect_min_size = Vector2(0, 5)
+		detailContainer.add_child(newSeparator)

@@ -8,6 +8,7 @@ onready var subScreenPoint: Control = $SubScreen
 const seedScenePath: String = "res://subscenes/broadcast/seed_display.tscn"
 const seedFullscreenPath: String = "res://subscenes/broadcast/full_screen_round/seed_full_screen.tscn"
 const swissScenePath: String = "res://subscenes/broadcast/swiss_display.tscn"
+const swissFullscreenPath: String = "res://subscenes/broadcast/full_screen_round/swiss_full_screen.tscn"
 
 var roundContainers: Array = []
 
@@ -42,6 +43,8 @@ func openNewSubscreen(roundRes: RoundResource) -> void:
 	var newScene
 	if roundRes is SeedRound:
 		newScene = preload(seedFullscreenPath)
+	elif roundRes is SwissRound:
+		newScene = preload(swissFullscreenPath)
 	else:
 		return
 	var fullScreenScene = newScene.instance()

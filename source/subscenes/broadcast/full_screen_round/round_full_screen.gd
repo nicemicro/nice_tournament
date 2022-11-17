@@ -4,6 +4,8 @@ onready var mainContainer: MarginContainer =$PanelContainer/Main/Container
 
 var roundRes: RoundResource
 
+const groupDisplayPath: String = "res://subscenes/broadcast/single_group_display.tscn"
+
 signal closeScreen
 
 func attachResource(newRes: RoundResource) -> void:

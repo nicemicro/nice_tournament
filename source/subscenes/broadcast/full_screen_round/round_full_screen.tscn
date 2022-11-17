@@ -65,11 +65,10 @@ text = "Title"
 align = 1
 
 [node name="Container" type="MarginContainer" parent="PanelContainer/Main"]
-margin_left = 851.0
 margin_top = 45.0
-margin_right = 861.0
+margin_right = 1713.0
 margin_bottom = 1036.0
-size_flags_horizontal = 4
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [connection signal="pressed" from="Close/CloseButton" to="." method="_on_CloseButton_pressed"]

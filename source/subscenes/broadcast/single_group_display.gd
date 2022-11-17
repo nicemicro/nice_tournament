@@ -22,20 +22,23 @@ func addGroup(newGroupList: Array) -> void:
 
 func _showGroup():
 	for playerDict in groupList:
+		if len(playerDict) == 0:
+			_addPlayerNode("???", "-", "-")
+			continue
 		_addPlayerNode(
 			playerDict["player"].name,
-			playerDict["win"],
-			playerDict["loss"]
+			str(playerDict["win"]),
+			str(playerDict["loss"])
 		)
 
-func _addPlayerNode(name: String, wins: int, losses: int) -> void:
+func _addPlayerNode(name: String, wins: String, losses: String) -> void:
 	var textLabel: Label
 	textLabel = Label.new()
 	textLabel.text = name
 	namesList.add_child(textLabel)
 	textLabel = Label.new()
 	textLabel.size_flags_horizontal = SIZE_SHRINK_CENTER
-	textLabel.text = str(wins)
+	textLabel.text = wins
 	winsList.add_child(textLabel)
 	textLabel = Label.new()
 	textLabel.size_flags_horizontal = SIZE_SHRINK_CENTER
@@ -43,5 +46,5 @@ func _addPlayerNode(name: String, wins: int, losses: int) -> void:
 	colonList.add_child(textLabel)
 	textLabel = Label.new()
 	textLabel.size_flags_horizontal = SIZE_SHRINK_CENTER
-	textLabel.text = str(losses)
+	textLabel.text = losses
 	lossesList.add_child(textLabel)
