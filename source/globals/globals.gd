@@ -37,6 +37,12 @@ func registerNewMap(newMap: MapResource) -> void:
 func getPlayers() -> Dictionary:
 	return players.duplicate()
 
+func getPlayerId(playerRes: PlayerResource) -> String:
+	return players.keys()[players.values().find(playerRes)]
+
+func getMapId(mapRes: MapResource) -> String:
+	return maps.keys()[maps.values().find(mapRes)]
+
 func getMaps() -> Dictionary:
 	return maps.duplicate()
 
@@ -144,7 +150,9 @@ func loadTournament() -> void:
 					newRound = processSwissRound(roundDict)
 			processMapPool(newRound, roundDict["mapPool"])
 			newRound.virtualInputMult = roundDict["virtualInputMult"]
-			processPlayers(newRound, roundDict["players"])
+			var playerList: Array = processPlayers(roundDict["players"])
+			var matchList: Array = processMatches(roundDict["matches"])
+			newRound.loadPlayersMatches(playerList, matchList)
 			levelRounds.append(newRound)
 		Tournament.rounds.append(levelRounds)
 
@@ -152,11 +160,29 @@ func processMapPool(roundRes: RoundResource, mapDict: Dictionary) -> void:
 	for mapId in mapDict.values():
 		roundRes.addMap(maps[mapId])
 
-func processPlayers(roundRes: RoundResource, playerDict: Dictionary) -> void:
+func processPlayers(playerDict: Dictionary) -> Array:
 	var playerList: Array = []
 	for playerId in playerDict.values():
 		playerList.append(players[playerId])
-	roundRes.receivePlayers(playerList)
+	return playerList
+
+func processMatches(matchDict: Dictionary) -> Array:
+	var matchList: Array = []
+	for matchData in matchDict.values():
+		var playerOne: PlayerResource = players[matchData["playerOne"]]
+		var playerTwo: PlayerResource = players[matchData["playerTwo"]]
+		var mapList: Array
+		for mapId in matchData["mapPool"].values():
+			mapList.append(maps[mapId])
+		var matchRes: MatchResource = MatchResource.new(playerOne, playerTwo, mapList)
+		for matchResult in matchData["results"].values():
+			if matchResult == "1":
+				matchRes.addWin(playerOne)
+			elif matchResult == "2":
+				matchRes.addWin(playerTwo)
+			else:
+				assert(false, "Unreachable")
+	return matchList
 
 func processSwissRound(roundData: Dictionary) -> SwissRound:
 	var roundRes: SwissRound
@@ -168,8 +194,6 @@ func processSwissRound(roundData: Dictionary) -> SwissRound:
 func processSeedRound(roundData: Dictionary) -> SeedRound:
 	var roundRes: SeedRound
 	roundRes = SeedRound.new()
-	for playerId in roundData["players"].values():
-		roundRes.addPlayer(players[playerId])
 	return roundRes
 
 func processGroup(roundData: Dictionary) -> GroupRound:

@@ -5,8 +5,8 @@ func _ready() -> void:
 		displayResData()
 
 func attachResource(newRes: RoundResource):
-	if not newRes is SwissRound:
-		printerr("This UI is for displaying Swiss rounds only.")
+	if not newRes is EliminationRound:
+		printerr("This UI is for displaying Elimination rounds only.")
 		return
 	.attachResource(newRes)
 

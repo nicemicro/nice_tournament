@@ -15,6 +15,7 @@ func _init(newPlayerOne: PlayerResource, newPlayerTwo: PlayerResource, newMaps: 
 	for element in newMaps:
 		if not element is MapResource:
 			printerr("All elements of the array should be maps.")
+			assert(false)
 			return
 	playerOne = newPlayerOne
 	playerTwo = newPlayerTwo
@@ -60,6 +61,7 @@ func getNextMap() -> MapResource:
 func addWin(winner: PlayerResource) -> void:
 	if not winner in [playerOne, playerTwo]:
 		printerr("Unrelated player trying to be added to a match.")
+		assert(false)
 		return
 	results.append(winner)
 	emit_signal("newWinRegistered", self)
@@ -75,3 +77,23 @@ func getMapPool() -> Array:
 
 func getResults() -> Array:
 	return results.duplicate()
+
+func toDict() -> Dictionary:
+	var matchDict: Dictionary = {}
+	var mapPoolDict: Dictionary = {}
+	var resultDict: Dictionary = {}
+	for mapIndex in range(len(mapPool)):
+		var map: MapResource = mapPool[mapIndex]
+		mapPoolDict[mapIndex] = Global.getMapId(map)
+	for resultIndex in range(len(results)):
+		if results[resultIndex] == playerOne:
+			resultDict[resultIndex] = "1"
+		elif results[resultIndex] == playerTwo:
+			resultDict[resultIndex] = "2"
+		else:
+			assert(false, "Unreachable!")
+	matchDict["playerOne"] = Global.getPlayerId(playerOne)
+	matchDict["playerTwo"] = Global.getPlayerId(playerTwo)
+	matchDict["mapPool"] = mapPoolDict
+	matchDict["results"] = resultDict
+	return matchDict

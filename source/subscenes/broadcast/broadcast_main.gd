@@ -9,6 +9,8 @@ const seedScenePath: String = "res://subscenes/broadcast/seed_display.tscn"
 const seedFullscreenPath: String = "res://subscenes/broadcast/full_screen_round/seed_full_screen.tscn"
 const swissScenePath: String = "res://subscenes/broadcast/swiss_display.tscn"
 const swissFullscreenPath: String = "res://subscenes/broadcast/full_screen_round/swiss_full_screen.tscn"
+const eliminationScenePath: String = "res://subscenes/broadcast/elimination_display.tscn"
+const eliminationFullscreenPath: String = "res://subscenes/broadcast/full_screen_round/elimination_full_screen.tscn"
 
 var roundContainers: Array = []
 
@@ -32,6 +34,8 @@ func start() -> void:
 				newScene = preload(seedScenePath)
 			elif roundRes is SwissRound:
 				newScene = preload(swissScenePath)
+			elif roundRes is EliminationRound:
+				newScene = preload(eliminationScenePath)
 			else:
 				continue
 			var roundScene = newScene.instance()
@@ -45,6 +49,8 @@ func openNewSubscreen(roundRes: RoundResource) -> void:
 		newScene = preload(seedFullscreenPath)
 	elif roundRes is SwissRound:
 		newScene = preload(swissFullscreenPath)
+	elif roundRes is EliminationRound:
+		newScene = preload(eliminationFullscreenPath)
 	else:
 		return
 	var fullScreenScene = newScene.instance()

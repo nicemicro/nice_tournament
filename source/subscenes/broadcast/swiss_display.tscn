@@ -7,4 +7,12 @@
 script = ExtResource( 2 )
 
 [node name="Title" parent="Main" index="0"]
+margin_bottom = 39.0
 text = "Swiss Round"
+
+[node name="HSeparator" parent="Main" index="1"]
+margin_top = 43.0
+margin_bottom = 53.0
+
+[node name="Container" parent="Main" index="2"]
+margin_top = 57.0

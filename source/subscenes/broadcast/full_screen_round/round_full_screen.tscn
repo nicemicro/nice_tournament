@@ -60,15 +60,29 @@ margin_bottom = 1038.0
 
 [node name="Title" type="Label" parent="PanelContainer/Main"]
 margin_right = 1713.0
-margin_bottom = 41.0
+margin_bottom = 62.0
+theme_type_variation = "LabelLarge"
 text = "Title"
 align = 1
 
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/Main"]
+margin_top = 66.0
+margin_right = 1713.0
+margin_bottom = 71.0
+rect_min_size = Vector2( 5, 5 )
+
 [node name="Container" type="MarginContainer" parent="PanelContainer/Main"]
-margin_top = 45.0
+margin_top = 75.0
 margin_right = 1713.0
 margin_bottom = 1036.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="MatchContainer" type="MarginContainer" parent="PanelContainer"]
+visible = false
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 1715.0
+margin_bottom = 1038.0
 
 [connection signal="pressed" from="Close/CloseButton" to="." method="_on_CloseButton_pressed"]

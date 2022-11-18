@@ -68,6 +68,9 @@ func moveMap(mapRes: MapResource, position: int) -> void:
 # Receives an array of players; returns the array of players that don't fit
 # into this round based on the "input" variable
 func receivePlayers(incoming: Array) -> Array:
+	if len(mapPool) == 0:
+		printerr("There is no map pool set, can't start this now.")
+		return incoming.duplicate()
 	if len(_players) > 0:
 		printerr("Players already set.")
 		return incoming.duplicate()
@@ -95,6 +98,44 @@ func _generateGroupings() -> void:
 				_players[index * 2 + 1],
 			])
 
+func _generateMatches() -> void:
+	# Whenever the matches are generated, their signal "newWinRegistered" should be
+	# connected here with the "_matchChanged" function!
+	for playerGroup in _groupings:
+		if len(playerGroup) == 0:
+			continue
+		for index1 in range(len(playerGroup) - 1):
+			for index2 in range(index1 + 1, len(playerGroup), 1):
+				var maplist: Array = _generateMaplist(playerGroup[index1], playerGroup[index2])
+				var newMatchRes: MatchResource = MatchResource.new(
+					playerGroup[index1],
+					playerGroup[index2],
+					maplist
+				)
+				matchList.append(newMatchRes)
+
+# This is a prototype map generator that only returns one map! Needs to be
+# overwritten for the specific rounds.
+func _generateMaplist(player1: PlayerResource, player2: PlayerResource) -> Array:
+	var maplist: Array = _generateMaplistCore(
+		[player1.mapVeto, player2.mapVeto], 1
+	)
+	return maplist
+
+func _generateMaplistCore(vetoMaps: Array, neededMaps: int) -> Array:
+	var maplist: Array = []
+	var index: int = 0
+	while len(maplist) < neededMaps:
+		if not mapPool[index] in vetoMaps:
+			maplist.append(mapPool[index])
+		index += 1
+		if index >= len(mapPool):
+			index = 0
+			if len(maplist) == 0:
+				assert(false, "No non-vetod maps! This would end up in an infinite loop!")
+				return maplist
+	return maplist
+
 func getGroupings() -> Array:
 	var groupList: Array = []
 	for playerGroup in _groupings:
@@ -113,20 +154,16 @@ func getWins(playerRes: PlayerResource) -> int:
 	var winCount: int = 0
 	for matchRes in matchList:
 		if matchRes.playerOne == playerRes or matchRes.playerTwo == playerRes:
-			winCount += matchRes.getWins()[matchRes]
+			var matchWins: Dictionary = matchRes.getWins()
+			winCount += matchWins[playerRes]
 	return winCount
 
 func getLoss(playerRes: PlayerResource) -> int:
 	var winCount: int = 0
 	for matchRes in matchList:
 		if matchRes.playerOne == playerRes or matchRes.playerTwo == playerRes:
-			winCount += matchRes.getLoss()[matchRes]
+			winCount += matchRes.getLoss()[playerRes]
 	return winCount
-
-func _generateMatches() -> void:
-	# Whenever the matches are generated, their signal "newWinRegistered" should be
-	# connected here with the "_matchChanged" function!
-	pass
 
 func _matchChanged(changeMatch: MatchResource) -> void:
 	if isOver():
@@ -144,20 +181,34 @@ func getOutPlayerList() -> Array:
 		return []
 	return _players
 
+func loadPlayersMatches(playerList: Array, newMatchList: Array) -> void:
+	if len(_players) > 0 or len(matchList) > 0:
+		printerr("Can't load players and matches once they exist")
+		assert(false)
+		return
+	_players = playerList.duplicate()
+	matchList = newMatchList.duplicate()
+	_generateGroupings()
+
 func _toDict(data: Dictionary) -> Dictionary:
 	var mapPoolDict: Dictionary = {}
 	var playerDict: Dictionary = {}
+	var matchDict: Dictionary = {}
 	for mapIndex in range(len(mapPool)):
 		var map: MapResource = mapPool[mapIndex]
-		mapPoolDict[mapIndex] = Global.maps.keys()[Global.maps.values().find(map)]
+		mapPoolDict[mapIndex] = Global.getMapId(map)
 	for playerIndex in range(len(_players)):
 		var player: PlayerResource = _players[playerIndex]
-		playerDict[playerIndex] = Global.players.keys()[Global.players.values().find(player)]
+		playerDict[playerIndex] = Global.getPlayerId(player)
+	for matchIndex in range(len(matchList)):
+		var matchRes: MatchResource = matchList[matchIndex]
+		matchDict[matchIndex] = matchRes.toDict()
 	data["input"] = input
 	data["output"] = output
 	data["virtualInputMult"] = virtualInputMult
 	data["mapPool"] = mapPoolDict
 	data["players"] = playerDict
+	data["matches"] = matchDict
 	return data
 
 func toDict() -> Dictionary:

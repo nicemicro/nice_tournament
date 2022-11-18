@@ -23,19 +23,19 @@ size_flags_vertical = 3
 
 [node name="Title" type="Label" parent="Main"]
 margin_right = 1916.0
-margin_bottom = 41.0
+margin_bottom = 39.0
 text = "Title"
 align = 1
 
 [node name="HSeparator" type="HSeparator" parent="Main"]
-margin_top = 45.0
+margin_top = 43.0
 margin_right = 1916.0
-margin_bottom = 55.0
+margin_bottom = 53.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="Container" type="VBoxContainer" parent="Main"]
 margin_left = 958.0
-margin_top = 59.0
+margin_top = 57.0
 margin_right = 958.0
 margin_bottom = 1018.0
 size_flags_horizontal = 4

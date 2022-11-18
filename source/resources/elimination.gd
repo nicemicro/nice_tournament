@@ -35,6 +35,12 @@ func setNeededWins(newNum: int) -> void:
 func getNeededWins() -> int:
 	return neededWins
 
+func _generateMaplist(player1: PlayerResource, player2: PlayerResource) -> Array:
+	var maplist: Array = _generateMaplistCore(
+		[player1.mapVeto, player2.mapVeto], neededWins * 2 - 1
+	)
+	return maplist
+
 func toDict() -> Dictionary:
 	var returnDict: Dictionary = {}
 	returnDict["type"] = "elimination"
