@@ -37,7 +37,7 @@ visible = false
 margin_left = 5.0
 margin_top = 520.0
 margin_right = 45.0
-margin_bottom = 559.0
+margin_bottom = 560.0
 rect_min_size = Vector2( 40, 40 )
 text = "W"
 
@@ -76,7 +76,7 @@ visible = false
 margin_left = 5.0
 margin_top = 520.0
 margin_right = 45.0
-margin_bottom = 559.0
+margin_bottom = 560.0
 rect_min_size = Vector2( 40, 40 )
 text = "W"
 

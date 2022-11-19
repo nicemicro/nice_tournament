@@ -42,5 +42,7 @@ func _on_CloseButton_pressed() -> void:
 		screenContainer.visible = true
 		matchContainer.visible = false
 		matchOverlayOn = false
+		for node in matchContainer.get_children():
+			node.queue_free()
 		return
 	emit_signal("closeScreen")

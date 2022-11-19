@@ -57,7 +57,7 @@ func isOver() -> bool:
 	return not (getWinner() == null)
 
 func getNextMap() -> MapResource:
-	if len(results) == len(mapPool):
+	if isOver():
 		return null
 	return mapPool[len(results)]
 

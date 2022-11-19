@@ -47,13 +47,16 @@ func displayResData() -> void:
 			)
 		matchControlNodes.append(mapControlNode)
 		mapPoolContainer.add_child(mapControlNode)
+	showNextMap()
+
+func showNextMap():
 	if matchRes.getNextMap() != null:
 		currentMapName.text = matchRes.getNextMap().name
 		var texture: ImageTexture = ImageTexture.new()
 		texture.create_from_image(matchRes.getNextMap().icon)
 		currentMapImage.texture = texture
 	else:
-		currentMapName.text = ""
+		currentMapName.text = "(Match over)"
 		var texture: ImageTexture = ImageTexture.new()
 		texture.create(150, 150, Image.FORMAT_RGB8)
 		currentMapImage.texture = texture
@@ -61,11 +64,13 @@ func displayResData() -> void:
 func playerOneWon() -> void:
 	disconnectControlSignal()
 	matchRes.addWin(matchRes.playerOne)
+	showNextMap()
 	connectControlSignals()
 
 func playerTwoWon() -> void:
 	disconnectControlSignal()
 	matchRes.addWin(matchRes.playerTwo)
+	showNextMap()
 	connectControlSignals()
 
 func disconnectControlSignal() -> void:

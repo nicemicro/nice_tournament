@@ -63,10 +63,3 @@ func _openGroupPlayWindow(groupData: Array) -> void:
 			newNode.attachResource(matchRes)
 			break
 	matchContainer.add_child(newNode)
-
-func _on_CloseButton_pressed() -> void:
-	._on_CloseButton_pressed()
-	print_debug("boo")
-	if matchOverlayOn:
-		matchContainer.get_child(0).queue_free()
-		matchOverlayOn = false
