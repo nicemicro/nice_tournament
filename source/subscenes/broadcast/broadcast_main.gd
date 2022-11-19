@@ -22,11 +22,14 @@ func _ready() -> void:
 	roundContainers.append($Start/Level3)
 
 func start() -> void:
-	if len(Tournament.rounds) > 3:
-		fwdButton.disabled = false
+	fwdButton.disabled = len(Tournament.rounds) <= roundStart + 3
+	backButton.disabled = roundStart <= 0
 	var roundEnd = min(roundStart + 3, len(Tournament.rounds))
 	var newScene
 	Tournament.progressTourney()
+	for container in roundContainers:
+		for node in container.get_children():
+			node.queue_free()
 	for levelNum in range(roundStart, roundEnd):
 		var level = Tournament.rounds[levelNum]
 		for roundRes in level:
@@ -64,3 +67,12 @@ func showAllRounds() -> void:
 	startScreen.visible = true
 	subScreenPoint.visible = false
 	subScreenPoint.get_child(0).queue_free()
+	start()
+
+func _on_GoBackButton_pressed():
+	roundStart = max(roundStart - 1, 0)
+	start()
+
+func _on_GoForwardButton_pressed():
+	roundStart = min(roundStart + 1, len(Tournament.rounds) - 3)
+	start()

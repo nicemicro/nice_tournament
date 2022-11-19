@@ -84,26 +84,36 @@ margin_right = 468.0
 margin_bottom = 149.0
 rect_min_size = Vector2( 0, 5 )
 
-[node name="Label2" type="Label" parent="Container/Middle"]
+[node name="Empty3" type="Control" parent="Container/Middle"]
 margin_top = 153.0
 margin_right = 468.0
-margin_bottom = 192.0
+margin_bottom = 193.0
+rect_min_size = Vector2( 20, 40 )
+
+[node name="Label2" type="Label" parent="Container/Middle"]
+margin_top = 197.0
+margin_right = 468.0
+margin_bottom = 236.0
 size_flags_horizontal = 3
 text = "Next up:"
 align = 1
 
 [node name="MapName" type="Label" parent="Container/Middle"]
-margin_top = 196.0
+margin_top = 240.0
 margin_right = 468.0
-margin_bottom = 235.0
+margin_bottom = 279.0
 size_flags_horizontal = 3
 text = "..."
 align = 1
 
 [node name="MapImage" type="TextureRect" parent="Container/Middle"]
-margin_top = 239.0
+margin_top = 283.0
 margin_right = 468.0
-margin_bottom = 239.0
+margin_bottom = 965.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 5
 
 [node name="PlayerTwo" type="CenterContainer" parent="Container"]
 margin_left = 1178.0

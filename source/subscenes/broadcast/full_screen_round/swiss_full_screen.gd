@@ -4,6 +4,8 @@ onready var leftPlayerCol: VBoxContainer = $PanelContainer/Main/Container/Column
 onready var rightPlayerCol: VBoxContainer = $PanelContainer/Main/Container/Columns/PlayersRight
 onready var mapPool: VBoxContainer = $PanelContainer/Main/Container/Columns/MapPool
 
+const oneOnOneScreenPath: String = "res://subscenes/broadcast/full_screen_round/playing_1v1.tscn"
+
 func _ready() -> void:
 	if roundRes != null:
 		displayResData()
@@ -45,3 +47,26 @@ func displayResData():
 		newNode.addGroup([{}, {}])
 		newNode.setFullScreen()
 		container.add_child(newNode)
+
+func _openGroupPlayWindow(groupData: Array) -> void:
+	._openGroupPlayWindow(groupData)
+	var newScene: PackedScene = preload(oneOnOneScreenPath)
+	var newNode = newScene.instance()
+	var playerResources: Array = []
+	for player in groupData:
+		playerResources.append(player["player"])
+	for matchRes in roundRes.matchList:
+		if (
+			matchRes.playerOne in playerResources and
+			matchRes.playerTwo in playerResources
+		):
+			newNode.attachResource(matchRes)
+			break
+	matchContainer.add_child(newNode)
+
+func _on_CloseButton_pressed() -> void:
+	._on_CloseButton_pressed()
+	print_debug("boo")
+	if matchOverlayOn:
+		matchContainer.get_child(0).queue_free()
+		matchOverlayOn = false

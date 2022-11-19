@@ -7,8 +7,10 @@ onready var currentMapName: Label = $Container/Middle/MapName
 onready var currentMapImage: TextureRect = $Container/Middle/MapImage
 
 var matchRes: MatchResource
+var matchControlNodes: Array = []
 
 const playerBoxScebePath: String = "res://subscenes/broadcast/full_screen_round/player_box.tscn"
+const mapGameControlPath: String = "res://subscenes/broadcast/full_screen_round/map_game_control.tscn"
 
 func _ready() -> void:
 	if matchRes != null:
@@ -23,17 +25,28 @@ func attachResource(newRes: MatchResource) -> void:
 		displayResData()
 
 func displayResData() -> void:
-	var newScene: PackedScene = preload(playerBoxScebePath)
-	var newPlayerNode = newScene.instance()
+	var newPlayerScene: PackedScene = preload(playerBoxScebePath)
+	var mapControlScene: PackedScene = preload(mapGameControlPath)
+	var newPlayerNode = newPlayerScene.instance()
 	newPlayerNode.attachResource(matchRes.playerOne)
 	playerOneContainer.add_child(newPlayerNode)
-	newPlayerNode = newScene.instance()
+	newPlayerNode = newPlayerScene.instance()
 	newPlayerNode.attachResource(matchRes.playerTwo)
 	playerTwoContainer.add_child(newPlayerNode)
-	for mapRes in matchRes.mapPool:
-		var mapLabel: Label = Label.new()
-		mapLabel.text = mapRes.name
-		mapPoolContainer.add_child(mapLabel)
+	for index in range(len(matchRes.mapPool)):
+		var mapRes: MapResource = matchRes.mapPool[index]
+		var mapControlNode = mapControlScene.instance()
+		mapControlNode.setMapName(mapRes.name)
+		if len(matchRes.results) == index and not matchRes.isOver():
+			mapControlNode.setActive()
+			mapControlNode.connect("leftWon", self, "playerOneWon")
+			mapControlNode.connect("rightWon", self, "playerTwoWon")
+		elif len(matchRes.results) > index:
+			mapControlNode.setWinner(
+				matchRes.results[index] == matchRes.playerOne
+			)
+		matchControlNodes.append(mapControlNode)
+		mapPoolContainer.add_child(mapControlNode)
 	if matchRes.getNextMap() != null:
 		currentMapName.text = matchRes.getNextMap().name
 		var texture: ImageTexture = ImageTexture.new()
@@ -44,3 +57,23 @@ func displayResData() -> void:
 		var texture: ImageTexture = ImageTexture.new()
 		texture.create(150, 150, Image.FORMAT_RGB8)
 		currentMapImage.texture = texture
+
+func playerOneWon() -> void:
+	disconnectControlSignal()
+	matchRes.addWin(matchRes.playerOne)
+	connectControlSignals()
+
+func playerTwoWon() -> void:
+	disconnectControlSignal()
+	matchRes.addWin(matchRes.playerTwo)
+	connectControlSignals()
+
+func disconnectControlSignal() -> void:
+	matchControlNodes[len(matchRes.results)].disconnect("leftWon", self, "playerOneWon")
+	matchControlNodes[len(matchRes.results)].disconnect("rightWon", self, "playerTwoWon")
+
+func connectControlSignals():
+	if len(matchRes.results) < len(matchRes.mapPool) and not matchRes.isOver():
+		matchControlNodes[len(matchRes.results)].connect("leftWon", self, "playerOneWon")
+		matchControlNodes[len(matchRes.results)].connect("rightWon", self, "playerTwoWon")
+		matchControlNodes[len(matchRes.results)].setActive()

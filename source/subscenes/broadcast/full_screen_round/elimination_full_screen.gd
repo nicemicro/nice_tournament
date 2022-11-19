@@ -23,6 +23,9 @@ func displayResData():
 		newLabel.align = Label.ALIGN_CENTER
 		newLabel.size_flags_horizontal = SIZE_SHRINK_CENTER
 		mapPool.add_child(newLabel)
+	_addGroupNodes()
+
+func _addGroupNodes():
 	if roundRes.isStarted():
 		var index: int = 0
 		for grouping in roundRes.getGroupings():
@@ -48,17 +51,21 @@ func displayResData():
 		newNode.setFullScreen()
 		container.add_child(newNode)
 
+func refreshResData() -> void:
+	for node in leftPlayerCol.get_children():
+		node.queue_free()
+	for node in rightPlayerCol.get_children():
+		node.queue_free()
+	_addGroupNodes()
+
 func _openGroupPlayWindow(groupData: Array) -> void:
 	._openGroupPlayWindow(groupData)
 	var newScene: PackedScene = preload(oneOnOneScreenPath)
 	var newNode = newScene.instance()
 	var playerResources: Array = []
 	for player in groupData:
-		print_debug(player["player"].name)
 		playerResources.append(player["player"])
 	for matchRes in roundRes.matchList:
-		print_debug(matchRes.playerOne.name)
-		print_debug(matchRes.playerTwo.name)
 		if (
 			matchRes.playerOne in playerResources and
 			matchRes.playerTwo in playerResources
@@ -66,10 +73,8 @@ func _openGroupPlayWindow(groupData: Array) -> void:
 			newNode.attachResource(matchRes)
 			break
 	matchContainer.add_child(newNode)
-	
+
 func _on_CloseButton_pressed() -> void:
 	._on_CloseButton_pressed()
-	print_debug("boo")
 	if matchOverlayOn:
 		matchContainer.get_child(0).queue_free()
-		matchOverlayOn = false

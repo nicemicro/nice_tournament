@@ -182,6 +182,7 @@ func processMatches(matchDict: Dictionary) -> Array:
 				matchRes.addWin(playerTwo)
 			else:
 				assert(false, "Unreachable")
+		matchList.append(matchRes)
 	return matchList
 
 func processSwissRound(roundData: Dictionary) -> SwissRound:

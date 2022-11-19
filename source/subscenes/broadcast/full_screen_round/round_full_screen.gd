@@ -22,6 +22,9 @@ func attachResource(newRes: RoundResource) -> void:
 func displayResData() -> void:
 	pass
 
+func refreshResData() -> void:
+	pass
+
 func _createGroupDisplayScene() -> VBoxContainer:
 	var newScene = preload(groupDisplayPath)
 	var newNode: VBoxContainer = newScene.instance()
@@ -35,7 +38,9 @@ func _openGroupPlayWindow(groupData: Array) -> void:
 
 func _on_CloseButton_pressed() -> void:
 	if matchOverlayOn:
+		refreshResData()
 		screenContainer.visible = true
 		matchContainer.visible = false
+		matchOverlayOn = false
 		return
 	emit_signal("closeScreen")

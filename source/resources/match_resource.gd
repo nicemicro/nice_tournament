@@ -45,13 +45,16 @@ func getLoss() -> Dictionary:
 	return lossDict
 
 func getWinner() -> PlayerResource:
-	var neededWin: int = (len(mapPool) + 1) % 2
+	var neededWin: int = (len(mapPool) + 1) / 2
 	var winDict: Dictionary = getWins()
 	if winDict[playerOne] >= neededWin:
 		return playerOne
 	if winDict[playerTwo] >= neededWin:
 		return playerTwo
 	return null
+
+func isOver() -> bool:
+	return not (getWinner() == null)
 
 func getNextMap() -> MapResource:
 	if len(results) == len(mapPool):
