@@ -40,14 +40,29 @@ func _receivePlayers(incoming: Array) -> Array:
 	var playerOriginal: Array = _players.duplicate()
 	#TODO: deal with the possiblity of having odd number of players
 	_players = []
-	for index in range(len(playerOriginal) / 2 ):
-		_players.append(playerOriginal[index])
-		_players.append(playerOriginal[len(playerOriginal) - index - 1])
+	if len(playerOriginal) % 2 == 1:
+		_players.append(playerOriginal.pop_front())
+	while len(playerOriginal) >= 2:
+		_players.append(playerOriginal.pop_front())
+		_players.append(playerOriginal.pop_back())
 	return outgoing
 
-func _generateMaplist(player1: PlayerResource, player2: PlayerResource) -> Array:
+func _generateGroupings() -> void:
+	var playersCopy: Array = _players.duplicate()
+	if len(_players) % 2 == 1:
+		_groupings.append([playersCopy.pop_front()])
+	while len(playersCopy) >= 2:
+		_groupings.append([
+			playersCopy.pop_back(),
+			playersCopy.pop_back(),
+		])
+
+func _generateMaplist(playerList: Array) -> Array:
+	var mapVetoList: Array = []
+	for playerRes in playerList:
+		mapVetoList.append(playerRes.mapVeto)
 	var maplist: Array = _generateMaplistCore(
-		[player1.mapVeto, player2.mapVeto], neededWins * 2 - 1
+		mapVetoList, neededWins * 2 - 1
 	)
 	return maplist
 
@@ -66,12 +81,15 @@ func getOutPlayerList() -> Array:
 	for matchRes in matchList:
 		outPlayerList.append(matchRes.getWinner())
 	for matchRes in matchList:
-		if matchRes.playerOne in outPlayerList:
+		if (
+			matchRes.playerOne in outPlayerList and
+			matchRes.playerTwo != null
+		):
 			outPlayerList.append(matchRes.playerTwo)
 		elif matchRes.playerTwo in outPlayerList:
 			outPlayerList.append(matchRes.playerOne)
 		else:
-			assert(false, "Unreachable!")
+			assert(matchRes.playerTwo == null, "Unreachable!")
 	return outPlayerList
 
 func toDict() -> Dictionary:

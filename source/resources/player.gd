@@ -63,6 +63,9 @@ func recordVs(race: int, win: bool) -> int:
 		return previousRecord[race]["win"]
 	return previousRecord[race]["loss"]
 
+func getPoints() -> int:
+	return Tournament.getPoints(self)
+
 func getVetodMaps() -> MapResource:
 	return mapVeto
 

@@ -67,3 +67,22 @@ func availableInput(refRoundRes: RoundResource) -> int:
 			break
 		sumOtherIn += thisRoundRes.input
 	return sumPrevOut - sumOtherIn
+
+func getPoints(playerRes: PlayerResource) -> int:
+	var counter: int = 0
+	for level in rounds:
+		for roundRes in level:
+			counter += roundRes.getWins(playerRes)
+	return counter
+
+func getMatchesCount(playerOne: PlayerResource, playerTwo: PlayerResource) -> int:
+	var counter: int = 0
+	for level in rounds:
+		for roundRes in level:
+			for matchRes in roundRes.matchList:
+				if (
+					playerOne in [matchRes.playerOne, matchRes.playerTwo] and
+					playerTwo in [matchRes.playerOne, matchRes.playerTwo]
+				):
+					counter += 1
+	return counter

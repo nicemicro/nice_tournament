@@ -49,6 +49,11 @@ func _showGroup():
 			str(playerDict["win"]),
 			str(playerDict["loss"])
 		)
+	if len(groupList) == 1:
+		openButton.disabled = true
+	if len(groupList) <= 2:
+		colonList.visible = false
+		lossesList.visible = false
 
 func _addPlayerNode(name: String, wins: String, losses: String) -> void:
 	_addTextLabel(name, namesList)

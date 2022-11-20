@@ -23,6 +23,8 @@ func _init(newPlayerOne: PlayerResource, newPlayerTwo: PlayerResource, newMaps: 
 	results = []
 
 func getWins() -> Dictionary:
+	if playerTwo == null:
+		return {playerOne: (len(mapPool) + 1) / 2}
 	var winDict: Dictionary = {}
 	var countOne: int = 0
 	var countTwo: int = 0
@@ -38,6 +40,8 @@ func getWins() -> Dictionary:
 	return winDict
 
 func getLoss() -> Dictionary:
+	if playerTwo == null:
+		return {playerOne: 0}
 	var lossDict: Dictionary = {}
 	var winDict: Dictionary = getWins()
 	lossDict[playerOne] = winDict[playerTwo]
@@ -45,6 +49,8 @@ func getLoss() -> Dictionary:
 	return lossDict
 
 func getWinner() -> PlayerResource:
+	if playerTwo == null:
+		return playerOne
 	var neededWin: int = (len(mapPool) + 1) / 2
 	var winDict: Dictionary = getWins()
 	if winDict[playerOne] >= neededWin:

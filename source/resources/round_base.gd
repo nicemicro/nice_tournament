@@ -70,9 +70,11 @@ func moveMap(mapRes: MapResource, position: int) -> void:
 func receivePlayers(incoming: Array) -> Array:
 	if len(mapPool) == 0:
 		printerr("There is no map pool set, can't start this now.")
+		assert(false)
 		return incoming.duplicate()
 	if len(_players) > 0:
 		printerr("Players already set.")
+		assert(false)
 		return incoming.duplicate()
 	var outgoing: Array = _receivePlayers(incoming)
 	_generateGroupings()
@@ -104,9 +106,18 @@ func _generateMatches() -> void:
 	for playerGroup in _groupings:
 		if len(playerGroup) == 0:
 			continue
+		if len(playerGroup) == 1:
+			var maplist: Array = _generateMaplist([playerGroup[0]])
+			var newMatchRes: MatchResource = MatchResource.new(
+				playerGroup[0], null, maplist
+			)
+			matchList.append(newMatchRes)
+			continue
 		for index1 in range(len(playerGroup) - 1):
 			for index2 in range(index1 + 1, len(playerGroup), 1):
-				var maplist: Array = _generateMaplist(playerGroup[index1], playerGroup[index2])
+				var maplist: Array = _generateMaplist(
+					[playerGroup[index1], playerGroup[index2]]
+				)
 				var newMatchRes: MatchResource = MatchResource.new(
 					playerGroup[index1],
 					playerGroup[index2],
@@ -116,9 +127,12 @@ func _generateMatches() -> void:
 
 # This is a prototype map generator that only returns one map! Needs to be
 # overwritten for the specific rounds.
-func _generateMaplist(player1: PlayerResource, player2: PlayerResource) -> Array:
+func _generateMaplist(playerList: Array) -> Array:
+	var mapVetoList: Array = []
+	for playerRes in playerList:
+		mapVetoList.append(playerRes.mapVeto)
 	var maplist: Array = _generateMaplistCore(
-		[player1.mapVeto, player2.mapVeto], 1
+		mapVetoList, 1
 	)
 	return maplist
 
