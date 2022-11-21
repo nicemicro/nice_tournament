@@ -202,6 +202,9 @@ func loadPlayersMatches(playerList: Array, newMatchList: Array) -> void:
 		return
 	_players = playerList.duplicate()
 	matchList = newMatchList.duplicate()
+	_generateLoadedGroupings()
+
+func _generateLoadedGroupings() -> void:
 	_generateGroupings()
 
 func _toDict(data: Dictionary) -> Dictionary:

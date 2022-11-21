@@ -53,8 +53,8 @@ func _generateGroupings() -> void:
 		_groupings.append([playersCopy.pop_front()])
 	while len(playersCopy) >= 2:
 		_groupings.append([
-			playersCopy.pop_back(),
-			playersCopy.pop_back(),
+			playersCopy.pop_front(),
+			playersCopy.pop_front(),
 		])
 
 func _generateMaplist(playerList: Array) -> Array:
@@ -91,6 +91,11 @@ func getOutPlayerList() -> Array:
 		else:
 			assert(matchRes.playerTwo == null, "Unreachable!")
 	return outPlayerList
+
+func _generateLoadedGroupings() -> void:
+	var playersCopy: Array = _players.duplicate()
+	for matchRes in matchList:
+		_groupings.append([matchRes.playerOne, matchRes.playerTwo])
 
 func toDict() -> Dictionary:
 	var returnDict: Dictionary = {}

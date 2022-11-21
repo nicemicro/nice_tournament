@@ -38,6 +38,12 @@ func getPlayers() -> Dictionary:
 	return players.duplicate()
 
 func getPlayerId(playerRes: PlayerResource) -> String:
+	if playerRes == null:
+		return ""
+	if not playerRes in players.values():
+		printerr("Trying to get ID for a player not on the list")
+		assert(false)
+		return ""
 	return players.keys()[players.values().find(playerRes)]
 
 func getMapId(mapRes: MapResource) -> String:
@@ -170,7 +176,11 @@ func processMatches(matchDict: Dictionary) -> Array:
 	var matchList: Array = []
 	for matchData in matchDict.values():
 		var playerOne: PlayerResource = players[matchData["playerOne"]]
-		var playerTwo: PlayerResource = players[matchData["playerTwo"]]
+		var playerTwo: PlayerResource
+		if matchData["playerTwo"] == "":
+			playerTwo = null
+		else:
+			playerTwo = players[matchData["playerTwo"]]
 		var mapList: Array
 		for mapId in matchData["mapPool"].values():
 			mapList.append(maps[mapId])
