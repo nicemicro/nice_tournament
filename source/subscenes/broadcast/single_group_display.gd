@@ -9,6 +9,8 @@ onready var openButton: TextureButton = $OpenButton
 var fullScreen: bool = false
 var playerNodes: Array = []
 var groupList: Array = []
+var showPoint: bool = false
+var virtualPointMult: float = 0
 
 signal openGroup
 
@@ -31,6 +33,10 @@ func setFullScreen() -> void:
 				openButton.visible = false
 				break
 
+func showPrevPoints(NewVPM: float) -> void:
+	showPoint = true
+	virtualPointMult = NewVPM
+
 func addGroup(newGroupList: Array) -> void:
 	if len(groupList) > 0:
 		printerr("Can't change this on the fly.")
@@ -40,12 +46,27 @@ func addGroup(newGroupList: Array) -> void:
 		_showGroup()
 
 func _showGroup():
+	var nameString: String
 	for playerDict in groupList:
 		if len(playerDict) == 0:
 			_addPlayerNode("???", "-", "-")
 			continue
+		nameString = playerDict["player"].name
+		if showPoint:
+			var pointString: String = "("
+			pointString = (
+				pointString +
+				str(playerDict["player"].getPoints() - playerDict["win"])
+			)
+			if virtualPointMult > 0:
+				pointString = (
+					pointString + "+" +
+					str(playerDict["player"].virtualPoints * virtualPointMult)
+				)
+			pointString = pointString + ") "
+			nameString =  pointString + nameString
 		_addPlayerNode(
-			playerDict["player"].name,
+			nameString,
 			str(playerDict["win"]),
 			str(playerDict["loss"])
 		)

@@ -25,24 +25,22 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="Names" type="VBoxContainer" parent="PlayerList"]
-margin_right = 1344.0
+margin_right = 1882.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
 [node name="Wins" type="VBoxContainer" parent="PlayerList"]
-margin_left = 1348.0
-margin_right = 1617.0
-size_flags_horizontal = 3
+margin_left = 1886.0
+margin_right = 1886.0
 
 [node name="Colons" type="VBoxContainer" parent="PlayerList"]
-margin_left = 1621.0
-margin_right = 1627.0
+margin_left = 1890.0
+margin_right = 1896.0
 rect_min_size = Vector2( 6, 0 )
 
 [node name="Losses" type="VBoxContainer" parent="PlayerList"]
-margin_left = 1631.0
+margin_left = 1900.0
 margin_right = 1900.0
-size_flags_horizontal = 3
 
 [node name="OpenButton" type="TextureButton" parent="."]
 visible = false

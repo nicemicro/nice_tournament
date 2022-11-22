@@ -70,7 +70,7 @@ func _on_Image_pressed():
 func _on_FileDialog_file_selected(path):
 	var newIcon: Image = Image.new()
 	newIcon.load(path)
-	_icon = newIcon
+	_icon = newIcon.duplicate()
 	newIcon.resize(250, 250)
 	var newButtonTexture: ImageTexture = ImageTexture.new()
 	newButtonTexture.create_from_image(newIcon)

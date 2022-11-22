@@ -2,6 +2,7 @@ extends Control
 
 onready var mainMenu: VBoxContainer = $Menu
 onready var exitButton: Button = $ExitButton
+onready var saveButton: Button = $SaveButton
 onready var playerManager: Control = $Players
 onready var mapManager: Control = $Maps
 onready var roundEditor: Control = $TournamentEditor
@@ -21,34 +22,40 @@ func _ready():
 
 func _on_Players_pressed():
 	playerManager.visible = true
-	mainMenu.visible = false
-	exitButton.visible = false
+	hideMainMenu()
 
 func _on_Maps_pressed():
 	mapManager.visible = true
-	mainMenu.visible = false
-	exitButton.visible = false
+	hideMainMenu()
 
 func _on_Tournament_pressed():
 	roundEditor.visible = true
-	mainMenu.visible = false
-	exitButton.visible = false
+	hideMainMenu()
 
 func _on_Play_pressed():
 	broadcastScreen.visible = true
+	hideMainMenu()
 	broadcastScreen.start()
-	mainMenu.visible = false
-	exitButton.visible = false
 
 func _on_Button_pressed():
 	get_tree().quit()
 
+func hideMainMenu():
+	mainMenu.visible = false
+	exitButton.visible = false
+	saveButton.visible = false
+
 func showMainMenu():
 	mainMenu.visible = true
 	exitButton.visible = true
+	saveButton.visible = true
 
 func _on_Start_tree_exiting():
 	Global.savePlayers()
 	Global.saveMaps()
 	Global.saveTournament()
 
+func _on_SaveButton_pressed():
+	Global.savePlayers()
+	Global.saveMaps()
+	Global.saveTournament()

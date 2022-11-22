@@ -33,29 +33,35 @@ margin_bottom = 1040.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="PlayerOne" type="CenterContainer" parent="Container"]
-margin_right = 702.0
+[node name="PlayerOne" type="MarginContainer" parent="Container"]
+margin_right = 676.0
 margin_bottom = 965.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
+[node name="Spacer" type="Control" parent="Container"]
+margin_left = 680.0
+margin_right = 710.0
+margin_bottom = 965.0
+rect_min_size = Vector2( 30, 30 )
+
 [node name="Middle" type="VBoxContainer" parent="Container"]
-margin_left = 706.0
-margin_right = 1174.0
+margin_left = 714.0
+margin_right = 1165.0
 margin_bottom = 965.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
 [node name="Empty" type="Control" parent="Container/Middle"]
-margin_right = 468.0
+margin_right = 451.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 20, 40 )
 
 [node name="Label" type="Label" parent="Container/Middle"]
 margin_top = 44.0
-margin_right = 468.0
+margin_right = 451.0
 margin_bottom = 83.0
 size_flags_horizontal = 3
 text = "Games"
@@ -63,36 +69,36 @@ align = 1
 
 [node name="HSeparator" type="HSeparator" parent="Container/Middle"]
 margin_top = 87.0
-margin_right = 468.0
+margin_right = 451.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 0, 5 )
 
 [node name="MapPool" type="VBoxContainer" parent="Container/Middle"]
 margin_top = 96.0
-margin_right = 468.0
+margin_right = 451.0
 margin_bottom = 96.0
 
 [node name="Empty2" type="Control" parent="Container/Middle"]
 margin_top = 100.0
-margin_right = 468.0
+margin_right = 451.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 20, 40 )
 
 [node name="HSeparator2" type="HSeparator" parent="Container/Middle"]
 margin_top = 144.0
-margin_right = 468.0
+margin_right = 451.0
 margin_bottom = 149.0
 rect_min_size = Vector2( 0, 5 )
 
 [node name="Empty3" type="Control" parent="Container/Middle"]
 margin_top = 153.0
-margin_right = 468.0
+margin_right = 451.0
 margin_bottom = 193.0
 rect_min_size = Vector2( 20, 40 )
 
 [node name="Label2" type="Label" parent="Container/Middle"]
 margin_top = 197.0
-margin_right = 468.0
+margin_right = 451.0
 margin_bottom = 236.0
 size_flags_horizontal = 3
 text = "Next up:"
@@ -100,7 +106,7 @@ align = 1
 
 [node name="MapName" type="Label" parent="Container/Middle"]
 margin_top = 240.0
-margin_right = 468.0
+margin_right = 451.0
 margin_bottom = 279.0
 size_flags_horizontal = 3
 text = "..."
@@ -108,15 +114,21 @@ align = 1
 
 [node name="MapImage" type="TextureRect" parent="Container/Middle"]
 margin_top = 283.0
-margin_right = 468.0
+margin_right = 451.0
 margin_bottom = 965.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 expand = true
 stretch_mode = 5
 
-[node name="PlayerTwo" type="CenterContainer" parent="Container"]
-margin_left = 1178.0
+[node name="Spacer2" type="Control" parent="Container"]
+margin_left = 1169.0
+margin_right = 1199.0
+margin_bottom = 965.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="PlayerTwo" type="MarginContainer" parent="Container"]
+margin_left = 1203.0
 margin_right = 1880.0
 margin_bottom = 965.0
 size_flags_horizontal = 3

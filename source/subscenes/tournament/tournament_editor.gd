@@ -13,6 +13,7 @@ const GroupEditScenePath: String = "res://subscenes/tournament/group_edit.tscn"
 const DualTourneyEditScenePath: String = "res://subscenes/tournament/dual_tourney_edit.tscn"
 const EliminationEditScenePath: String = "res://subscenes/tournament/elimination_edit.tscn"
 const SwissRoundEditScenePath: String = "res://subscenes/tournament/swiss_round_edit.tscn"
+const ForwardPlayerEditScenePath: String = "res://subscenes/tournament/forward_round_edit.tscn"
 
 signal backPressed
 
@@ -28,6 +29,7 @@ func addAllRounds():
 	for level in Tournament.rounds:
 		addNewLevel()
 		for roundRes in level:
+			scenePath = ""
 			if roundRes is SeedRound:
 				scenePath = seedScenePath
 			elif roundRes is GroupRound:
@@ -38,6 +40,8 @@ func addAllRounds():
 				scenePath = EliminationEditScenePath
 			elif roundRes is SwissRound:
 				scenePath = SwissRoundEditScenePath
+			elif roundRes is ForwardRound:
+				scenePath = ForwardPlayerEditScenePath
 			addNewRound(roundRes, scenePath)
 	addNewLevel()
 	selectedLevel = len(levelContainers) - 1
@@ -66,6 +70,9 @@ func _on_NewMenu_pressed(itemId: int):
 		4:
 			roundRes = SwissRound.new()
 			scenePath = SwissRoundEditScenePath
+		5:
+			roundRes = ForwardRound.new()
+			scenePath = ForwardPlayerEditScenePath
 	Tournament.addRound(roundRes, selectedLevel)
 	addNewRound(roundRes, scenePath)
 	if len(levelContainers) - 1 == selectedLevel:

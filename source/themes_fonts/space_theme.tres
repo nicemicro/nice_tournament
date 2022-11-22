@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=15 format=2]
+[gd_resource type="Theme" load_steps=16 format=2]
 
 [ext_resource path="res://themes_fonts/LiberationSans-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://themes_fonts/normal_button.tres" type="StyleBox" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://themes_fonts/small_text.tres" type="DynamicFont" id=9]
 [ext_resource path="res://themes_fonts/big_text.tres" type="DynamicFont" id=10]
 [ext_resource path="res://themes_fonts/normal_text.tres" type="DynamicFont" id=11]
+[ext_resource path="res://themes_fonts/small_text_emph.tres" type="DynamicFont" id=12]
 
 [sub_resource type="StyleBoxLine" id=3]
 color = Color( 0.490196, 0.141176, 0.141176, 1 )
@@ -28,7 +29,7 @@ default_font = SubResource( 1 )
 Button/colors/font_color = Color( 0.352941, 0.866667, 0.407843, 1 )
 Button/colors/font_color_disabled = Color( 0.231373, 0.439216, 0.254902, 1 )
 Button/colors/font_color_focus = Color( 0.5428, 0.92, 0.58052, 1 )
-Button/colors/font_color_hover = Color( 0.5742, 0.99, 0.61578, 1 )
+Button/colors/font_color_hover = Color( 0.572549, 0.988235, 0.615686, 1 )
 Button/colors/font_color_pressed = Color( 0.2668, 0.46, 0.28612, 1 )
 Button/styles/disabled = ExtResource( 4 )
 Button/styles/focus = ExtResource( 6 )
@@ -42,6 +43,8 @@ Label/styles/normal = SubResource( 2 )
 LabelLarge/fonts/font = ExtResource( 10 )
 LabelSmall/base_type = "Label"
 LabelSmall/fonts/font = ExtResource( 9 )
+LabelSmallEmph/colors/font_color = Color( 0.572549, 0.988235, 0.615686, 1 )
+LabelSmallEmph/fonts/font = ExtResource( 12 )
 MarginContainer/constants/margin_bottom = 5
 MarginContainer/constants/margin_left = 5
 MarginContainer/constants/margin_right = 5

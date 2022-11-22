@@ -25,7 +25,7 @@ margin_top = -50.0
 margin_right = 200.0
 text = "Add new round"
 flat = false
-items = [ "Seed", null, 0, false, false, 0, 0, null, "", false, "Groups", null, 0, false, false, 1, 0, null, "", false, "Dual tournament", null, 0, false, false, 2, 0, null, "", false, "Single Elimination", null, 0, false, false, 3, 0, null, "", false, "Swiss round", null, 0, false, false, 4, 0, null, "", false ]
+items = [ "Seed", null, 0, false, false, 0, 0, null, "", false, "Groups", null, 0, false, false, 1, 0, null, "", false, "Dual tournament", null, 0, false, false, 2, 0, null, "", false, "Single Elimination", null, 0, false, false, 3, 0, null, "", false, "Swiss round", null, 0, false, false, 4, 0, null, "", false, "Forward players", null, 0, false, false, 5, 0, null, "", false ]
 
 [node name="Container" type="ScrollContainer" parent="."]
 anchor_right = 1.0

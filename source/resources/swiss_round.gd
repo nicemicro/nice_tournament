@@ -127,7 +127,7 @@ func _generateGroupings() -> void:
 			if matchArray.max() > maxBadness:
 				maxBadness = matchArray.max()
 	var allPairings: Array = (
-		_findAllPairings(playerList, matchMatrix, maxBadness / 2 + 100)
+		_findAllPairings(playerList, matchMatrix, maxBadness / 2)
 	)
 	allPairings.sort_custom(_customSorter, "sortByPointsAsc")
 	_groupings = allPairings[0]["list"]

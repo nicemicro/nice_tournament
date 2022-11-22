@@ -154,6 +154,8 @@ func loadTournament() -> void:
 					newRound = processSeedRound(roundDict)
 				"swiss":
 					newRound = processSwissRound(roundDict)
+				"forward":
+					newRound = processForwardRound(roundDict)
 			processMapPool(newRound, roundDict["mapPool"])
 			newRound.virtualInputMult = roundDict["virtualInputMult"]
 			var playerList: Array = processPlayers(roundDict["players"])
@@ -194,6 +196,12 @@ func processMatches(matchDict: Dictionary) -> Array:
 				assert(false, "Unreachable")
 		matchList.append(matchRes)
 	return matchList
+
+func processForwardRound(roundData: Dictionary) -> ForwardRound:
+	var roundRes: ForwardRound
+	roundRes = ForwardRound.new()
+	roundRes.input = int(roundData["input"])
+	return roundRes
 
 func processSwissRound(roundData: Dictionary) -> SwissRound:
 	var roundRes: SwissRound

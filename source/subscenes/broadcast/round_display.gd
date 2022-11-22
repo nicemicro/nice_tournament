@@ -10,7 +10,6 @@ var roundRes: RoundResource
 
 signal openFullScreen
 
-
 func attachResource(newRes: RoundResource) -> void:
 	if roundRes != null:
 		printerr("Resource already set")
@@ -23,8 +22,11 @@ func displayResData() -> void:
 	for grouping in roundRes.getGroupings():
 		var newScene = preload(groupDisplayPath)
 		var newNode = newScene.instance()
-		newNode.addGroup(grouping)
-		detailContainer.add_child(newNode)
+		_displayGroup(grouping, newNode)
+
+func _displayGroup(grouping: Array, newNode: Control) -> void:
+	newNode.addGroup(grouping)
+	detailContainer.add_child(newNode)
 
 func _on_OpenButton_pressed() -> void:
 	emit_signal("openFullScreen", roundRes)

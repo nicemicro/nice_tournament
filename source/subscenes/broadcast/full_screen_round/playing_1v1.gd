@@ -1,15 +1,16 @@
 extends VBoxContainer
 
-onready var playerOneContainer: CenterContainer = $Container/PlayerOne
-onready var playerTwoContainer: CenterContainer = $Container/PlayerTwo
+onready var playerOneContainer: MarginContainer = $Container/PlayerOne
+onready var playerTwoContainer: MarginContainer = $Container/PlayerTwo
 onready var mapPoolContainer: VBoxContainer = $Container/Middle/MapPool
 onready var currentMapName: Label = $Container/Middle/MapName
 onready var currentMapImage: TextureRect = $Container/Middle/MapImage
 
 var matchRes: MatchResource
 var matchControlNodes: Array = []
+var playerNodes: Array = []
 
-const playerBoxScebePath: String = "res://subscenes/broadcast/full_screen_round/player_box.tscn"
+const playerBoxScenePath: String = "res://subscenes/broadcast/full_screen_round/player_container_big.tscn"
 const mapGameControlPath: String = "res://subscenes/broadcast/full_screen_round/map_game_control.tscn"
 
 func _ready() -> void:
@@ -25,13 +26,18 @@ func attachResource(newRes: MatchResource) -> void:
 		displayResData()
 
 func displayResData() -> void:
-	var newPlayerScene: PackedScene = preload(playerBoxScebePath)
+	var newPlayerScene: PackedScene = preload(playerBoxScenePath)
 	var mapControlScene: PackedScene = preload(mapGameControlPath)
 	var newPlayerNode = newPlayerScene.instance()
-	newPlayerNode.attachResource(matchRes.playerOne)
+	newPlayerNode.attachResource(matchRes.playerOne, matchRes.playerTwo)
+	newPlayerNode.setMatchPoint(matchRes.getWins()[matchRes.playerOne])
+	playerNodes.append(newPlayerNode)
 	playerOneContainer.add_child(newPlayerNode)
 	newPlayerNode = newPlayerScene.instance()
-	newPlayerNode.attachResource(matchRes.playerTwo)
+	newPlayerNode.setMirror(true)
+	newPlayerNode.attachResource(matchRes.playerTwo, matchRes.playerOne)
+	newPlayerNode.setMatchPoint(matchRes.getWins()[matchRes.playerTwo])
+	playerNodes.append(newPlayerNode)
 	playerTwoContainer.add_child(newPlayerNode)
 	for index in range(len(matchRes.mapPool)):
 		var mapRes: MapResource = matchRes.mapPool[index]
@@ -64,12 +70,14 @@ func showNextMap():
 func playerOneWon() -> void:
 	disconnectControlSignal()
 	matchRes.addWin(matchRes.playerOne)
+	playerNodes[0].setMatchPoint(matchRes.getWins()[matchRes.playerOne])
 	showNextMap()
 	connectControlSignals()
 
 func playerTwoWon() -> void:
 	disconnectControlSignal()
 	matchRes.addWin(matchRes.playerTwo)
+	playerNodes[1].setMatchPoint(matchRes.getWins()[matchRes.playerTwo])
 	showNextMap()
 	connectControlSignals()
 

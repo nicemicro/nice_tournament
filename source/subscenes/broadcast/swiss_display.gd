@@ -19,3 +19,7 @@ func displayResData() -> void:
 		var newNode = newScene.instance()
 		newNode.addGroup([{}, {}])
 		detailContainer.add_child(newNode)
+
+func _displayGroup(grouping: Array, newNode: Control) -> void:
+	newNode.showPrevPoints(roundRes.virtualInputMult)
+	._displayGroup(grouping, newNode)

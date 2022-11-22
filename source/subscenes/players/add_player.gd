@@ -60,7 +60,7 @@ func _on_Avatar_pressed():
 func _on_FileDialog_file_selected(path):
 	var newAvatar: Image = Image.new()
 	newAvatar.load(path)
-	_avatar = newAvatar
+	_avatar = newAvatar.duplicate()
 	newAvatar.resize(250, 250)
 	var newButtonTexture: ImageTexture = ImageTexture.new()
 	newButtonTexture.create_from_image(newAvatar)

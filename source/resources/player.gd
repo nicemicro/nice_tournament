@@ -36,6 +36,22 @@ func getAvatar() -> Image:
 func getAllRaces() -> Dictionary:
 	return races.duplicate()
 
+func getReprRace() -> int:
+	var counter: Dictionary = {}
+	for race in Global.Race.values():
+		counter[race] = 0
+	for versus in races:
+		counter[races[versus]] += 1
+	for played in counter:
+		if counter[played] == 4:
+			return played
+		if counter[played] == 3:
+			return int(Global.Race.RANDOM)
+	return int(Global.Race.RANDOM)
+
+func getPlayedRaceVs(otherReprRace: int) -> int:
+	return races[otherReprRace]
+
 func getRaceName() -> String:
 	var counter: Dictionary = {}
 	for race in Global.Race.values():

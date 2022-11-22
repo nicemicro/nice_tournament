@@ -86,3 +86,35 @@ func getMatchesCount(playerOne: PlayerResource, playerTwo: PlayerResource) -> in
 				):
 					counter += 1
 	return counter
+
+func getMatches(player: PlayerResource) -> Array:
+	var matchList: Array = []
+	for level in rounds:
+		for roundRes in level:
+			for matchRes in roundRes.matchList:
+				if (
+					player in [matchRes.playerOne, matchRes.playerTwo]
+				):
+					matchList.append(matchRes)
+	return matchList
+
+func getCurrentRecord(player: PlayerResource) -> Dictionary:
+	var recordDict: Dictionary = {}
+	var reprRace: int = player.getReprRace()
+	var matchList: Array = getMatches(player)
+	for race in Global.Race.values():
+		recordDict[int(race)] = {"win": 0, "loss": 0}
+	var vsPlayer: PlayerResource
+	for matchRes in matchList:
+		var vsRace: int
+		if matchRes.playerOne == player and matchRes.playerTwo != null:
+			vsPlayer = matchRes.playerTwo
+		elif matchRes.playerTwo == player:
+			vsPlayer = matchRes.playerOne
+		else:
+			assert(matchRes.PlayerTwo == null, "Something went wrong")
+			continue
+		vsRace = vsPlayer.getPlayedRaceVs(reprRace)
+		recordDict[vsRace]["win"] += matchRes.getWins()[player]
+		recordDict[vsRace]["loss"] += matchRes.getLoss()[player]
+	return recordDict
