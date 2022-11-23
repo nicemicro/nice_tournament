@@ -1,5 +1,6 @@
 extends VBoxContainer
 
+onready var avatarsList: VBoxContainer = $PlayerList/Avatars
 onready var namesList: VBoxContainer = $PlayerList/Names
 onready var winsList: VBoxContainer = $PlayerList/Wins
 onready var colonList: VBoxContainer = $PlayerList/Colons
@@ -65,6 +66,16 @@ func _showGroup():
 				)
 			pointString = pointString + ") "
 			nameString =  pointString + nameString
+		if fullScreen:
+			var miniAvatar: Image = playerDict["player"].avatar.duplicate()
+			miniAvatar.resize(60, 60)
+			var texture: ImageTexture = ImageTexture.new()
+			texture.create_from_image(miniAvatar)
+			var avatarDisp: TextureRect = TextureRect.new()
+			avatarDisp.rect_min_size = Vector2(0, 60)
+			avatarDisp.texture = texture
+			avatarDisp.size_flags_vertical = SIZE_SHRINK_CENTER
+			avatarsList.add_child(avatarDisp)
 		_addPlayerNode(
 			nameString,
 			str(playerDict["win"]),
@@ -89,6 +100,7 @@ func _addTextLabel(text: String, parent: Control, center: bool = false) -> void:
 	textLabel.valign = Label.VALIGN_CENTER
 	if fullScreen:
 		textLabel.theme_type_variation = "LabelLarge"
+		textLabel.rect_min_size = Vector2(0, 60)
 	if center:
 		textLabel.size_flags_horizontal = SIZE_SHRINK_CENTER
 	parent.add_child(textLabel)
