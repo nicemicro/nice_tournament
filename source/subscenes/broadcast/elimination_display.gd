@@ -9,13 +9,3 @@ func attachResource(newRes: RoundResource):
 		printerr("This UI is for displaying Elimination rounds only.")
 		return
 	.attachResource(newRes)
-
-func displayResData() -> void:
-	if roundRes.isStarted():
-		.displayResData()
-		return
-	for index in roundRes.input / 2:
-		var newScene = load(groupDisplayPath)
-		var newNode = newScene.instance()
-		newNode.addGroup([{}, {}])
-		detailContainer.add_child(newNode)

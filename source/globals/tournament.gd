@@ -26,29 +26,20 @@ func _roundFinished(finishedRound: RoundResource) -> void:
 	progressTourney()
 
 func progressTourney() -> void:
-	var lastLevel: int = -1
-	for levelIndex in range(len(rounds)):
-		var level = rounds[levelIndex]
-		var allDone: bool = true
-		for roundRes in level:
-			allDone = roundRes.isOver() and allDone
-		if not allDone:
-			break
-		lastLevel = levelIndex
-	if lastLevel >= len(rounds) - 1:
-		print_debug("Seems like the tournament is over!")
-		return
-	var startedAlready: bool = true
-	for roundRes in rounds[lastLevel + 1]:
-		startedAlready = roundRes.isStarted() and startedAlready
-	if startedAlready:
-		# We already started this round, there's nothing to do for now.
-		return
 	var playersListed: Array = []
-	for roundRes in rounds[lastLevel]:
-		playersListed += roundRes.getOutPlayerList()
-	for roundRes in rounds[lastLevel + 1]:
-		playersListed = roundRes.receivePlayers(playersListed)
+	for level in rounds:
+		for roundRes in level:
+			var playerNumToSend: int = min(len(playersListed), roundRes.input)
+			var playersToSend: Array = playersListed.slice(0, playerNumToSend - 1)
+			playersListed = playersListed.slice(
+				playerNumToSend, len(playersListed) - 1
+			)
+			if not roundRes.isStarted():
+				playersListed = (
+					roundRes.receivePlayers(playersToSend) + playersListed
+				)
+		for roundRes in level:
+			playersListed += roundRes.getOutPlayerList()
 
 func availableInput(refRoundRes: RoundResource) -> int:
 	var prevRound: int = -1

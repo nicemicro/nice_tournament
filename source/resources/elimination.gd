@@ -74,14 +74,14 @@ func isOver() -> bool:
 			return false
 	return true
 
-func getOutPlayerList() -> Array:
-	if not isOver():
-		return []
+func _getOutPlayerList() -> Array:
 	var outPlayerList: Array = []
 	for matchRes in matchList:
 		outPlayerList.append(matchRes.getWinner())
 	for matchRes in matchList:
-		if (
+		if not matchRes.isOver():
+			outPlayerList.append(null)
+		elif (
 			matchRes.playerOne in outPlayerList and
 			matchRes.playerTwo != null
 		):

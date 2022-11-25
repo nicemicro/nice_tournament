@@ -17,28 +17,40 @@ margin_bottom = 956.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="PlayersLeft" type="VBoxContainer" parent="PanelContainer/Main/Container/Columns" index="0"]
-margin_right = 678.0
+[node name="Empty" type="Control" parent="PanelContainer/Main/Container/Columns" index="0"]
+margin_right = 40.0
+margin_bottom = 951.0
+rect_min_size = Vector2( 40, 40 )
+
+[node name="PlayersLeft" type="VBoxContainer" parent="PanelContainer/Main/Container/Columns" index="1"]
+margin_left = 44.0
+margin_right = 651.0
 margin_bottom = 951.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="MapPool" type="VBoxContainer" parent="PanelContainer/Main/Container/Columns" index="1"]
-margin_left = 682.0
-margin_right = 1021.0
+[node name="Empty2" type="Control" parent="PanelContainer/Main/Container/Columns" index="2"]
+margin_left = 655.0
+margin_right = 695.0
+margin_bottom = 951.0
+rect_min_size = Vector2( 40, 40 )
+
+[node name="MapPool" type="VBoxContainer" parent="PanelContainer/Main/Container/Columns" index="3"]
+margin_left = 699.0
+margin_right = 1003.0
 margin_bottom = 951.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Empty" type="Control" parent="PanelContainer/Main/Container/Columns/MapPool" index="0"]
-margin_right = 339.0
+margin_right = 304.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 20, 40 )
 
 [node name="Label" type="Label" parent="PanelContainer/Main/Container/Columns/MapPool" index="1"]
 margin_top = 44.0
-margin_right = 339.0
+margin_right = 304.0
 margin_bottom = 83.0
 size_flags_horizontal = 3
 text = "Map pool"
@@ -46,14 +58,26 @@ align = 1
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/Main/Container/Columns/MapPool" index="2"]
 margin_top = 87.0
-margin_right = 339.0
+margin_right = 304.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 0, 5 )
 
-[node name="PlayersRight" type="VBoxContainer" parent="PanelContainer/Main/Container/Columns" index="2"]
-margin_left = 1025.0
-margin_right = 1703.0
+[node name="Empty3" type="Control" parent="PanelContainer/Main/Container/Columns" index="4"]
+margin_left = 1007.0
+margin_right = 1047.0
+margin_bottom = 951.0
+rect_min_size = Vector2( 40, 40 )
+
+[node name="PlayersRight" type="VBoxContainer" parent="PanelContainer/Main/Container/Columns" index="5"]
+margin_left = 1051.0
+margin_right = 1658.0
 margin_bottom = 951.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
+
+[node name="Empty4" type="Control" parent="PanelContainer/Main/Container/Columns" index="6"]
+margin_left = 1662.0
+margin_right = 1702.0
+margin_bottom = 951.0
+rect_min_size = Vector2( 40, 40 )

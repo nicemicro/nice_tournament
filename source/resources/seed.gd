@@ -45,7 +45,7 @@ func isOver() -> bool:
 	return true
 
 func isStarted() -> bool:
-	return false
+	return true
 
 func getOutPlayerList() -> Array:
 	var outPlayers: Array = []

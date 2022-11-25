@@ -8,6 +8,7 @@ onready var lossesList: VBoxContainer = $PlayerList/Losses
 onready var openButton: TextureButton = $OpenButton
 
 var fullScreen: bool = false
+var startedMatch: bool = false
 var playerNodes: Array = []
 var groupList: Array = []
 var showPoint: bool = false
@@ -19,7 +20,7 @@ func _ready():
 	if fullScreen:
 		openButton.visible = true
 		for playerDict in groupList:
-			if len(playerDict) == 0:
+			if playerDict == null:
 				openButton.visible = false
 				break
 	if len(groupList) > 0:
@@ -33,6 +34,9 @@ func setFullScreen() -> void:
 			if len(playerDict) == 0:
 				openButton.visible = false
 				break
+
+func matchStarted() -> void:
+	startedMatch = true
 
 func showPrevPoints(NewVPM: float) -> void:
 	showPoint = true
@@ -49,7 +53,15 @@ func addGroup(newGroupList: Array) -> void:
 func _showGroup():
 	var nameString: String
 	for playerDict in groupList:
-		if len(playerDict) == 0:
+		if playerDict == null:
+			if fullScreen:
+				var texture: ImageTexture = ImageTexture.new()
+				texture.create(60, 60, Image.FORMAT_RGB8)
+				var avatarDisp: TextureRect = TextureRect.new()
+				avatarDisp.rect_min_size = Vector2(0, 60)
+				avatarDisp.texture = texture
+				avatarDisp.size_flags_vertical = SIZE_SHRINK_CENTER
+				avatarsList.add_child(avatarDisp)
 			_addPlayerNode("???", "-", "-")
 			continue
 		nameString = playerDict["player"].name
@@ -81,7 +93,7 @@ func _showGroup():
 			str(playerDict["win"]),
 			str(playerDict["loss"])
 		)
-	if len(groupList) == 1:
+	if len(groupList) == 1 or not startedMatch:
 		openButton.disabled = true
 	if len(groupList) <= 2:
 		colonList.visible = false

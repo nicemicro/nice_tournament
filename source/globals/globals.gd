@@ -171,6 +171,9 @@ func processMapPool(roundRes: RoundResource, mapDict: Dictionary) -> void:
 func processPlayers(playerDict: Dictionary) -> Array:
 	var playerList: Array = []
 	for playerId in playerDict.values():
+		if playerId == "":
+			playerList.append(null)
+			continue
 		playerList.append(players[playerId])
 	return playerList
 

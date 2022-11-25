@@ -72,13 +72,16 @@ func receivePlayers(incoming: Array) -> Array:
 		printerr("There is no map pool set, can't start this now.")
 		assert(false)
 		return incoming.duplicate()
-	if len(_players) > 0:
+	if len(_players) > 0 and not null in _players:
 		printerr("Players already set.")
 		assert(false)
 		return incoming.duplicate()
+	_players = []
 	var outgoing: Array = _receivePlayers(incoming)
+	_groupings = []
 	_generateGroupings()
-	_generateMatches()
+	if not null in _players:
+		_generateMatches()
 	return outgoing
 
 func _receivePlayers(incoming: Array) -> Array:
@@ -103,6 +106,10 @@ func _generateGroupings() -> void:
 func _generateMatches() -> void:
 	# Whenever the matches are generated, their signal "newWinRegistered" should be
 	# connected here with the "_matchChanged" function!
+	if len(matchList) > 0:
+		printerr("Can't generate mathes again")
+		assert(false)
+		return
 	for playerGroup in _groupings:
 		if len(playerGroup) == 0:
 			continue
@@ -155,6 +162,9 @@ func getGroupings() -> Array:
 	for playerGroup in _groupings:
 		var playerGroupList: Array = []
 		for playerRes in playerGroup:
+			if playerRes == null:
+				playerGroupList.append(null)
+				continue
 			var playerDict: Dictionary = {
 				"player": playerRes,
 				"win": getWins(playerRes),
@@ -188,12 +198,18 @@ func isOver() -> bool:
 	return false
 
 func isStarted() -> bool:
-	return (len(_players) > 0)
+	return (len(_players) > 0 and not null in _players)
+
+func _getOutPlayerList() -> Array:
+	return _players
 
 func getOutPlayerList() -> Array:
-	if not isOver():
-		return []
-	return _players
+	if not isStarted():
+		var provisionalList: Array = []
+		for playerRes in _players:
+			provisionalList.append(null)
+		return provisionalList
+	return _getOutPlayerList()
 
 func loadPlayersMatches(playerList: Array, newMatchList: Array) -> void:
 	if len(_players) > 0 or len(matchList) > 0:

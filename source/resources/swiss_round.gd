@@ -62,7 +62,8 @@ func _sortPlayersByPoint(playerList: Array) -> Array:
 
 func _receivePlayers(incoming: Array) -> Array:
 	var outgoing: Array  = ._receivePlayers(incoming)
-	_players = _sortPlayersByPoint(_players)
+	if not null in _players:
+		_players = _sortPlayersByPoint(_players)
 	return outgoing
 
 func _createMatchMatrix(playerList: Array) -> Array:
@@ -152,9 +153,12 @@ func isOver() -> bool:
 			return false
 	return true
 
-func getOutPlayerList() -> Array:
+func _getOutPlayerList() -> Array:
 	if not isOver():
-		return []
+		var provisionalList: Array = []
+		for playerRes in _players:
+			provisionalList.append(null)
+		return provisionalList
 	return _sortPlayersByPoint(_players)
 
 func _generateLoadedGroupings() -> void:
