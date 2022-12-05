@@ -63,6 +63,5 @@ func getSeededPlayers() -> Array:
 
 func toDict() -> Dictionary:
 	var returnDict: Dictionary = {}
-	returnDict["type"] = "seed"
 	returnDict = _toDict(returnDict)
 	return returnDict

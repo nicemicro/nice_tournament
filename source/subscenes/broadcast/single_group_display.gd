@@ -52,8 +52,8 @@ func addGroup(newGroupList: Array) -> void:
 
 func _showGroup():
 	var nameString: String
-	for playerDict in groupList:
-		if playerDict == null:
+	for player in groupList:
+		if player == null or player is String:
 			if fullScreen:
 				var texture: ImageTexture = ImageTexture.new()
 				texture.create(60, 60, Image.FORMAT_RGB8)
@@ -62,24 +62,30 @@ func _showGroup():
 				avatarDisp.texture = texture
 				avatarDisp.size_flags_vertical = SIZE_SHRINK_CENTER
 				avatarsList.add_child(avatarDisp)
-			_addPlayerNode("???", "-", "-")
+			var playerString: String
+			if player == null:
+				playerString = "???"
+			else:
+				playerString = player
+			_addPlayerNode(playerString, "-", "-")
 			continue
-		nameString = playerDict["player"].name
+		assert(player is Dictionary)
+		nameString = player["player"].name
 		if showPoint:
 			var pointString: String = "("
 			pointString = (
 				pointString +
-				str(playerDict["player"].getPoints() - playerDict["win"])
+				str(player["player"].getPoints() - player["win"])
 			)
 			if virtualPointMult > 0:
 				pointString = (
 					pointString + "+" +
-					str(playerDict["player"].virtualPoints * virtualPointMult)
+					str(player["player"].virtualPoints * virtualPointMult)
 				)
 			pointString = pointString + ") "
 			nameString =  pointString + nameString
 		if fullScreen:
-			var miniAvatar: Image = playerDict["player"].avatar.duplicate()
+			var miniAvatar: Image = player["player"].avatar.duplicate()
 			miniAvatar.resize(60, 60)
 			var texture: ImageTexture = ImageTexture.new()
 			texture.create_from_image(miniAvatar)
@@ -90,8 +96,8 @@ func _showGroup():
 			avatarsList.add_child(avatarDisp)
 		_addPlayerNode(
 			nameString,
-			str(playerDict["win"]),
-			str(playerDict["loss"])
+			str(player["win"]),
+			str(player["loss"])
 		)
 	if len(groupList) == 1 or not startedMatch:
 		openButton.disabled = true

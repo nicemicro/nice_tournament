@@ -45,7 +45,6 @@ func getNeededWins() -> Array:
 
 func toDict() -> Dictionary:
 	var returnDict: Dictionary = {}
-	returnDict["type"] = "dual"
 	returnDict = _toDict(returnDict)
 	returnDict["groupNum"] = groupNum
 	returnDict["neededWins"] = {}

@@ -4,6 +4,15 @@ extends Node
 # ie. [[seed_1], [group_matches, seed_2], [dual_tournament, seed_3], [single_elimination]]
 var rounds: Array = []
 
+var roundTypeNames: Dictionary = {
+	"dual": DualTourneyRound,
+	"elimination": EliminationRound,
+	"forward": ForwardRound,
+	"group": GroupRound,
+	"seed": SeedRound,
+	"swiss": SwissRound
+}
+
 func isPlayerSeeded(player: PlayerResource) -> bool:
 	for level in rounds:
 		for gameRound in level:
@@ -34,10 +43,10 @@ func progressTourney() -> void:
 			playersListed = playersListed.slice(
 				playerNumToSend, len(playersListed) - 1
 			)
-			if not roundRes.isStarted():
-				playersListed = (
-					roundRes.receivePlayers(playersToSend) + playersListed
-				)
+			playersListed = (
+				roundRes.receivePlayers(playersToSend) + playersListed
+			)
+		playersListed = []
 		for roundRes in level:
 			playersListed += roundRes.getOutPlayerList()
 
@@ -109,3 +118,24 @@ func getCurrentRecord(player: PlayerResource) -> Dictionary:
 		recordDict[vsRace]["win"] += matchRes.getWins()[player]
 		recordDict[vsRace]["loss"] += matchRes.getLoss()[player]
 	return recordDict
+
+func getRoundType(roundRes: RoundResource) -> String:
+	for roundName in roundTypeNames:
+		if roundRes is roundTypeNames[roundName]:
+			return roundName
+	assert(false)
+	return ""
+
+func getRoundName(roundRes: RoundResource) -> String:
+	var roundIndex: int
+	for levelIndex in range(len(rounds)):
+		roundIndex = rounds[levelIndex].find(roundRes)
+		if roundIndex == -1:
+			continue
+		var roundName: String = (
+			getRoundType(roundRes) + "-" +
+			str(roundIndex + 1)
+		)
+		return roundName
+	return ""
+

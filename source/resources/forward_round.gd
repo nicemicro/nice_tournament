@@ -20,6 +20,5 @@ func receivePlayers(incoming: Array) -> Array:
 
 func toDict() -> Dictionary:
 	var returnDict: Dictionary = {}
-	returnDict["type"] = "forward"
 	returnDict = _toDict(returnDict)
 	return returnDict
