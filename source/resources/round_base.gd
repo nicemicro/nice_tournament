@@ -74,10 +74,12 @@ func _allPlayerReceived() -> bool:
 			return false
 	return true
 
+func _validMapPool() -> bool:
+	return len(mapPool) > 0
 # Receives an array of players; returns the array of players that don't fit
 # into this round based on the "input" variable
 func receivePlayers(incoming: Array) -> Array:
-	if len(mapPool) == 0:
+	if not _validMapPool():
 		printerr("There is no map pool set, can't start this now.")
 		assert(false)
 		return incoming.duplicate()
@@ -224,7 +226,7 @@ func _getProvisinalOutPlayerList() -> Array:
 	var name: String = Tournament.getRoundName(self)
 	for playerIndex in range(len(_players)):
 		provisionalList.append(
-			name + "/" + str(playerIndex)
+			name + "/" + str(playerIndex + 1)
 		)
 	return provisionalList
 
@@ -259,7 +261,8 @@ func _toDict(data: Dictionary) -> Dictionary:
 		if _players[playerIndex] is PlayerResource:
 			playerDict[playerIndex] = Global.getPlayerId(_players[playerIndex])
 		else:
-			playerDict[playerIndex] = ""
+			playerDict = {}
+			break
 	for matchIndex in range(len(matchList)):
 		var matchRes: MatchResource = matchList[matchIndex]
 		matchDict[matchIndex] = matchRes.toDict()

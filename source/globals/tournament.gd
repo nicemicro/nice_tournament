@@ -68,11 +68,17 @@ func availableInput(refRoundRes: RoundResource) -> int:
 		sumOtherIn += thisRoundRes.input
 	return sumPrevOut - sumOtherIn
 
-func getPoints(playerRes: PlayerResource) -> int:
+func getPoints(playerRes: PlayerResource, untilRound: int) -> int:
+	assert(untilRound < len(rounds))
 	var counter: int = 0
-	for level in rounds:
+	var roundNum: int = 0
+	if untilRound == -1:
+		untilRound = len(rounds)
+	while roundNum < untilRound:
+		var level: Array = rounds[roundNum]
 		for roundRes in level:
 			counter += roundRes.getWins(playerRes)
+		roundNum += 1
 	return counter
 
 func getMatchesCount(playerOne: PlayerResource, playerTwo: PlayerResource) -> int:
@@ -112,7 +118,7 @@ func getCurrentRecord(player: PlayerResource) -> Dictionary:
 		elif matchRes.playerTwo == player:
 			vsPlayer = matchRes.playerOne
 		else:
-			assert(matchRes.PlayerTwo == null, "Something went wrong")
+			assert(matchRes.playerTwo == null, "Something went wrong")
 			continue
 		vsRace = vsPlayer.getPlayedRaceVs(reprRace)
 		recordDict[vsRace]["win"] += matchRes.getWins()[player]
@@ -139,3 +145,8 @@ func getRoundName(roundRes: RoundResource) -> String:
 		return roundName
 	return ""
 
+func getLevelNum(roundRes: RoundResource) -> int:
+	for index in range(len(rounds)):
+		if roundRes in rounds[index]:
+			return index
+	return -1

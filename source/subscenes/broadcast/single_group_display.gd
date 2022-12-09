@@ -11,6 +11,7 @@ var fullScreen: bool = false
 var startedMatch: bool = false
 var playerNodes: Array = []
 var groupList: Array = []
+var levelNum: int = 0
 var showPoint: bool = false
 var virtualPointMult: float = 0
 
@@ -42,16 +43,19 @@ func showPrevPoints(NewVPM: float) -> void:
 	showPoint = true
 	virtualPointMult = NewVPM
 
-func addGroup(newGroupList: Array) -> void:
+func setUp(newGroupList: Array, newLevel: int) -> void:
 	if len(groupList) > 0:
 		printerr("Can't change this on the fly.")
 		return
 	groupList = newGroupList
+	levelNum = newLevel
 	if namesList != null:
 		_showGroup()
 
 func _showGroup():
 	var nameString: String
+	if fullScreen:
+		size_flags_vertical = SIZE_EXPAND_FILL
 	for player in groupList:
 		if player == null or player is String:
 			if fullScreen:
@@ -75,7 +79,7 @@ func _showGroup():
 			var pointString: String = "("
 			pointString = (
 				pointString +
-				str(player["player"].getPoints() - player["win"])
+				str(player["player"].getPoints(levelNum))
 			)
 			if virtualPointMult > 0:
 				pointString = (

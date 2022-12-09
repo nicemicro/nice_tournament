@@ -10,16 +10,6 @@ func attachResource(newRes: RoundResource):
 		return
 	.attachResource(newRes)
 
-func displayResData() -> void:
-	if roundRes.isStarted():
-		.displayResData()
-		return
-	for index in roundRes.input / 2:
-		var newScene = load(groupDisplayPath)
-		var newNode = newScene.instance()
-		newNode.addGroup([{}, {}])
-		detailContainer.add_child(newNode)
-
 func _displayGroup(grouping: Array, newNode: Control) -> void:
 	newNode.showPrevPoints(roundRes.virtualInputMult)
 	._displayGroup(grouping, newNode)

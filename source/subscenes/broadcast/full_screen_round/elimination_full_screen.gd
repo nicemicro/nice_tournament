@@ -37,7 +37,7 @@ func _addGroupNodes():
 		newNode.setFullScreen()
 		if roundRes.isStarted():
 			newNode.matchStarted()
-		newNode.addGroup(grouping)
+		newNode.setUp(grouping, Tournament.getLevelNum(roundRes))
 		container.add_child(newNode)
 		index += 1
 	return
