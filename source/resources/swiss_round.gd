@@ -35,14 +35,14 @@ class _customSorter:
 			aMax = -1.0
 		else:
 			for player in a:
-				if player.getPoints() > aMax:
-					aMax = player.getPoints()
+				if player.getPoints(-1) > aMax:
+					aMax = player.getPoints(-1)
 		if null in b:
 			bMax = -1.0
 		else:
 			for player in b:
-				if player.getPoints() > bMax:
-					bMax = player.getPoints()
+				if player.getPoints(-1) > bMax:
+					bMax = player.getPoints(-1)
 		return aMax > bMax
 
 func _sortPlayersByPoint(playerList: Array) -> Array:
@@ -52,7 +52,7 @@ func _sortPlayersByPoint(playerList: Array) -> Array:
 		var playerDict: Dictionary = {}
 		playerDict["player"] = playerRes
 		playerDict["points"] = (
-			playerRes.getPoints() + playerRes.virtualPoints * virtualInputMult
+			playerRes.getPoints(-1) + playerRes.virtualPoints * virtualInputMult
 		)
 		playerCopy.append(playerDict)
 	playerCopy.sort_custom(_customSorter, "sortByPointsDesc")
@@ -62,7 +62,13 @@ func _sortPlayersByPoint(playerList: Array) -> Array:
 
 func _receivePlayers(incoming: Array) -> Array:
 	var outgoing: Array  = ._receivePlayers(incoming)
-	_players = _sortPlayersByPoint(_players)
+	if _allPlayerReceived():
+		_players = _sortPlayersByPoint(_players)
+	else:
+		var playerNum: int = len(_players)
+		_players = []
+		for index in range(playerNum):
+			_players.append(null)
 	return outgoing
 
 func _createMatchMatrix(playerList: Array) -> Array:
@@ -71,15 +77,15 @@ func _createMatchMatrix(playerList: Array) -> Array:
 		var pointList: Array = []
 		for index2 in range(index):
 			var playerOne: PlayerResource = playerList[index]
-			var pointOne: float = 0
+			var pointOne: float = -1
 			if playerOne != null:
 				pointOne = (
-					playerOne.getPoints() +
+					playerOne.getPoints(-1) +
 					playerOne.virtualPoints * virtualInputMult
 				)
 			var playerTwo: PlayerResource = playerList[index2]
 			var pointTwo: float = (
-				playerTwo.getPoints() +
+				playerTwo.getPoints(-1) +
 				playerTwo.virtualPoints * virtualInputMult
 			)
 			var badnessPoint: float = 0.0
@@ -117,6 +123,9 @@ func _findAllPairings(playerList: Array, pointMatrix: Array, ignore: int) -> Arr
 	return comboList
 
 func _generateGroupings() -> void:
+	if not _allPlayerReceived():
+		._generateGroupings()
+		return
 	var playerList = _players.duplicate()
 	if len(playerList) % 2 == 1:
 		playerList.append(null)
@@ -152,9 +161,9 @@ func isOver() -> bool:
 			return false
 	return true
 
-func getOutPlayerList() -> Array:
+func _getOutPlayerList() -> Array:
 	if not isOver():
-		return []
+		return _getProvisinalOutPlayerList()
 	return _sortPlayersByPoint(_players)
 
 func _generateLoadedGroupings() -> void:

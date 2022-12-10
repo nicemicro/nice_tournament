@@ -65,20 +65,36 @@ func moveMap(mapRes: MapResource, position: int) -> void:
 	mapPool[index] = mapPool[position]
 	mapPool[position] = mapRes
 
+func _allPlayerReceived() -> bool:
+	if len(_players) == 0:
+		return false
+	for playerRes in _players:
+		if playerRes == null or not playerRes is PlayerResource:
+			assert(playerRes == null or playerRes is String)
+			return false
+	return true
+
+func _validMapPool() -> bool:
+	return len(mapPool) > 0
 # Receives an array of players; returns the array of players that don't fit
 # into this round based on the "input" variable
 func receivePlayers(incoming: Array) -> Array:
-	if len(mapPool) == 0:
+	if not _validMapPool():
 		printerr("There is no map pool set, can't start this now.")
 		assert(false)
 		return incoming.duplicate()
-	if len(_players) > 0:
-		printerr("Players already set.")
-		assert(false)
-		return incoming.duplicate()
+	if _allPlayerReceived():
+		var outgoing: Array = []
+		for playerRes in incoming:
+			if not playerRes in _players:
+				outgoing.append(playerRes)
+		return outgoing
+	_players = []
 	var outgoing: Array = _receivePlayers(incoming)
+	_groupings = []
 	_generateGroupings()
-	_generateMatches()
+	if _allPlayerReceived():
+		_generateMatches()
 	return outgoing
 
 func _receivePlayers(incoming: Array) -> Array:
@@ -103,6 +119,10 @@ func _generateGroupings() -> void:
 func _generateMatches() -> void:
 	# Whenever the matches are generated, their signal "newWinRegistered" should be
 	# connected here with the "_matchChanged" function!
+	if len(matchList) > 0:
+		printerr("Can't generate mathes again")
+		assert(false)
+		return
 	for playerGroup in _groupings:
 		if len(playerGroup) == 0:
 			continue
@@ -154,12 +174,18 @@ func getGroupings() -> Array:
 	var groupList: Array = []
 	for playerGroup in _groupings:
 		var playerGroupList: Array = []
-		for playerRes in playerGroup:
-			var playerDict: Dictionary = {
-				"player": playerRes,
-				"win": getWins(playerRes),
-				"loss": getLoss(playerRes)
-			}
+		for player in playerGroup:
+			if player == null:
+				playerGroupList.append(null)
+				continue
+			if player is String:
+				playerGroupList.append(player)
+				continue
+			var playerDict: Dictionary = {}
+			if player is PlayerResource:
+				playerDict["player"] = player
+				playerDict["win"] = getWins(player)
+				playerDict["loss"] = getLoss(player)
 			playerGroupList.append(playerDict)
 		groupList.append(playerGroupList)
 	return groupList
@@ -188,12 +214,29 @@ func isOver() -> bool:
 	return false
 
 func isStarted() -> bool:
-	return (len(_players) > 0)
+	if len(_players) == 0:
+		return false
+	for player in _players:
+		if player is String or player == null:
+			return false
+	return true
+
+func _getProvisinalOutPlayerList() -> Array:
+	var provisionalList: Array = []
+	var name: String = Tournament.getRoundName(self)
+	for playerIndex in range(len(_players)):
+		provisionalList.append(
+			name + "/" + str(playerIndex + 1)
+		)
+	return provisionalList
+
+func _getOutPlayerList() -> Array:
+	return _players
 
 func getOutPlayerList() -> Array:
-	if not isOver():
-		return []
-	return _players
+	if not isStarted():
+		return _getProvisinalOutPlayerList()
+	return _getOutPlayerList()
 
 func loadPlayersMatches(playerList: Array, newMatchList: Array) -> void:
 	if len(_players) > 0 or len(matchList) > 0:
@@ -215,11 +258,15 @@ func _toDict(data: Dictionary) -> Dictionary:
 		var map: MapResource = mapPool[mapIndex]
 		mapPoolDict[mapIndex] = Global.getMapId(map)
 	for playerIndex in range(len(_players)):
-		var player: PlayerResource = _players[playerIndex]
-		playerDict[playerIndex] = Global.getPlayerId(player)
+		if _players[playerIndex] is PlayerResource:
+			playerDict[playerIndex] = Global.getPlayerId(_players[playerIndex])
+		else:
+			playerDict = {}
+			break
 	for matchIndex in range(len(matchList)):
 		var matchRes: MatchResource = matchList[matchIndex]
 		matchDict[matchIndex] = matchRes.toDict()
+	data["type"] = Tournament.getRoundType(self)
 	data["input"] = input
 	data["output"] = output
 	data["virtualInputMult"] = virtualInputMult

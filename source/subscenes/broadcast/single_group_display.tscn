@@ -13,9 +13,9 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = -10.0
 margin_bottom = -10.0
-rect_min_size = Vector2( 300, 100 )
+rect_min_size = Vector2( 300, 40 )
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 4
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
@@ -64,5 +64,6 @@ margin_top = 4.0
 margin_right = 1900.0
 margin_bottom = 14.0
 rect_min_size = Vector2( 30, 10 )
+size_flags_vertical = 4
 
 [connection signal="pressed" from="OpenButton" to="." method="_on_OpenButton_pressed"]

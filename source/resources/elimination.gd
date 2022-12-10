@@ -74,14 +74,31 @@ func isOver() -> bool:
 			return false
 	return true
 
-func getOutPlayerList() -> Array:
-	if not isOver():
-		return []
+func _getProvisinalOutPlayerList() -> Array:
+	var provisionalList: Array = []
+	var name: String = Tournament.getRoundName(self)
+	for groupIndex in range(len(_groupings)):
+		provisionalList.append(name + "/" + str(groupIndex + 1) + " W")
+	for groupIndex in range(len(_groupings)):
+		provisionalList.append(name + "/" + str(groupIndex + 1) + " L")
+	return provisionalList
+
+func _getOutPlayerList() -> Array:
 	var outPlayerList: Array = []
+	var name: String = Tournament.getRoundName(self)
 	for matchRes in matchList:
-		outPlayerList.append(matchRes.getWinner())
+		if matchRes.isOver():
+			outPlayerList.append(matchRes.getWinner())
+		else:
+			outPlayerList.append(
+				name + "/" + str(matchList.find(matchRes) + 1) + " W"
+			)
 	for matchRes in matchList:
-		if (
+		if not matchRes.isOver():
+			outPlayerList.append(
+				name + "/" + str(matchList.find(matchRes) + 1) + " L"
+			)
+		elif (
 			matchRes.playerOne in outPlayerList and
 			matchRes.playerTwo != null
 		):
@@ -95,11 +112,13 @@ func getOutPlayerList() -> Array:
 func _generateLoadedGroupings() -> void:
 	var playersCopy: Array = _players.duplicate()
 	for matchRes in matchList:
+		if matchRes.playerTwo == null:
+			_groupings.append([matchRes.playerOne])
+			continue
 		_groupings.append([matchRes.playerOne, matchRes.playerTwo])
 
 func toDict() -> Dictionary:
 	var returnDict: Dictionary = {}
-	returnDict["type"] = "elimination"
 	returnDict = _toDict(returnDict)
 	returnDict["pairNum"] = pairNum
 	returnDict["neededWins"] = neededWins

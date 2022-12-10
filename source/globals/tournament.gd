@@ -4,6 +4,15 @@ extends Node
 # ie. [[seed_1], [group_matches, seed_2], [dual_tournament, seed_3], [single_elimination]]
 var rounds: Array = []
 
+var roundTypeNames: Dictionary = {
+	"dual": DualTourneyRound,
+	"elimination": EliminationRound,
+	"forward": ForwardRound,
+	"group": GroupRound,
+	"seed": SeedRound,
+	"swiss": SwissRound
+}
+
 func isPlayerSeeded(player: PlayerResource) -> bool:
 	for level in rounds:
 		for gameRound in level:
@@ -26,29 +35,20 @@ func _roundFinished(finishedRound: RoundResource) -> void:
 	progressTourney()
 
 func progressTourney() -> void:
-	var lastLevel: int = -1
-	for levelIndex in range(len(rounds)):
-		var level = rounds[levelIndex]
-		var allDone: bool = true
-		for roundRes in level:
-			allDone = roundRes.isOver() and allDone
-		if not allDone:
-			break
-		lastLevel = levelIndex
-	if lastLevel >= len(rounds) - 1:
-		print_debug("Seems like the tournament is over!")
-		return
-	var startedAlready: bool = true
-	for roundRes in rounds[lastLevel + 1]:
-		startedAlready = roundRes.isStarted() and startedAlready
-	if startedAlready:
-		# We already started this round, there's nothing to do for now.
-		return
 	var playersListed: Array = []
-	for roundRes in rounds[lastLevel]:
-		playersListed += roundRes.getOutPlayerList()
-	for roundRes in rounds[lastLevel + 1]:
-		playersListed = roundRes.receivePlayers(playersListed)
+	for level in rounds:
+		for roundRes in level:
+			var playerNumToSend: int = min(len(playersListed), roundRes.input)
+			var playersToSend: Array = playersListed.slice(0, playerNumToSend - 1)
+			playersListed = playersListed.slice(
+				playerNumToSend, len(playersListed) - 1
+			)
+			playersListed = (
+				roundRes.receivePlayers(playersToSend) + playersListed
+			)
+		playersListed = []
+		for roundRes in level:
+			playersListed += roundRes.getOutPlayerList()
 
 func availableInput(refRoundRes: RoundResource) -> int:
 	var prevRound: int = -1
@@ -68,11 +68,17 @@ func availableInput(refRoundRes: RoundResource) -> int:
 		sumOtherIn += thisRoundRes.input
 	return sumPrevOut - sumOtherIn
 
-func getPoints(playerRes: PlayerResource) -> int:
+func getPoints(playerRes: PlayerResource, untilRound: int) -> int:
+	assert(untilRound < len(rounds))
 	var counter: int = 0
-	for level in rounds:
+	var roundNum: int = 0
+	if untilRound == -1:
+		untilRound = len(rounds)
+	while roundNum < untilRound:
+		var level: Array = rounds[roundNum]
 		for roundRes in level:
 			counter += roundRes.getWins(playerRes)
+		roundNum += 1
 	return counter
 
 func getMatchesCount(playerOne: PlayerResource, playerTwo: PlayerResource) -> int:
@@ -112,9 +118,35 @@ func getCurrentRecord(player: PlayerResource) -> Dictionary:
 		elif matchRes.playerTwo == player:
 			vsPlayer = matchRes.playerOne
 		else:
-			assert(matchRes.PlayerTwo == null, "Something went wrong")
+			assert(matchRes.playerTwo == null, "Something went wrong")
 			continue
 		vsRace = vsPlayer.getPlayedRaceVs(reprRace)
 		recordDict[vsRace]["win"] += matchRes.getWins()[player]
 		recordDict[vsRace]["loss"] += matchRes.getLoss()[player]
 	return recordDict
+
+func getRoundType(roundRes: RoundResource) -> String:
+	for roundName in roundTypeNames:
+		if roundRes is roundTypeNames[roundName]:
+			return roundName
+	assert(false)
+	return ""
+
+func getRoundName(roundRes: RoundResource) -> String:
+	var roundIndex: int
+	for levelIndex in range(len(rounds)):
+		roundIndex = rounds[levelIndex].find(roundRes)
+		if roundIndex == -1:
+			continue
+		var roundName: String = (
+			getRoundType(roundRes) + "-" +
+			str(roundIndex + 1)
+		)
+		return roundName
+	return ""
+
+func getLevelNum(roundRes: RoundResource) -> int:
+	for index in range(len(rounds)):
+		if roundRes in rounds[index]:
+			return index
+	return -1

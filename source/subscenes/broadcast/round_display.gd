@@ -25,7 +25,8 @@ func displayResData() -> void:
 		_displayGroup(grouping, newNode)
 
 func _displayGroup(grouping: Array, newNode: Control) -> void:
-	newNode.addGroup(grouping)
+	var levelNum: int = Tournament.getLevelNum(roundRes)
+	newNode.setUp(grouping, levelNum)
 	detailContainer.add_child(newNode)
 
 func _on_OpenButton_pressed() -> void:

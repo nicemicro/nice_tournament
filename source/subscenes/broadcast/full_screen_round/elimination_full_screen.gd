@@ -26,30 +26,21 @@ func displayResData():
 	_addGroupNodes()
 
 func _addGroupNodes():
-	if roundRes.isStarted():
-		var index: int = 0
-		for grouping in roundRes.getGroupings():
-			var newNode = _createGroupDisplayScene()
-			var container: VBoxContainer
-			if index % 2 == 0:
-				container = leftPlayerCol
-			else:
-				container = rightPlayerCol
-			newNode.addGroup(grouping)
-			newNode.setFullScreen()
-			container.add_child(newNode)
-			index += 1
-		return
-	for index in roundRes.input / 2:
+	var index: int = 0
+	for grouping in roundRes.getGroupings():
 		var newNode = _createGroupDisplayScene()
 		var container: VBoxContainer
 		if index % 2 == 0:
 			container = leftPlayerCol
 		else:
 			container = rightPlayerCol
-		newNode.addGroup([{}, {}])
 		newNode.setFullScreen()
+		if roundRes.isStarted():
+			newNode.matchStarted()
+		newNode.setUp(grouping, Tournament.getLevelNum(roundRes))
 		container.add_child(newNode)
+		index += 1
+	return
 
 func refreshResData() -> void:
 	for node in leftPlayerCol.get_children():

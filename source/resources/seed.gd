@@ -45,7 +45,7 @@ func isOver() -> bool:
 	return true
 
 func isStarted() -> bool:
-	return false
+	return true
 
 func getOutPlayerList() -> Array:
 	var outPlayers: Array = []
@@ -63,6 +63,5 @@ func getSeededPlayers() -> Array:
 
 func toDict() -> Dictionary:
 	var returnDict: Dictionary = {}
-	returnDict["type"] = "seed"
 	returnDict = _toDict(returnDict)
 	return returnDict
