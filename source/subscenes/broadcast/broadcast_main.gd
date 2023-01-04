@@ -13,6 +13,7 @@ const swissFullscreenPath: String = "res://subscenes/broadcast/full_screen_round
 const eliminationScenePath: String = "res://subscenes/broadcast/elimination_display.tscn"
 const eliminationFullscreenPath: String = "res://subscenes/broadcast/full_screen_round/elimination_full_screen.tscn"
 const forwardPlayerScenePath: String = "res://subscenes/broadcast/forward_display.tscn"
+const finalResultScreenPath: String = "res://subscenes/broadcast/end_result_display.tscn"
 
 var roundContainers: Array = []
 var roundNumberLabels: Array = []
@@ -28,7 +29,7 @@ func _ready() -> void:
 	roundNumberLabels.append($Counter/Count3/Panel/Label)
 
 func start() -> void:
-	fwdButton.disabled = len(Tournament.rounds) <= roundStart + 3
+	fwdButton.disabled = len(Tournament.rounds) <= roundStart + 2
 	backButton.disabled = roundStart <= 0
 	var roundEnd = min(roundStart + 3, len(Tournament.rounds))
 	var newScene
@@ -54,6 +55,12 @@ func start() -> void:
 			roundScene.attachResource(roundRes)
 			roundScene.connect("openFullScreen", self, "openNewSubscreen")
 			roundContainers[levelNum-roundStart].add_child(roundScene)
+	if roundStart + 2 >= len(Tournament.rounds):
+		newScene = preload(finalResultScreenPath)
+		var roundScene = newScene.instance()
+		roundScene.attachResource(Tournament.endResult)
+		roundContainers[2].add_child(roundScene)
+		roundNumberLabels[2].text = ""
 
 func openNewSubscreen(roundRes: RoundResource) -> void:
 	var newScene
@@ -85,5 +92,5 @@ func _on_GoBackButton_pressed():
 	start()
 
 func _on_GoForwardButton_pressed():
-	roundStart = min(roundStart + 1, len(Tournament.rounds) - 3)
+	roundStart = min(roundStart + 1, len(Tournament.rounds) - 2)
 	start()

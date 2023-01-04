@@ -48,11 +48,13 @@ class _customSorter:
 func _sortPlayersByPoint(playerList: Array) -> Array:
 	var playerCopy: Array = []
 	var orderedPlayerList: Array = []
+	var currentRound: int = Tournament.getLevelNum(self)
 	for playerRes in playerList:
 		var playerDict: Dictionary = {}
 		playerDict["player"] = playerRes
 		playerDict["points"] = (
-			playerRes.getPoints(-1) + playerRes.virtualPoints * virtualInputMult
+			playerRes.getPoints(currentRound + 1) +
+			playerRes.virtualPoints * virtualInputMult
 		)
 		playerCopy.append(playerDict)
 	playerCopy.sort_custom(_customSorter, "sortByPointsDesc")

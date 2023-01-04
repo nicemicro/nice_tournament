@@ -3,6 +3,7 @@ extends Node
 # Rounds: an array of arrays. Each array is a level of parallel rounds.
 # ie. [[seed_1], [group_matches, seed_2], [dual_tournament, seed_3], [single_elimination]]
 var rounds: Array = []
+var endResult: EndResultRound
 
 var roundTypeNames: Dictionary = {
 	"dual": DualTourneyRound,
@@ -34,7 +35,15 @@ func addRound(newRound: RoundResource, level: int) -> bool:
 func _roundFinished(finishedRound: RoundResource) -> void:
 	progressTourney()
 
+func addRoundNum(playersListed: Array, prefix: String):
+	for index in range(len(playersListed)):
+		if playersListed[index] is String:
+			playersListed[index] = (
+				prefix + "-" + playersListed[index]
+			)
+
 func progressTourney() -> void:
+	endResult = EndResultRound.new()
 	var playersListed: Array = []
 	for level in rounds:
 		for roundRes in level:
@@ -46,9 +55,13 @@ func progressTourney() -> void:
 			playersListed = (
 				roundRes.receivePlayers(playersToSend) + playersListed
 			)
+		addRoundNum(playersListed, str(rounds.find(level) - 1))
+		endResult.receivePlayers(playersListed)
 		playersListed = []
 		for roundRes in level:
 			playersListed += roundRes.getOutPlayerList()
+	addRoundNum(playersListed, str(len(rounds)-1))
+	endResult.receivePlayers(playersListed)
 
 func availableInput(refRoundRes: RoundResource) -> int:
 	var prevRound: int = -1
