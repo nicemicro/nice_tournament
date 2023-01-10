@@ -94,6 +94,25 @@ func getPoints(playerRes: PlayerResource, untilRound: int) -> int:
 		roundNum += 1
 	return counter
 
+func getOpponentPointSum(playerRes: PlayerResource, untilRound: int) -> int:
+	assert(untilRound < len(rounds))
+	var counter: int = 0
+	var matchList: Array = getMatches(playerRes, untilRound)
+	for matchRes in matchList:
+		var opponent: PlayerResource
+		if matchRes.playerOne == playerRes and matchRes.playerTwo != null:
+			opponent = matchRes.playerTwo
+		elif matchRes.playerTwo == playerRes:
+			opponent = matchRes.playerOne
+		else:
+			assert(
+				matchRes.playerTwo == null,
+				"This match is irrelevant for this player"
+			)
+			continue
+		counter += getPoints(opponent, untilRound)
+	return counter
+
 func getMatchesCount(playerOne: PlayerResource, playerTwo: PlayerResource) -> int:
 	var counter: int = 0
 	for level in rounds:
@@ -106,15 +125,21 @@ func getMatchesCount(playerOne: PlayerResource, playerTwo: PlayerResource) -> in
 					counter += 1
 	return counter
 
-func getMatches(player: PlayerResource) -> Array:
+func getMatches(player: PlayerResource, untilRound: int = -1) -> Array:
+	assert(untilRound < len(rounds))
 	var matchList: Array = []
-	for level in rounds:
+	var roundNum: int = 0
+	if untilRound == -1:
+		untilRound = len(rounds)
+	while roundNum < untilRound:
+		var level: Array = rounds[roundNum]
 		for roundRes in level:
 			for matchRes in roundRes.matchList:
 				if (
 					player in [matchRes.playerOne, matchRes.playerTwo]
 				):
 					matchList.append(matchRes)
+		roundNum += 1
 	return matchList
 
 func getCurrentRecord(player: PlayerResource) -> Dictionary:

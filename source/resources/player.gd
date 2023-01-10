@@ -82,6 +82,9 @@ func recordVs(race: int, win: bool) -> int:
 func getPoints(untilRound: int) -> int:
 	return Tournament.getPoints(self, untilRound)
 
+func getOpponentPointSum(untilRound: int) -> int:
+	return Tournament.getOpponentPointSum(self, untilRound)
+
 func getVetodMaps() -> MapResource:
 	return mapVeto
 

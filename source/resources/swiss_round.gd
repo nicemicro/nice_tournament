@@ -23,7 +23,13 @@ func getNeededWins() -> int:
 
 class _customSorter:
 	static func sortByPointsDesc(a, b):
-		return (a["points"] > b["points"])
+		if a["points"] > b["points"]:
+			return true
+		if a["points"] < b["points"]:
+			return false
+		if not "opponentPoints" in a or not "opponentPoints" in b:
+			return false
+		return (a["opponentPoints"] > b["opponentPoints"])
 
 	static func sortByPointsAsc(a, b):
 		return (a["points"] < b["points"])
@@ -45,7 +51,7 @@ class _customSorter:
 					bMax = player.getPoints(-1)
 		return aMax > bMax
 
-func _sortPlayersByPoint(playerList: Array) -> Array:
+func _sortPlayersByPoint(playerList: Array, noVirtPts: bool = false) -> Array:
 	var playerCopy: Array = []
 	var orderedPlayerList: Array = []
 	var currentRound: int = Tournament.getLevelNum(self)
@@ -53,8 +59,12 @@ func _sortPlayersByPoint(playerList: Array) -> Array:
 		var playerDict: Dictionary = {}
 		playerDict["player"] = playerRes
 		playerDict["points"] = (
-			playerRes.getPoints(currentRound + 1) +
-			playerRes.virtualPoints * virtualInputMult
+			playerRes.getPoints(currentRound + 1)
+		)
+		if not noVirtPts:
+			playerDict["points"] += playerRes.virtualPoints * virtualInputMult
+		playerDict["opponentPoints"] = (
+			playerRes.getOpponentPointSum(currentRound + 1)
 		)
 		playerCopy.append(playerDict)
 	playerCopy.sort_custom(_customSorter, "sortByPointsDesc")
@@ -71,6 +81,7 @@ func _receivePlayers(incoming: Array) -> Array:
 		_players = []
 		for index in range(playerNum):
 			_players.append(null)
+			outgoing.pop_front()
 	return outgoing
 
 func _createMatchMatrix(playerList: Array) -> Array:
@@ -166,7 +177,7 @@ func isOver() -> bool:
 func _getOutPlayerList() -> Array:
 	if not isOver():
 		return _getProvisinalOutPlayerList()
-	return _sortPlayersByPoint(_players)
+	return _sortPlayersByPoint(_players, true)
 
 func _generateLoadedGroupings() -> void:
 	var playersCopy: Array = _players.duplicate()
