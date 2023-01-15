@@ -27,6 +27,11 @@ class _customSorter:
 			return true
 		if a["points"] < b["points"]:
 			return false
+		if "gameNumber" in a and "gameNumber" in b:
+			if a["gameNumber"] < b["gameNumber"]:
+				return true
+			if a["gameNumber"] > b["gameNumber"]:
+				return false
 		if not "opponentPoints" in a or not "opponentPoints" in b:
 			return false
 		return (a["opponentPoints"] > b["opponentPoints"])
@@ -66,6 +71,7 @@ func _sortPlayersByPoint(playerList: Array, noVirtPts: bool = false) -> Array:
 		playerDict["opponentPoints"] = (
 			playerRes.getOpponentPointSum(currentRound + 1)
 		)
+		playerDict["gameNumber"] = playerRes.getGameNumber(currentRound + 1)
 		playerCopy.append(playerDict)
 	playerCopy.sort_custom(_customSorter, "sortByPointsDesc")
 	for playerDict in playerCopy:
@@ -74,9 +80,7 @@ func _sortPlayersByPoint(playerList: Array, noVirtPts: bool = false) -> Array:
 
 func _receivePlayers(incoming: Array) -> Array:
 	var outgoing: Array  = ._receivePlayers(incoming)
-	if _allPlayerReceived():
-		_players = _sortPlayersByPoint(_players)
-	else:
+	if not _allPlayerReceived():
 		var playerNum: int = len(_players)
 		_players = []
 		for index in range(playerNum):
@@ -85,6 +89,7 @@ func _receivePlayers(incoming: Array) -> Array:
 	return outgoing
 
 func _createMatchMatrix(playerList: Array) -> Array:
+	var currentRound: int = Tournament.getLevelNum(self)
 	var pointMatrix: Array = []
 	for index in range(len(playerList)):
 		var pointList: Array = []
@@ -93,17 +98,18 @@ func _createMatchMatrix(playerList: Array) -> Array:
 			var pointOne: float = -1
 			if playerOne != null:
 				pointOne = (
-					playerOne.getPoints(-1) +
+					playerOne.getPoints(currentRound + 1) +
 					playerOne.virtualPoints * virtualInputMult
 				)
 			var playerTwo: PlayerResource = playerList[index2]
 			var pointTwo: float = (
-				playerTwo.getPoints(-1) +
+				playerTwo.getPoints(currentRound + 1) +
 				playerTwo.virtualPoints * virtualInputMult
 			)
 			var badnessPoint: float = 0.0
 			badnessPoint += Tournament.getMatchesCount(playerOne, playerTwo) * 1000
 			badnessPoint += (pointOne - pointTwo) * (pointOne - pointTwo)
+			badnessPoint += float(index - index2) / 1000
 			pointList.append(badnessPoint)
 		pointMatrix.append(pointList)
 	return pointMatrix

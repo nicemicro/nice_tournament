@@ -205,6 +205,13 @@ func getLoss(playerRes: PlayerResource) -> int:
 			winCount += matchRes.getLoss()[playerRes]
 	return winCount
 
+func getMatchPlayed(playerRes: PlayerResource) -> int:
+	var count: int = 0
+	for matchRes in matchList:
+		if matchRes.playerOne == playerRes or matchRes.playerTwo == playerRes:
+			count += matchRes.getPlayedRounds()
+	return count
+
 func _matchChanged(changeMatch: MatchResource) -> void:
 	if isOver():
 		emit_signal("roundFinished", self)

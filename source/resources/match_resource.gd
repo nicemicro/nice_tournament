@@ -22,6 +22,12 @@ func _init(newPlayerOne: PlayerResource, newPlayerTwo: PlayerResource, newMaps: 
 	mapPool = newMaps.duplicate()
 	results = []
 
+func getPlayedRounds() -> int:
+	var count: int = 0
+	for result in results:
+		count += 1
+	return count
+
 func getWins() -> Dictionary:
 	if playerTwo == null:
 		return {playerOne: (len(mapPool) + 1) / 2}
