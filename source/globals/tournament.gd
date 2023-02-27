@@ -45,6 +45,7 @@ func addRoundNum(playersListed: Array, prefix: String):
 func progressTourney() -> void:
 	endResult = EndResultRound.new()
 	var playersListed: Array = []
+	var playersFromRound: Dictionary = {}
 	for level in rounds:
 		for roundRes in level:
 			var playerNumToSend: int = min(len(playersListed), roundRes.input)
@@ -55,13 +56,16 @@ func progressTourney() -> void:
 			playersListed = (
 				roundRes.receivePlayers(playersToSend) + playersListed
 			)
-		addRoundNum(playersListed, str(rounds.find(level) - 1))
-		endResult.receivePlayers(playersListed)
+		endResult.receivePlayers(playersListed, playersFromRound)
 		playersListed = []
+		playersFromRound = {}
 		for roundRes in level:
-			playersListed += roundRes.getOutPlayerList()
-	addRoundNum(playersListed, str(len(rounds)-1))
-	endResult.receivePlayers(playersListed)
+			var newList: Array = roundRes.getOutPlayerList()
+			addRoundNum(newList, str(rounds.find(level)))
+			playersListed += newList
+			for player in newList:
+				playersFromRound[player] = roundRes
+	endResult.receivePlayers(playersListed, playersFromRound)
 
 func availableInput(refRoundRes: RoundResource) -> int:
 	var prevRound: int = -1
