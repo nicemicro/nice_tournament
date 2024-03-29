@@ -1,9 +1,9 @@
 extends MarginContainer
 
-onready var nameField: Label = $HeaderFooter/Header/Name
-onready var raceField: Label = $HeaderFooter/Header/Race
-onready var avatarPlace: TextureRect = $HeaderFooter/Split/AvatarContainer
-onready var infoContainer: VBoxContainer = $HeaderFooter/Split/InfoContainer
+@onready var nameField: Label = $HeaderFooter/Header/Name
+@onready var raceField: Label = $HeaderFooter/Header/Race
+@onready var avatarPlace: TextureRect = $HeaderFooter/Split/AvatarContainer
+@onready var infoContainer: VBoxContainer = $HeaderFooter/Split/InfoContainer
 
 var _player: PlayerResource
 var _playerVs: PlayerResource = null

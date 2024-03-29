@@ -8,4 +8,4 @@ func attachResource(newRes: RoundResource):
 	if not newRes is ForwardRound:
 		printerr("This UI is for displaying forwarded players only.")
 		return
-	.attachResource(newRes)
+	super.attachResource(newRes)

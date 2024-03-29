@@ -34,7 +34,7 @@ func _sortPlayersByPoint(playerList: Array) -> Array:
 			playerRes.getOpponentPointSum(-1)
 		)
 		playerCopy.append(playerDict)
-	playerCopy.sort_custom(_customSorter, "sortByPointsDesc")
+	playerCopy.sort_custom(Callable(_customSorter, "sortByPointsDesc"))
 	var index: int = 0
 	for playerDict in playerCopy:
 		while orderedPlayerList[index] != null:

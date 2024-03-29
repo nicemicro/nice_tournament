@@ -1,8 +1,8 @@
 extends RoundResource
 class_name EliminationRound
 
-var pairNum: int = 2 setget setPairNum, getPairNum
-var neededWins: int = 3 setget setNeededWins, getNeededWins
+var pairNum: int = 2: get = getPairNum, set = setPairNum
+var neededWins: int = 3: get = getNeededWins, set = setNeededWins
 
 func _init() -> void:
 	virtualInputMult = 0
@@ -36,7 +36,7 @@ func getNeededWins() -> int:
 	return neededWins
 
 func _receivePlayers(incoming: Array) -> Array:
-	var outgoing: Array  = ._receivePlayers(incoming)
+	var outgoing: Array  = super._receivePlayers(incoming)
 	var playerOriginal: Array = _players.duplicate()
 	#TODO: deal with the possiblity of having odd number of players
 	_players = []

@@ -14,15 +14,15 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -200.0
-margin_top = -50.0
+offset_left = -200.0
+offset_top = -50.0
 text = "Go back"
 
 [node name="AddNew" type="MenuButton" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -50.0
-margin_right = 200.0
+offset_top = -50.0
+offset_right = 200.0
 text = "Add new round"
 flat = false
 items = [ "Seed", null, 0, false, false, 0, 0, null, "", false, "Groups", null, 0, false, false, 1, 0, null, "", false, "Dual tournament", null, 0, false, false, 2, 0, null, "", false, "Single Elimination", null, 0, false, false, 3, 0, null, "", false, "Swiss round", null, 0, false, false, 4, 0, null, "", false, "Forward players", null, 0, false, false, 5, 0, null, "", false ]
@@ -30,14 +30,14 @@ items = [ "Seed", null, 0, false, false, 0, 0, null, "", false, "Groups", null, 
 [node name="Container" type="ScrollContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -60.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -60.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Container"]
-margin_right = 1900.0
-margin_bottom = 1010.0
+offset_right = 1900.0
+offset_bottom = 1010.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

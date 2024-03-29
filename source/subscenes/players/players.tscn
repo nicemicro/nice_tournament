@@ -14,28 +14,28 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -200.0
-margin_top = -50.0
+offset_left = -200.0
+offset_top = -50.0
 text = "Go back"
 
 [node name="AddNew" type="Button" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -50.0
-margin_right = 200.0
+offset_top = -50.0
+offset_right = 200.0
 text = "Add new player"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -60.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -60.0
 
 [node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
-margin_right = 1900.0
-margin_bottom = 1010.0
+offset_right = 1900.0
+offset_bottom = 1010.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 5

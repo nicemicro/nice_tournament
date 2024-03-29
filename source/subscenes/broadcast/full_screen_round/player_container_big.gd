@@ -1,13 +1,13 @@
 extends VBoxContainer
 
-onready var nameField: Label = $Header/Name
-onready var raceField: Label = $Race
-onready var avatarPlace: TextureRect = $PlayerIcon
-onready var raceNameContainer: VBoxContainer = $Record/RaceName
-onready var thisTourneyRecord: VBoxContainer = $Record/ThisTourney
-onready var previousTourneyRec: VBoxContainer = $Record/Previously
-onready var leftPoint: Label = $Header/PointLeft
-onready var rightPoint: Label = $Header/PointRight
+@onready var nameField: Label = $Header/Name
+@onready var raceField: Label = $Race
+@onready var avatarPlace: TextureRect = $PlayerIcon
+@onready var raceNameContainer: VBoxContainer = $Record/RaceName
+@onready var thisTourneyRecord: VBoxContainer = $Record/ThisTourney
+@onready var previousTourneyRec: VBoxContainer = $Record/Previously
+@onready var leftPoint: Label = $Header/PointLeft
+@onready var rightPoint: Label = $Header/PointRight
 
 var _player: PlayerResource
 var _playerVs: PlayerResource = null

@@ -1,7 +1,7 @@
 extends VBoxContainer
 
-onready var availableList: PopupMenu = $AvailableMaps
-onready var addedList: VBoxContainer = $MapPool
+@onready var availableList: PopupMenu = $AvailableMaps
+@onready var addedList: VBoxContainer = $MapPool
 
 var availableMaps: Array
 var roundRes: RoundResource
@@ -32,9 +32,9 @@ func _on_AvailableMaps_id_pressed(id):
 
 func addMapNode(mapRes: MapResource):
 	var newScene: PackedScene = preload(mapDisplayScenePath)
-	var newNode: HBoxContainer = newScene.instance()
+	var newNode: HBoxContainer = newScene.instantiate()
 	newNode.attachResource(mapRes)
-	newNode.connect("action", self, "_on_mapAction_pressed")
+	newNode.connect("action", Callable(self, "_on_mapAction_pressed"))
 	addedList.add_child(newNode)
 
 func _on_mapAction_pressed(mapRes: MapResource, actionId: int) -> void:

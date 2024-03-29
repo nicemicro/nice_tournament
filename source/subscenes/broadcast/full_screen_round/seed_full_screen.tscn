@@ -10,14 +10,14 @@ script = ExtResource( 2 )
 text = "Seeded players"
 
 [node name="Container" parent="PanelContainer/Main" index="1"]
-margin_left = 0.0
-margin_right = 1713.0
+offset_left = 0.0
+offset_right = 1713.0
 size_flags_horizontal = 3
 
 [node name="Players" type="GridContainer" parent="PanelContainer/Main/Container" index="0"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 1708.0
-margin_bottom = 986.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1708.0
+offset_bottom = 986.0
 size_flags_horizontal = 3
 columns = 4

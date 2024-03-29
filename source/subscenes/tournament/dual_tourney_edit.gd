@@ -1,12 +1,12 @@
 extends "res://subscenes/tournament/round_edit_base.gd"
 
-onready var groupNumInp: LineEdit = $GroupNum/GroupNumInput
-onready var WinsFirstInp: LineEdit = $WinsFirst/WinInput
-onready var WinsWinLosInp: LineEdit = $WinsWinnerLoser/WinInput
-onready var WinsFinalInp: LineEdit = $WinsFinal/WinInput
+@onready var groupNumInp: LineEdit = $GroupNum/GroupNumInput
+@onready var WinsFirstInp: LineEdit = $WinsFirst/WinInput
+@onready var WinsWinLosInp: LineEdit = $WinsWinnerLoser/WinInput
+@onready var WinsFinalInp: LineEdit = $WinsFinal/WinInput
 
 func _ready():
-	._ready()
+	super._ready()
 	playerNumberChange()
 	if roundRes != null:
 		groupNumInp.text = str(roundRes.groupNum)
@@ -18,7 +18,7 @@ func attachResource(newRoundRes: RoundResource) -> void:
 	if not newRoundRes is DualTourneyRound:
 		assert(false, "This UI is for dual tournament rounds only.")
 		return
-	.attachResource(newRoundRes)
+	super.attachResource(newRoundRes)
 	if groupNumInp != null:
 		groupNumInp.text = str(roundRes.groupNum)
 		WinsFirstInp.text = str(roundRes.neededWins[0])

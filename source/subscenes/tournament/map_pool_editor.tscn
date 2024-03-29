@@ -6,25 +6,25 @@
 [node name="MapPoolEditor" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( -625, -483 )
+pivot_offset = Vector2( -625, -483 )
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="MapPoolHeader" type="Label" parent="."]
-margin_right = 1920.0
-margin_bottom = 16.0
+offset_right = 1920.0
+offset_bottom = 16.0
 text = "Map pool"
 align = 1
 
 [node name="MapPool" type="VBoxContainer" parent="."]
-margin_top = 20.0
-margin_right = 1920.0
-margin_bottom = 20.0
+offset_top = 20.0
+offset_right = 1920.0
+offset_bottom = 20.0
 
 [node name="MapChoice" type="Button" parent="."]
-margin_top = 24.0
-margin_right = 1920.0
-margin_bottom = 46.0
+offset_top = 24.0
+offset_right = 1920.0
+offset_bottom = 46.0
 text = "Add map"
 
 [node name="AvailableMaps" type="PopupMenu" parent="."]

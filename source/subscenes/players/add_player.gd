@@ -1,14 +1,14 @@
-extends WindowDialog
+extends Window
 
-onready var nameField = $Columns/Col1/Name/LineEdit
-onready var avatarButton = $Columns/Col1/Avatar
-onready var racePicks = $Columns/Col2/RacePicks
-onready var defRacePicker = $Columns/Col2/RacePicks/DefaultRace
-onready var versusInputs = $Columns/Col3/VersusInputs
-onready var mapVetoSelector = $Columns/Col1/Map/OptionButton
-onready var addButton = $Buttons/SaveButton
-onready var filedialog = $FileDialog
-onready var mainScreen = $Columns
+@onready var nameField = $Columns/Col1/Name/LineEdit
+@onready var avatarButton = $Columns/Col1/Avatar
+@onready var racePicks = $Columns/Col2/RacePicks
+@onready var defRacePicker = $Columns/Col2/RacePicks/DefaultRace
+@onready var versusInputs = $Columns/Col3/VersusInputs
+@onready var mapVetoSelector = $Columns/Col1/Map/OptionButton
+@onready var addButton = $Buttons/SaveButton
+@onready var filedialog = $FileDialog
+@onready var mainScreen = $Columns
 
 var _avatar: Image = null
 var _racePickers: Dictionary = {}
@@ -21,17 +21,17 @@ signal playerCreated
 
 func  _ready():
 	defRacePicker.setLabel("Default race")
-	defRacePicker.connect("itemSelected", self, "defRacePicked")
+	defRacePicker.connect("itemSelected", Callable(self, "defRacePicked"))
 	for race in Global.RaceName:
 		var newScene = preload(raceSelectorScenePath)
-		var newNode = newScene.instance()
+		var newNode = newScene.instantiate()
 		_racePickers[race] = newNode
 		racePicks.add_child(newNode)
 		newNode.setLabel("Vs. " + Global.RaceName[race])
 	for race in Global.RaceName:
 		var newScene = preload(versusInputScenePath)
-		var newNode = newScene.instance()
-		newNode.connect("valueChanged", self, "validateInputs")
+		var newNode = newScene.instantiate()
+		newNode.connect("valueChanged", Callable(self, "validateInputs"))
 		_versusInputs[race] = newNode
 		versusInputs.add_child(newNode)
 		newNode.setLabel("Vs. " + Global.RaceName[race])
@@ -40,7 +40,7 @@ func  _ready():
 
 func show():
 	addButton.disabled = true
-	.show()
+	super.show()
 
 func validateInputs():
 	addButton.disabled = true

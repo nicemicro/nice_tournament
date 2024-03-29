@@ -1,9 +1,9 @@
 extends Resource
 class_name MapResource
 
-var name: String setget fail, getName
-var icon: Image setget fail, getIcon
-var previousRecord: Dictionary = {} setget fail, getRecord
+var name: String: get = getName, set = fail
+var icon: Image: get = getIcon, set = fail
+var previousRecord: Dictionary = {}: get = getRecord, set = fail
 
 func _init(newName: String, newIcon: Image, newRecord: Dictionary):
 	name = newName

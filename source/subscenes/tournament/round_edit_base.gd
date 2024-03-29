@@ -1,9 +1,9 @@
 extends VBoxContainer
 
-onready var playerNumber: LineEdit = $HBoxContainer/PlayerCounter
-onready var vpSlider: HSlider = $VirtualPointMult/VPMSlider
-onready var vpNumber: LineEdit = $VirtualPointMult/VPMValue
-onready var mapPoolEditor: VBoxContainer = $MapPoolEditor
+@onready var playerNumber: LineEdit = $HBoxContainer/PlayerCounter
+@onready var vpSlider: HSlider = $VirtualPointMult/VPMSlider
+@onready var vpNumber: LineEdit = $VirtualPointMult/VPMValue
+@onready var mapPoolEditor: VBoxContainer = $MapPoolEditor
 
 var roundRes: RoundResource
 

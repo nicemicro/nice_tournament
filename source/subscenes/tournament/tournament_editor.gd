@@ -1,7 +1,7 @@
 extends Control
 
-onready var addNewButton: MenuButton = $AddNew
-onready var tournamentContainer: HBoxContainer = $Container/HBoxContainer
+@onready var addNewButton: MenuButton = $AddNew
+@onready var tournamentContainer: HBoxContainer = $Container/HBoxContainer
 
 var addNewMenu: PopupMenu
 var levelContainers: Array = []
@@ -19,7 +19,7 @@ signal backPressed
 
 func _ready():
 	addNewMenu = addNewButton.get_popup()
-	addNewMenu.connect("id_pressed", self, "_on_NewMenu_pressed")
+	addNewMenu.connect("id_pressed", Callable(self, "_on_NewMenu_pressed"))
 
 func addAllRounds():
 	var newScene
@@ -80,7 +80,7 @@ func _on_NewMenu_pressed(itemId: int):
 
 func addNewRound(roundRes: RoundResource, scenePath: String) -> void:
 	var newScene = load(scenePath)
-	var roundScene = newScene.instance()
+	var roundScene = newScene.instantiate()
 	roundScene.attachResource(roundRes)
 	levelContainers[selectedLevel].addRound(roundScene)
 
@@ -91,8 +91,8 @@ func levelSelected(index: int):
 
 func addNewLevel() -> void:
 	var newScene = preload(levelContainerScenePath)
-	var newNode = newScene.instance()
+	var newNode = newScene.instantiate()
 	newNode.setLevel(len(levelContainers))
-	newNode.connect("selected", self, "levelSelected")
+	newNode.connect("selected", Callable(self, "levelSelected"))
 	levelContainers.append(newNode)
 	tournamentContainer.add_child(newNode)

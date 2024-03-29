@@ -1,7 +1,7 @@
 extends "res://subscenes/tournament/round_edit_base.gd"
 
-onready var availableList: PopupMenu = $AvailablePlayers
-onready var addedList: VBoxContainer = $PlayerList
+@onready var availableList: PopupMenu = $AvailablePlayers
+@onready var addedList: VBoxContainer = $PlayerList
 
 const playerDisplayScenePath: String = "res://subscenes/tournament/seeded_player_display.tscn"
 
@@ -17,7 +17,7 @@ func attachResource(newRoundRes: RoundResource) -> void:
 	if not newRoundRes is SeedRound:
 		assert(false, "This UI is for seed rounds only.")
 		return
-	.attachResource(newRoundRes)
+	super.attachResource(newRoundRes)
 	if addedList != null:
 		for playerRes in roundRes.getSeededPlayers():
 			addPlayerNode(playerRes)
@@ -45,9 +45,9 @@ func _on_AvailablePlayers_id_pressed(id: int) -> void:
 
 func addPlayerNode(playerRes: PlayerResource) -> void:
 	var newScene: PackedScene = preload(playerDisplayScenePath)
-	var newNode: HBoxContainer = newScene.instance()
+	var newNode: HBoxContainer = newScene.instantiate()
 	newNode.attachResource(playerRes)
-	newNode.connect("action", self, "_on_playerAction_pressed")
+	newNode.connect("action", Callable(self, "_on_playerAction_pressed"))
 	addedList.add_child(newNode)
 
 func _on_playerAction_pressed(playerRes: PlayerResource, actionId: int) -> void:

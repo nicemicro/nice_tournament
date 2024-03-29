@@ -1,8 +1,8 @@
 extends HBoxContainer
 
-onready var label = $RaceLabel
-onready var win = $Wins
-onready var loss = $Losses
+@onready var label = $RaceLabel
+@onready var win = $Wins
+@onready var loss = $Losses
 
 var _labelText: String = ""
 

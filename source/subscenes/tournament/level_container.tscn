@@ -6,40 +6,40 @@
 [node name="LevelContainer" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 250, 0 )
+custom_minimum_size = Vector2( 250, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-margin_right = 1920.0
-margin_bottom = 1046.0
+offset_right = 1920.0
+offset_bottom = 1046.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Rounds" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 1920.0
-margin_bottom = 1046.0
+offset_right = 1920.0
+offset_bottom = 1046.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Footer" type="ScrollContainer" parent="."]
-margin_top = 1050.0
-margin_right = 1920.0
-margin_bottom = 1080.0
-rect_min_size = Vector2( 0, 30 )
+offset_top = 1050.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+custom_minimum_size = Vector2( 0, 30 )
 size_flags_horizontal = 3
 
 [node name="FooterBox" type="HBoxContainer" parent="Footer"]
-margin_right = 1920.0
-margin_bottom = 26.0
+offset_right = 1920.0
+offset_bottom = 26.0
 size_flags_horizontal = 3
 
 [node name="CheckBoxContainer" type="Control" parent="Footer/FooterBox"]
-margin_right = 1745.0
-margin_bottom = 26.0
-rect_min_size = Vector2( 90, 0 )
+offset_right = 1745.0
+offset_bottom = 26.0
+custom_minimum_size = Vector2( 90, 0 )
 size_flags_horizontal = 3
 
 [node name="CheckBox" type="CheckBox" parent="Footer/FooterBox/CheckBoxContainer"]
@@ -49,40 +49,40 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 text = "Selected"
 align = 1
-icon_align = 1
+icon_alignment = 1
 
 [node name="InLabel" type="Label" parent="Footer/FooterBox"]
-margin_left = 1749.0
-margin_top = 5.0
-margin_right = 1765.0
-margin_bottom = 21.0
+offset_left = 1749.0
+offset_top = 5.0
+offset_right = 1765.0
+offset_bottom = 21.0
 text = "In:"
 
 [node name="InNum" type="LineEdit" parent="Footer/FooterBox"]
-margin_left = 1769.0
-margin_right = 1827.0
-margin_bottom = 26.0
-rect_min_size = Vector2( 20, 0 )
+offset_left = 1769.0
+offset_right = 1827.0
+offset_bottom = 26.0
+custom_minimum_size = Vector2( 20, 0 )
 text = "0"
 editable = false
 caret_blink = true
-caret_blink_speed = 0.5
+caret_blink_interval = 0.5
 
 [node name="OutLabel" type="Label" parent="Footer/FooterBox"]
-margin_left = 1831.0
-margin_top = 5.0
-margin_right = 1858.0
-margin_bottom = 21.0
+offset_left = 1831.0
+offset_top = 5.0
+offset_right = 1858.0
+offset_bottom = 21.0
 text = "Out:"
 
 [node name="OutNum" type="LineEdit" parent="Footer/FooterBox"]
-margin_left = 1862.0
-margin_right = 1920.0
-margin_bottom = 26.0
-rect_min_size = Vector2( 20, 0 )
+offset_left = 1862.0
+offset_right = 1920.0
+offset_bottom = 26.0
+custom_minimum_size = Vector2( 20, 0 )
 text = "0"
 editable = false
 caret_blink = true
-caret_blink_speed = 0.5
+caret_blink_interval = 0.5
 
 [connection signal="pressed" from="Footer/FooterBox/CheckBoxContainer/CheckBox" to="." method="_on_CheckBox_pressed"]

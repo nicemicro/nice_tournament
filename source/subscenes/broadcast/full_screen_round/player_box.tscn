@@ -6,32 +6,32 @@
 [node name="PlayerInfo" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="HeaderFooter" type="VBoxContainer" parent="."]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 1905.0
-margin_bottom = 1065.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1905.0
+offset_bottom = 1065.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Header" type="HBoxContainer" parent="HeaderFooter"]
-margin_right = 1900.0
-margin_bottom = 42.0
+offset_right = 1900.0
+offset_bottom = 42.0
 size_flags_horizontal = 3
 
 [node name="Name" type="Label" parent="HeaderFooter/Header"]
-margin_right = 1137.0
-margin_bottom = 42.0
-rect_min_size = Vector2( 0, 42 )
+offset_right = 1137.0
+offset_bottom = 42.0
+custom_minimum_size = Vector2( 0, 42 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 text = "Name"
@@ -40,10 +40,10 @@ valign = 1
 autowrap = true
 
 [node name="Race" type="Label" parent="HeaderFooter/Header"]
-margin_left = 1141.0
-margin_top = 7.0
-margin_right = 1900.0
-margin_bottom = 35.0
+offset_left = 1141.0
+offset_top = 7.0
+offset_right = 1900.0
+offset_bottom = 35.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_type_variation = "LabelSmallEmph"
@@ -51,30 +51,30 @@ text = "[Protoss]"
 valign = 1
 
 [node name="Split" type="HBoxContainer" parent="HeaderFooter"]
-margin_top = 46.0
-margin_right = 1900.0
-margin_bottom = 1052.0
+offset_top = 46.0
+offset_right = 1900.0
+offset_bottom = 1052.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="AvatarContainer" type="TextureRect" parent="HeaderFooter/Split"]
-margin_right = 948.0
-margin_bottom = 1006.0
-rect_min_size = Vector2( 150, 150 )
+offset_right = 948.0
+offset_bottom = 1006.0
+custom_minimum_size = Vector2( 150, 150 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 expand = true
 stretch_mode = 6
 
 [node name="InfoContainer" type="VBoxContainer" parent="HeaderFooter/Split"]
-margin_left = 952.0
-margin_top = 503.0
-margin_right = 1900.0
-margin_bottom = 503.0
+offset_left = 952.0
+offset_top = 503.0
+offset_right = 1900.0
+offset_bottom = 503.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="HSeparator" type="HSeparator" parent="HeaderFooter"]
-margin_top = 1056.0
-margin_right = 1900.0
-margin_bottom = 1060.0
+offset_top = 1056.0
+offset_right = 1900.0
+offset_bottom = 1060.0

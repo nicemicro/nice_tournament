@@ -1,8 +1,8 @@
 extends VBoxContainer
 
-onready var nameField: Label = $Name
-onready var raceField: Label = $Race
-onready var avatarPlace: TextureRect = $AvatarContainer
+@onready var nameField: Label = $Name
+@onready var raceField: Label = $Race
+@onready var avatarPlace: TextureRect = $AvatarContainer
 
 var _player: PlayerResource
 

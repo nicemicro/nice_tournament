@@ -1,10 +1,10 @@
 extends HBoxContainer
 
-onready var mapNameLabel: Label = $MapName
-onready var leftButton: TextureButton = $Left/WinButton
-onready var rightButton: TextureButton = $Right/WinButton
-onready var leftWonLabel: Label = $Left/Label
-onready var rightWonLabel: Label = $Right/Label
+@onready var mapNameLabel: Label = $MapName
+@onready var leftButton: TextureButton = $Left/WinButton
+@onready var rightButton: TextureButton = $Right/WinButton
+@onready var leftWonLabel: Label = $Left/Label
+@onready var rightWonLabel: Label = $Right/Label
 
 var mapName: String = ""
 var active: bool = false

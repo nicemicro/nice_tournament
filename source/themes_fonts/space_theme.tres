@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=16 format=2]
 
-[ext_resource path="res://themes_fonts/LiberationSans-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://themes_fonts/LiberationSans-Regular.ttf" type="FontFile" id=1]
 [ext_resource path="res://themes_fonts/normal_button.tres" type="StyleBox" id=2]
 [ext_resource path="res://themes_fonts/hover_button.tres" type="StyleBox" id=3]
 [ext_resource path="res://themes_fonts/disabled_button.tres" type="StyleBox" id=4]
@@ -8,10 +8,10 @@
 [ext_resource path="res://themes_fonts/focused_button.tres" type="StyleBox" id=6]
 [ext_resource path="res://themes_fonts/panelcontainer.tres" type="StyleBox" id=7]
 [ext_resource path="res://themes_fonts/panelcontainer_transp.tres" type="StyleBox" id=8]
-[ext_resource path="res://themes_fonts/small_text.tres" type="DynamicFont" id=9]
-[ext_resource path="res://themes_fonts/big_text.tres" type="DynamicFont" id=10]
-[ext_resource path="res://themes_fonts/normal_text.tres" type="DynamicFont" id=11]
-[ext_resource path="res://themes_fonts/small_text_emph.tres" type="DynamicFont" id=12]
+[ext_resource path="res://themes_fonts/small_text.tres" type="FontFile" id=9]
+[ext_resource path="res://themes_fonts/big_text.tres" type="FontFile" id=10]
+[ext_resource path="res://themes_fonts/normal_text.tres" type="FontFile" id=11]
+[ext_resource path="res://themes_fonts/small_text_emph.tres" type="FontFile" id=12]
 
 [sub_resource type="StyleBoxLine" id=3]
 color = Color( 0.490196, 0.141176, 0.141176, 1 )
@@ -19,7 +19,7 @@ thickness = 2
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="FontFile" id=1]
 size = 36
 outline_color = Color( 0.443137, 0.827451, 0.419608, 1 )
 font_data = ExtResource( 1 )

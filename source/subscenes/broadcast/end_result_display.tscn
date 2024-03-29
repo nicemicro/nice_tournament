@@ -10,7 +10,7 @@ script = ExtResource( 2 )
 text = "Final results"
 
 [node name="Container" parent="Main" index="2"]
-margin_bottom = 1062.0
+offset_bottom = 1062.0
 
 [node name="OpenButton" parent="Main" index="3"]
 visible = false

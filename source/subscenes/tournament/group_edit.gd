@@ -1,11 +1,11 @@
 extends "res://subscenes/tournament/round_edit_base.gd"
 
-onready var groupSizeInp: LineEdit = $GroupSize/GroupSizeInput
-onready var groupNumInp: LineEdit = $GroupNum/GroupNumInput
-onready var neededWins: LineEdit = $NeededWins/WinInput
+@onready var groupSizeInp: LineEdit = $GroupSize/GroupSizeInput
+@onready var groupNumInp: LineEdit = $GroupNum/GroupNumInput
+@onready var neededWins: LineEdit = $NeededWins/WinInput
 
 func _ready():
-	._ready()
+	super._ready()
 	playerNumberChange()
 	if roundRes != null:
 		groupSizeInp.text = str(roundRes.groupSize)
@@ -16,7 +16,7 @@ func attachResource(newRoundRes: RoundResource) -> void:
 	if not newRoundRes is GroupRound:
 		assert(false, "This UI is for group rounds only.")
 		return
-	.attachResource(newRoundRes)
+	super.attachResource(newRoundRes)
 	if groupNumInp != null:
 		groupSizeInp.text = str(roundRes.groupSize)
 		groupNumInp.text = str(roundRes.groupNum)

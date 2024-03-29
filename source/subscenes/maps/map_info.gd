@@ -1,7 +1,7 @@
 extends VBoxContainer
 
-onready var nameField: Label = $Name
-onready var iconPlace: TextureRect = $IconContainer
+@onready var nameField: Label = $Name
+@onready var iconPlace: TextureRect = $IconContainer
 
 var _map: MapResource
 

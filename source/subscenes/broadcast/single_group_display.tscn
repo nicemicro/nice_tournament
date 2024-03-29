@@ -2,55 +2,55 @@
 
 [ext_resource path="res://themes_fonts/space_theme.tres" type="Theme" id=1]
 [ext_resource path="res://subscenes/broadcast/single_group_display.gd" type="Script" id=2]
-[ext_resource path="res://assets/arrow-up_disabled.png" type="Texture" id=3]
-[ext_resource path="res://assets/arrow-up_hover.png" type="Texture" id=4]
-[ext_resource path="res://assets/arrow-up.png" type="Texture" id=5]
+[ext_resource path="res://assets/arrow-up_disabled.png" type="Texture2D" id=3]
+[ext_resource path="res://assets/arrow-up_hover.png" type="Texture2D" id=4]
+[ext_resource path="res://assets/arrow-up.png" type="Texture2D" id=5]
 
 [node name="GroupDisplay" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
-rect_min_size = Vector2( 300, 40 )
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+custom_minimum_size = Vector2( 300, 40 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="PlayerList" type="HBoxContainer" parent="."]
-margin_right = 1900.0
+offset_right = 1900.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="Avatars" type="VBoxContainer" parent="PlayerList"]
 
 [node name="Names" type="VBoxContainer" parent="PlayerList"]
-margin_left = 4.0
-margin_right = 1882.0
+offset_left = 4.0
+offset_right = 1882.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
 [node name="Wins" type="VBoxContainer" parent="PlayerList"]
-margin_left = 1886.0
-margin_right = 1886.0
+offset_left = 1886.0
+offset_right = 1886.0
 
 [node name="Colons" type="VBoxContainer" parent="PlayerList"]
-margin_left = 1890.0
-margin_right = 1896.0
-rect_min_size = Vector2( 6, 0 )
+offset_left = 1890.0
+offset_right = 1896.0
+custom_minimum_size = Vector2( 6, 0 )
 
 [node name="Losses" type="VBoxContainer" parent="PlayerList"]
-margin_left = 1900.0
-margin_right = 1900.0
+offset_left = 1900.0
+offset_right = 1900.0
 
 [node name="OpenButton" type="TextureButton" parent="."]
 visible = false
-margin_left = 850.0
-margin_top = 1006.0
-margin_right = 1050.0
-margin_bottom = 1046.0
+offset_left = 850.0
+offset_top = 1006.0
+offset_right = 1050.0
+offset_bottom = 1046.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource( 5 )
@@ -60,10 +60,10 @@ texture_disabled = ExtResource( 3 )
 flip_v = true
 
 [node name="Separator" type="HSeparator" parent="."]
-margin_top = 4.0
-margin_right = 1900.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 30, 10 )
+offset_top = 4.0
+offset_right = 1900.0
+offset_bottom = 14.0
+custom_minimum_size = Vector2( 30, 10 )
 size_flags_vertical = 4
 
 [connection signal="pressed" from="OpenButton" to="." method="_on_OpenButton_pressed"]

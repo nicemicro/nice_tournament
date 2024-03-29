@@ -1,9 +1,9 @@
 extends "res://subscenes/tournament/round_edit_base.gd"
 
-onready var neededWins: LineEdit = $NeededWins/WinInput
+@onready var neededWins: LineEdit = $NeededWins/WinInput
 
 func _ready():
-	._ready()
+	super._ready()
 	playerNumberChange()
 	if roundRes != null:
 		neededWins.text = str(roundRes.neededWins)
@@ -12,7 +12,7 @@ func attachResource(newRoundRes: RoundResource) -> void:
 	if not newRoundRes is SwissRound:
 		assert(false, "This UI is for swiss rounds only.")
 		return
-	.attachResource(newRoundRes)
+	super.attachResource(newRoundRes)
 	if neededWins != null:
 		neededWins.text = str(roundRes.neededWins)
 

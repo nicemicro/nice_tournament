@@ -4,7 +4,7 @@
 [ext_resource path="res://subscenes/tournament/swiss_round_edit.gd" type="Script" id=2]
 
 [node name="SwissRoundEdit" instance=ExtResource( 1 )]
-rect_pivot_offset = Vector2( -1076, -694 )
+pivot_offset = Vector2( -1076, -694 )
 script = ExtResource( 2 )
 
 [node name="Label" parent="." index="0"]
@@ -16,28 +16,28 @@ editable = true
 placeholder_text = "4"
 
 [node name="NeededWins" type="HBoxContainer" parent="." index="3"]
-margin_top = 100.0
-margin_right = 1920.0
-margin_bottom = 126.0
+offset_top = 100.0
+offset_right = 1920.0
+offset_bottom = 126.0
 
 [node name="Label" type="Label" parent="NeededWins" index="0"]
-margin_top = 5.0
-margin_right = 1858.0
-margin_bottom = 21.0
+offset_top = 5.0
+offset_right = 1858.0
+offset_bottom = 21.0
 size_flags_horizontal = 3
 text = "Wins needed for a 1v1:"
 
 [node name="WinInput" type="LineEdit" parent="NeededWins" index="1"]
-margin_left = 1862.0
-margin_right = 1920.0
-margin_bottom = 26.0
+offset_left = 1862.0
+offset_right = 1920.0
+offset_bottom = 26.0
 text = "2"
 max_length = 2
 placeholder_text = "1"
 
 [node name="MapPoolEditor" parent="." index="4"]
-margin_top = 130.0
-margin_bottom = 176.0
+offset_top = 130.0
+offset_bottom = 176.0
 
 [connection signal="text_changed" from="HBoxContainer/PlayerCounter" to="." method="_on_PlayerCounter_text_changed"]
 [connection signal="text_changed" from="NeededWins/WinInput" to="." method="_on_WinInput_text_changed"]

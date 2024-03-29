@@ -1,10 +1,10 @@
 extends VBoxContainer
 
-onready var playerOneContainer: MarginContainer = $Container/PlayerOne
-onready var playerTwoContainer: MarginContainer = $Container/PlayerTwo
-onready var mapPoolContainer: VBoxContainer = $Container/Middle/MapPool
-onready var currentMapName: Label = $Container/Middle/MapName
-onready var currentMapImage: TextureRect = $Container/Middle/MapImage
+@onready var playerOneContainer: MarginContainer = $Container/PlayerOne
+@onready var playerTwoContainer: MarginContainer = $Container/PlayerTwo
+@onready var mapPoolContainer: VBoxContainer = $Container/Middle/MapPool
+@onready var currentMapName: Label = $Container/Middle/MapName
+@onready var currentMapImage: TextureRect = $Container/Middle/MapImage
 
 var matchRes: MatchResource
 var matchControlNodes: Array = []
@@ -28,12 +28,12 @@ func attachResource(newRes: MatchResource) -> void:
 func displayResData() -> void:
 	var newPlayerScene: PackedScene = preload(playerBoxScenePath)
 	var mapControlScene: PackedScene = preload(mapGameControlPath)
-	var newPlayerNode = newPlayerScene.instance()
+	var newPlayerNode = newPlayerScene.instantiate()
 	newPlayerNode.attachResource(matchRes.playerOne, matchRes.playerTwo)
 	newPlayerNode.setMatchPoint(matchRes.getWins()[matchRes.playerOne])
 	playerNodes.append(newPlayerNode)
 	playerOneContainer.add_child(newPlayerNode)
-	newPlayerNode = newPlayerScene.instance()
+	newPlayerNode = newPlayerScene.instantiate()
 	newPlayerNode.setMirror(true)
 	newPlayerNode.attachResource(matchRes.playerTwo, matchRes.playerOne)
 	newPlayerNode.setMatchPoint(matchRes.getWins()[matchRes.playerTwo])
@@ -41,12 +41,12 @@ func displayResData() -> void:
 	playerTwoContainer.add_child(newPlayerNode)
 	for index in range(len(matchRes.mapPool)):
 		var mapRes: MapResource = matchRes.mapPool[index]
-		var mapControlNode = mapControlScene.instance()
+		var mapControlNode = mapControlScene.instantiate()
 		mapControlNode.setMapName(mapRes.name)
 		if len(matchRes.results) == index and not matchRes.isOver():
 			mapControlNode.setActive()
-			mapControlNode.connect("leftWon", self, "playerOneWon")
-			mapControlNode.connect("rightWon", self, "playerTwoWon")
+			mapControlNode.connect("leftWon", Callable(self, "playerOneWon"))
+			mapControlNode.connect("rightWon", Callable(self, "playerTwoWon"))
 		elif len(matchRes.results) > index:
 			mapControlNode.setWinner(
 				matchRes.results[index] == matchRes.playerOne
@@ -82,11 +82,11 @@ func playerTwoWon() -> void:
 	connectControlSignals()
 
 func disconnectControlSignal() -> void:
-	matchControlNodes[len(matchRes.results)].disconnect("leftWon", self, "playerOneWon")
-	matchControlNodes[len(matchRes.results)].disconnect("rightWon", self, "playerTwoWon")
+	matchControlNodes[len(matchRes.results)].disconnect("leftWon", Callable(self, "playerOneWon"))
+	matchControlNodes[len(matchRes.results)].disconnect("rightWon", Callable(self, "playerTwoWon"))
 
 func connectControlSignals():
 	if len(matchRes.results) < len(matchRes.mapPool) and not matchRes.isOver():
-		matchControlNodes[len(matchRes.results)].connect("leftWon", self, "playerOneWon")
-		matchControlNodes[len(matchRes.results)].connect("rightWon", self, "playerTwoWon")
+		matchControlNodes[len(matchRes.results)].connect("leftWon", Callable(self, "playerOneWon"))
+		matchControlNodes[len(matchRes.results)].connect("rightWon", Callable(self, "playerTwoWon"))
 		matchControlNodes[len(matchRes.results)].setActive()

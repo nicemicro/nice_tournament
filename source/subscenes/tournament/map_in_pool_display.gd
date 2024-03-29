@@ -1,7 +1,7 @@
 extends HBoxContainer
 
-onready var nameLabel: Label = $MapName
-onready var actionMenuButton: MenuButton = $Action
+@onready var nameLabel: Label = $MapName
+@onready var actionMenuButton: MenuButton = $Action
 
 var mapRes: MapResource
 
@@ -12,7 +12,7 @@ func _ready():
 	if mapRes != null:
 		showPlayerDetails()
 	var actionList = actionMenuButton.get_popup()
-	actionList.connect("id_pressed", self, "_on_ActionMenuPoint_pressed")
+	actionList.connect("id_pressed", Callable(self, "_on_ActionMenuPoint_pressed"))
 
 func attachResource(newRes: MapResource) -> void:
 	if (mapRes != null):

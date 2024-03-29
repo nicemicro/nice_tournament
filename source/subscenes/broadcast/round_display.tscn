@@ -2,9 +2,9 @@
 
 [ext_resource path="res://themes_fonts/space_theme.tres" type="Theme" id=1]
 [ext_resource path="res://subscenes/broadcast/round_display.gd" type="Script" id=2]
-[ext_resource path="res://assets/arrow-up_disabled.png" type="Texture" id=3]
-[ext_resource path="res://assets/arrow-up.png" type="Texture" id=4]
-[ext_resource path="res://assets/arrow-up_hover.png" type="Texture" id=5]
+[ext_resource path="res://assets/arrow-up_disabled.png" type="Texture2D" id=3]
+[ext_resource path="res://assets/arrow-up.png" type="Texture2D" id=4]
+[ext_resource path="res://assets/arrow-up_hover.png" type="Texture2D" id=5]
 
 [node name="RoundDisplay" type="PanelContainer"]
 anchor_right = 1.0
@@ -14,38 +14,38 @@ theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Main" type="VBoxContainer" parent="."]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 1918.0
-margin_bottom = 1078.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 1918.0
+offset_bottom = 1078.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Title" type="Label" parent="Main"]
-margin_right = 1916.0
-margin_bottom = 39.0
+offset_right = 1916.0
+offset_bottom = 39.0
 text = "Title"
 align = 1
 
 [node name="HSeparator" type="HSeparator" parent="Main"]
-margin_top = 43.0
-margin_right = 1916.0
-margin_bottom = 53.0
-rect_min_size = Vector2( 0, 10 )
+offset_top = 43.0
+offset_right = 1916.0
+offset_bottom = 53.0
+custom_minimum_size = Vector2( 0, 10 )
 
 [node name="Container" type="VBoxContainer" parent="Main"]
-margin_left = 958.0
-margin_top = 57.0
-margin_right = 958.0
-margin_bottom = 1018.0
+offset_left = 958.0
+offset_top = 57.0
+offset_right = 958.0
+offset_bottom = 1018.0
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
 [node name="OpenButton" type="TextureButton" parent="Main"]
-margin_left = 858.0
-margin_top = 1022.0
-margin_right = 1058.0
-margin_bottom = 1062.0
+offset_left = 858.0
+offset_top = 1022.0
+offset_right = 1058.0
+offset_bottom = 1062.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
@@ -55,9 +55,9 @@ texture_disabled = ExtResource( 3 )
 flip_v = true
 
 [node name="Empty" type="Control" parent="Main"]
-margin_top = 1066.0
-margin_right = 1916.0
-margin_bottom = 1076.0
-rect_min_size = Vector2( 30, 10 )
+offset_top = 1066.0
+offset_right = 1916.0
+offset_bottom = 1076.0
+custom_minimum_size = Vector2( 30, 10 )
 
 [connection signal="pressed" from="Main/OpenButton" to="." method="_on_OpenButton_pressed"]

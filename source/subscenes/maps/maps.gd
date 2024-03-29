@@ -1,8 +1,8 @@
 extends Control
 
-onready var playerContainer: GridContainer = $Container
+@onready var playerContainer: GridContainer = $Container
 
-var playerAddWindow: WindowDialog = null
+var playerAddWindow: Window = null
 
 const addMapScenePath: String = "res://subscenes/maps/add_map.tscn"
 const mapInfoScenePath: String = "res://subscenes/maps/map_info.tscn"
@@ -19,9 +19,9 @@ func _on_Back_pressed():
 
 func _on_AddNew_pressed():
 	var newScene = preload(addMapScenePath)
-	var mapAddWindow = newScene.instance()
-	mapAddWindow.connect("popup_hide", self, "removeAddPlayerNode")
-	mapAddWindow.connect("mapCreated", self, "saveMap")
+	var mapAddWindow = newScene.instantiate()
+	mapAddWindow.connect("popup_hide", Callable(self, "removeAddPlayerNode"))
+	mapAddWindow.connect("mapCreated", Callable(self, "saveMap"))
 	add_child(mapAddWindow)
 	mapAddWindow.show()
 
@@ -35,6 +35,6 @@ func saveMap(newMap: MapResource):
 
 func displayMap(mapRes: MapResource):
 	var newScene = preload(mapInfoScenePath)
-	var mapInfo = newScene.instance()
+	var mapInfo = newScene.instantiate()
 	mapInfo.setUpPlayer(mapRes)
 	playerContainer.add_child(mapInfo)

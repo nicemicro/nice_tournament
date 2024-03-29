@@ -25,7 +25,7 @@ func addRound(newRound: RoundResource, level: int) -> bool:
 	if level < 0 or level > len(rounds):
 		assert(false, "Rounds tried to be created at higher levels than possible")
 		return false
-	newRound.connect("roundFinished", self, "_roundFinished")
+	newRound.connect("roundFinished", Callable(self, "_roundFinished"))
 	if level == len(rounds):
 		rounds.append([newRound])
 	else:

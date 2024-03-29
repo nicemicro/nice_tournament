@@ -1,7 +1,7 @@
 extends HSplitContainer
 
-onready var raceOption = $OptionButton
-onready var label = $Label
+@onready var raceOption = $OptionButton
+@onready var label = $Label
 
 var _labelText: String = ""
 

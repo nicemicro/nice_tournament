@@ -1,24 +1,24 @@
 extends Control
 
-onready var mainMenu: VBoxContainer = $Menu
-onready var exitButton: Button = $ExitButton
-onready var saveButton: Button = $SaveButton
-onready var playerManager: Control = $Players
-onready var mapManager: Control = $Maps
-onready var roundEditor: Control = $TournamentEditor
-onready var broadcastScreen: TextureRect = $BroadcastBG
+@onready var mainMenu: VBoxContainer = $Menu
+@onready var exitButton: Button = $ExitButton
+@onready var saveButton: Button = $SaveButton
+@onready var playerManager: Control = $Players
+@onready var mapManager: Control = $Maps
+@onready var roundEditor: Control = $TournamentEditor
+@onready var broadcastScreen: TextureRect = $BroadcastBG
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.loadMaps()
 	mapManager.addAllMaps()
-	mapManager.connect("backPressed", self, "showMainMenu")
+	mapManager.connect("backPressed", Callable(self, "showMainMenu"))
 	Global.loadPlayers()
 	playerManager.addAllPlayers()
-	playerManager.connect("backPressed", self, "showMainMenu")
+	playerManager.connect("backPressed", Callable(self, "showMainMenu"))
 	Global.loadTournament()
 	roundEditor.addAllRounds()
-	roundEditor.connect("backPressed", self, "showMainMenu")
+	roundEditor.connect("backPressed", Callable(self, "showMainMenu"))
 
 func _on_Players_pressed():
 	playerManager.visible = true

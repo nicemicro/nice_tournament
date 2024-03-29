@@ -1,11 +1,11 @@
 extends Resource
 class_name RoundResource
 
-var input: int = 0 setget setInput, getInput
-var output: int = 0 setget setOutput, getOutput
+var input: int = 0: get = getInput, set = setInput
+var output: int = 0: get = getOutput, set = setOutput
 var virtualInputMult: float = 0.0
-var mapPool: Array = [] setget fail, getMapPool
-var matchList: Array = [] setget fail, getMatchList
+var mapPool: Array = []: get = getMapPool, set = fail
+var matchList: Array = []: get = getMatchList, set = fail
 var _players: Array = []
 var _groupings: Array = [] # contains arrays of players who are considered to be groups
 

@@ -14,8 +14,8 @@ const RaceName: Dictionary = {
 	Race.RANDOM: "Random"
 }
 
-var players: Dictionary = {} setget fail, getPlayers
-var maps: Dictionary = {} setget fail, getMaps
+var players: Dictionary = {}: get = getPlayers, set = fail
+var maps: Dictionary = {}: get = getMaps, set = fail
 
 func fail(input) -> void:
 	assert (false, "You should not change this on the fly")
@@ -59,7 +59,7 @@ func saveMaps() -> void:
 		maps[mapId].icon.save_png("user://" + mapId + ".png")
 	var fileSave = File.new()
 	fileSave.open("user://maps.json", File.WRITE)
-	fileSave.store_line(to_json(mapData))
+	fileSave.store_line(JSON.new().stringify(mapData))
 	fileSave.close()
 
 func loadMaps() -> void:
@@ -69,7 +69,9 @@ func loadMaps() -> void:
 	if not file.file_exists("user://maps.json"):
 		return
 	file.open("user://maps.json", File.READ)
-	mapData = parse_json(file.get_as_text())
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(file.get_as_text())
+	mapData = test_json_conv.get_data()
 	for id in mapData:
 		icon = Image.new()
 		icon.load("user://" + id + ".png")
@@ -86,7 +88,7 @@ func savePlayers() -> void:
 		players[playerId].avatar.save_png("user://" + playerId + ".png")
 	var fileSave = File.new()
 	fileSave.open("user://players.json", File.WRITE)
-	fileSave.store_line(to_json(playerData))
+	fileSave.store_line(JSON.new().stringify(playerData))
 	fileSave.close()
 
 func loadPlayers() -> void:
@@ -97,7 +99,9 @@ func loadPlayers() -> void:
 	if not file.file_exists("user://players.json"):
 		return
 	file.open("user://players.json", File.READ)
-	playerData = parse_json(file.get_as_text())
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(file.get_as_text())
+	playerData = test_json_conv.get_data()
 	for id in playerData:
 		avatar = Image.new()
 		avatar.load("user://" + id + ".png")
@@ -129,7 +133,7 @@ func saveTournament() -> void:
 		tourneyData[levelIndex] = levelData
 	var fileSave = File.new()
 	fileSave.open("user://tournament.json", File.WRITE)
-	fileSave.store_line(to_json(tourneyData))
+	fileSave.store_line(JSON.new().stringify(tourneyData))
 	fileSave.close()
 
 func loadTournament() -> void:
@@ -138,7 +142,9 @@ func loadTournament() -> void:
 	if not file.file_exists("user://tournament.json"):
 		return
 	file.open("user://tournament.json", File.READ)
-	tourneyData = parse_json(file.get_as_text())
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(file.get_as_text())
+	tourneyData = test_json_conv.get_data()
 	for levelDict in tourneyData.values():
 		var levelRounds: Array = []
 		for roundDict in levelDict.values():

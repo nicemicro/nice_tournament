@@ -1,7 +1,7 @@
 extends RoundResource
 class_name SwissRound
 
-var neededWins: int = 2 setget setNeededWins, getNeededWins
+var neededWins: int = 2: get = getNeededWins, set = setNeededWins
 
 func _init() -> void:
 	virtualInputMult = 0
@@ -73,13 +73,13 @@ func _sortPlayersByPoint(playerList: Array, noVirtPts: bool = false) -> Array:
 		)
 		playerDict["gameNumber"] = playerRes.getGameNumber(currentRound + 1)
 		playerCopy.append(playerDict)
-	playerCopy.sort_custom(_customSorter, "sortByPointsDesc")
+	playerCopy.sort_custom(Callable(_customSorter, "sortByPointsDesc"))
 	for playerDict in playerCopy:
 		orderedPlayerList.append(playerDict["player"])
 	return orderedPlayerList
 
 func _receivePlayers(incoming: Array) -> Array:
-	var outgoing: Array  = ._receivePlayers(incoming)
+	var outgoing: Array  = super._receivePlayers(incoming)
 	if not _allPlayerReceived():
 		var playerNum: int = len(_players)
 		_players = []
@@ -143,7 +143,7 @@ func _findAllPairings(playerList: Array, pointMatrix: Array, ignore: int) -> Arr
 
 func _generateGroupings() -> void:
 	if not _allPlayerReceived():
-		._generateGroupings()
+		super._generateGroupings()
 		return
 	var playerList = _players.duplicate()
 	if len(playerList) % 2 == 1:
@@ -157,9 +157,9 @@ func _generateGroupings() -> void:
 	var allPairings: Array = (
 		_findAllPairings(playerList, matchMatrix, maxBadness / 2)
 	)
-	allPairings.sort_custom(_customSorter, "sortByPointsAsc")
+	allPairings.sort_custom(Callable(_customSorter, "sortByPointsAsc"))
 	_groupings = allPairings[0]["list"]
-	_groupings.sort_custom(_customSorter, "playerGroupDesc")
+	_groupings.sort_custom(Callable(_customSorter, "playerGroupDesc"))
 	if _groupings[-1][1] == null:
 		_groupings[-1].pop_back()
 

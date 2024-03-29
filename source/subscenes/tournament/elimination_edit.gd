@@ -1,10 +1,10 @@
 extends "res://subscenes/tournament/round_edit_base.gd"
 
-onready var pairNumInput: LineEdit = $PairNum/PairNumInput
-onready var neededWins: LineEdit = $NeededWins/WinInput
+@onready var pairNumInput: LineEdit = $PairNum/PairNumInput
+@onready var neededWins: LineEdit = $NeededWins/WinInput
 
 func _ready():
-	._ready()
+	super._ready()
 	playerNumberChange()
 	if roundRes != null:
 		pairNumInput.text = str(roundRes.pairNum)
@@ -14,7 +14,7 @@ func attachResource(newRoundRes: RoundResource) -> void:
 	if not newRoundRes is EliminationRound:
 		assert(false, "This UI is for elimination rounds only.")
 		return
-	.attachResource(newRoundRes)
+	super.attachResource(newRoundRes)
 	if pairNumInput != null:
 		pairNumInput.text = str(roundRes.pairNum)
 		neededWins.text = str(roundRes.neededWins)

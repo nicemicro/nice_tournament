@@ -1,9 +1,9 @@
 extends RoundResource
 class_name GroupRound
 
-var groupNum: int = 2 setget setGroupNum, getGroupNum
-var groupSize: int = 3 setget setGroupSize, getGroupSize
-var neededWins: int = 2 setget setNeededWins, getNeededWins
+var groupNum: int = 2: get = getGroupNum, set = setGroupNum
+var groupSize: int = 3: get = getGroupSize, set = setGroupSize
+var neededWins: int = 2: get = getNeededWins, set = setNeededWins
 
 func _init() -> void:
 	virtualInputMult = 0

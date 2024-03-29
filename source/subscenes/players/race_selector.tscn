@@ -4,18 +4,18 @@
 [ext_resource path="res://subscenes/players/race_selector.gd" type="Script" id=2]
 
 [node name="RaceSelect" type="HSplitContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="."]
-margin_top = 3.0
-margin_bottom = 39.0
+offset_top = 3.0
+offset_bottom = 39.0
 
 [node name="OptionButton" type="OptionButton" parent="."]
-margin_left = 12.0
-margin_right = 41.0
-margin_bottom = 42.0
+offset_left = 12.0
+offset_right = 41.0
+offset_bottom = 42.0
 
 [connection signal="item_selected" from="OptionButton" to="." method="_on_OptionButton_item_selected"]

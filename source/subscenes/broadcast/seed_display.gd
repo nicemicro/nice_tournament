@@ -8,7 +8,7 @@ func attachResource(newRes: RoundResource):
 	if not newRes is SeedRound:
 		printerr("This UI is for displaying Seed rounds only.")
 		return
-	.attachResource(newRes)
+	super.attachResource(newRes)
 
 func displayResData():
 	for player in roundRes.getOutPlayerList():

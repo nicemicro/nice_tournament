@@ -1,8 +1,8 @@
 extends HBoxContainer
 
-onready var screenContainer: VBoxContainer = $PanelContainer/Main
-onready var matchContainer: MarginContainer = $PanelContainer/MatchContainer
-onready var mainContainer: MarginContainer = $PanelContainer/Main/Container
+@onready var screenContainer: VBoxContainer = $PanelContainer/Main
+@onready var matchContainer: MarginContainer = $PanelContainer/MatchContainer
+@onready var mainContainer: MarginContainer = $PanelContainer/Main/Container
 
 var roundRes: RoundResource
 var matchOverlayOn: bool = false
@@ -27,8 +27,8 @@ func refreshResData() -> void:
 
 func _createGroupDisplayScene() -> VBoxContainer:
 	var newScene = preload(groupDisplayPath)
-	var newNode: VBoxContainer = newScene.instance()
-	newNode.connect("openGroup", self, "_openGroupPlayWindow")
+	var newNode: VBoxContainer = newScene.instantiate()
+	newNode.connect("openGroup", Callable(self, "_openGroupPlayWindow"))
 	return newNode
 
 func _openGroupPlayWindow(groupData: Array) -> void:

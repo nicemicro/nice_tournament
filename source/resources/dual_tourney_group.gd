@@ -1,8 +1,8 @@
 extends RoundResource
 class_name DualTourneyRound
 
-var groupNum: int = 2 setget setGroupNum, getGroupNum
-var neededWins: Array = [1, 2, 2] setget setNeededWins, getNeededWins
+var groupNum: int = 2: get = getGroupNum, set = setGroupNum
+var neededWins: Array = [1, 2, 2]: get = getNeededWins, set = setNeededWins
 
 func _init() -> void:
 	virtualInputMult = 0

@@ -1,8 +1,8 @@
 extends PanelContainer
 
-onready var titleLabel: Label = $Main/Title
-onready var detailContainer: VBoxContainer = $Main/Container
-onready var openButton: TextureButton = $Main/OpenButton
+@onready var titleLabel: Label = $Main/Title
+@onready var detailContainer: VBoxContainer = $Main/Container
+@onready var openButton: TextureButton = $Main/OpenButton
 
 const groupDisplayPath: String = "res://subscenes/broadcast/single_group_display.tscn"
 
@@ -21,7 +21,7 @@ func attachResource(newRes: RoundResource) -> void:
 func displayResData() -> void:
 	for grouping in roundRes.getGroupings():
 		var newScene = preload(groupDisplayPath)
-		var newNode = newScene.instance()
+		var newNode = newScene.instantiate()
 		_displayGroup(grouping, newNode)
 
 func _displayGroup(grouping: Array, newNode: Control) -> void:

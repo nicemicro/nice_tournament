@@ -8,7 +8,7 @@ func attachResource(newRes: RoundResource):
 	if not newRes is EndResultRound:
 		printerr("This UI is for displaying end results only.")
 		return
-	.attachResource(newRes)
+	super.attachResource(newRes)
 
 func displayResData():
 	var place: int = 0

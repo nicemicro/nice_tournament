@@ -1,10 +1,10 @@
 extends Resource
 class_name MatchResource
 
-var playerOne: PlayerResource setget fail, getPlayerOne
-var playerTwo: PlayerResource setget fail, getPlayerTwo
-var mapPool: Array = [] setget fail, getMapPool
-var results: Array = [] setget fail, getResults
+var playerOne: PlayerResource: get = getPlayerOne, set = fail
+var playerTwo: PlayerResource: get = getPlayerTwo, set = fail
+var mapPool: Array = []: get = getMapPool, set = fail
+var results: Array = []: get = getResults, set = fail
 
 signal newWinRegistered
 

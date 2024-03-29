@@ -1,9 +1,9 @@
 [gd_resource type="Theme" load_steps=3 format=2]
 
-[sub_resource type="DynamicFontData" id=2]
+[sub_resource type="FontFile" id=2]
 font_path = "res://themes_fonts/LiberationSans-Regular.ttf"
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="FontFile" id=1]
 size = 14
 font_data = SubResource( 2 )
 
@@ -17,12 +17,12 @@ Label/constants/shadow_as_outline = 0
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/styles/normal = null
-PopupDialog/styles/panel = null
-WindowDialog/colors/title_color = Color( 0, 0, 0, 1 )
-WindowDialog/constants/close_h_ofs = 18
-WindowDialog/constants/close_v_ofs = 18
-WindowDialog/constants/scaleborder_size = 5
-WindowDialog/constants/title_height = 26
-WindowDialog/icons/close = null
-WindowDialog/icons/close_highlight = null
-WindowDialog/styles/panel = null
+Popup/styles/panel = null
+Window/colors/title_color = Color( 0, 0, 0, 1 )
+Window/constants/close_h_ofs = 18
+Window/constants/close_v_ofs = 18
+Window/constants/scaleborder_size = 5
+Window/constants/title_height = 26
+Window/icons/close = null
+Window/icons/close_highlight = null
+Window/styles/panel = null

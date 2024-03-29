@@ -1,8 +1,8 @@
 extends Control
 
-onready var playerContainer: GridContainer = $ScrollContainer/GridContainer
+@onready var playerContainer: GridContainer = $ScrollContainer/GridContainer
 
-var playerAddWindow: WindowDialog = null
+var playerAddWindow: Window = null
 
 const addPlayerScenePath: String = "res://subscenes/players/add_player.tscn"
 const playerInfoScenePath: String = "res://subscenes/players/player_info.tscn"
@@ -19,9 +19,9 @@ func _on_Back_pressed():
 
 func _on_AddNew_pressed():
 	var newScene = preload(addPlayerScenePath)
-	var playerAddWindow = newScene.instance()
-	playerAddWindow.connect("popup_hide", self, "removeAddPlayerNode")
-	playerAddWindow.connect("playerCreated", self, "savePlayer")
+	var playerAddWindow = newScene.instantiate()
+	playerAddWindow.connect("popup_hide", Callable(self, "removeAddPlayerNode"))
+	playerAddWindow.connect("playerCreated", Callable(self, "savePlayer"))
 	add_child(playerAddWindow)
 	playerAddWindow.show()
 
@@ -35,6 +35,6 @@ func savePlayer(newPlayer: PlayerResource):
 
 func displayPlayer(playerRes: PlayerResource):
 	var newScene = preload(playerInfoScenePath)
-	var playerInfo = newScene.instance()
+	var playerInfo = newScene.instantiate()
 	playerInfo.setUpPlayer(playerRes)
 	playerContainer.add_child(playerInfo)

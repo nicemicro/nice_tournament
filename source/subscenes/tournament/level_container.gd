@@ -1,17 +1,17 @@
 extends VBoxContainer
 
-onready var roundContainer: VBoxContainer = $ScrollContainer/Rounds
-onready var checkbox: CheckBox = $Footer/FooterBox/CheckBoxContainer/CheckBox
-onready var inputNumField: LineEdit = $Footer/FooterBox/InNum
-onready var outputNumField: LineEdit = $Footer/FooterBox/OutNum
+@onready var roundContainer: VBoxContainer = $ScrollContainer/Rounds
+@onready var checkbox: CheckBox = $Footer/FooterBox/CheckBoxContainer/CheckBox
+@onready var inputNumField: LineEdit = $Footer/FooterBox/InNum
+@onready var outputNumField: LineEdit = $Footer/FooterBox/OutNum
 
 var selected: bool = false
-var level: int = -1 setget setLevel, getLevel
+var level: int = -1: get = getLevel, set = setLevel
 
 signal selected
 
 func _ready():
-	checkbox.pressed = selected
+	checkbox.button_pressed = selected
 
 func setSelected(what: bool) -> void:
 	selected = what
@@ -26,7 +26,7 @@ func getLevel() -> int:
 	return level
 
 func addRound(newRound: Control) -> void:
-	newRound.connect("playerNumChange", self, "_on_playerNumChange")
+	newRound.connect("playerNumChange", Callable(self, "_on_playerNumChange"))
 	roundContainer.add_child(newRound)
 
 func setInputOutput(newInput: int, newOutput: int) -> void:

@@ -1,11 +1,11 @@
-extends WindowDialog
+extends Window
 
-onready var mainScreen = $Container
-onready var nameField = $Container/Name/LineEdit
-onready var prevRecordGroup = $Container/MapRecord
-onready var imageButton = $Container/Image
-onready var addButton = $Buttons/SaveButton
-onready var filedialog = $FileDialog
+@onready var mainScreen = $Container
+@onready var nameField = $Container/Name/LineEdit
+@onready var prevRecordGroup = $Container/MapRecord
+@onready var imageButton = $Container/Image
+@onready var addButton = $Buttons/SaveButton
+@onready var filedialog = $FileDialog
 
 var _icon: Image = null
 var inputFields: Dictionary = {}
@@ -33,7 +33,7 @@ func _ready():
 			#newInput.theme = preload("res://themes_fonts/default_theme.tres")
 			newInput.text = ""
 			newInput.placeholder_text = "0"
-			newInput.connect("text_changed", self, "_on_recordLine_text_changed")
+			newInput.connect("text_changed", Callable(self, "_on_recordLine_text_changed"))
 			inputFields[winnerRace][loserRace] = newInput
 			prevRecordGroup.add_child(newInput)
 
@@ -46,7 +46,7 @@ func createLabel(labelText: String) -> Label:
 
 func show():
 	addButton.disabled = true
-	.show()
+	super.show()
 
 func validateInputs():
 	addButton.disabled = true

@@ -1,8 +1,8 @@
 extends HBoxContainer
 
-onready var nameLabel: Label = $NameRace
-onready var virtPointInput: LineEdit = $VirtualPoints
-onready var actionMenuButton: MenuButton = $Action
+@onready var nameLabel: Label = $NameRace
+@onready var virtPointInput: LineEdit = $VirtualPoints
+@onready var actionMenuButton: MenuButton = $Action
 
 var player: PlayerResource
 
@@ -13,7 +13,7 @@ func _ready():
 	if player != null:
 		showPlayerDetails()
 	var actionList = actionMenuButton.get_popup()
-	actionList.connect("id_pressed", self, "_on_ActionMenuPoint_pressed")
+	actionList.connect("id_pressed", Callable(self, "_on_ActionMenuPoint_pressed"))
 
 func attachResource(newRes: PlayerResource) -> void:
 	if (player != null):

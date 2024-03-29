@@ -1,12 +1,12 @@
 extends Resource
 class_name PlayerResource
 
-var name: String setget fail, getName
-var avatar: Image setget fail, getAvatar
-var races: Dictionary setget fail, getAllRaces
-var previousRecord: Dictionary setget fail, getRecord
-var mapVeto: MapResource setget fail, getVetodMaps
-var virtualPoints: int = 0 setget setVirtualPoints, getVirtualPoints
+var name: String: get = getName, set = fail
+var avatar: Image: get = getAvatar, set = fail
+var races: Dictionary: get = getAllRaces, set = fail
+var previousRecord: Dictionary: get = getRecord, set = fail
+var mapVeto: MapResource: get = getVetodMaps, set = fail
+var virtualPoints: int = 0: get = getVirtualPoints, set = setVirtualPoints
 
 func _init(
 	newName: String, newAvatar: Image, newVeto: MapResource, newRace: Dictionary, newRecord: Dictionary

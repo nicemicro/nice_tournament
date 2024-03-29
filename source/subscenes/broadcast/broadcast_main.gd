@@ -1,10 +1,10 @@
 extends TextureRect
 
-onready var backButton: TextureButton = $Start/GoBack/Button
-onready var fwdButton: TextureButton = $Start/GoForward/Button
-onready var startScreen: Control = $Start
-onready var counterFooter: Control = $Counter
-onready var subScreenPoint: Control = $SubScreen
+@onready var backButton: TextureButton = $Start/GoBack/Button
+@onready var fwdButton: TextureButton = $Start/GoForward/Button
+@onready var startScreen: Control = $Start
+@onready var counterFooter: Control = $Counter
+@onready var subScreenPoint: Control = $SubScreen
 
 const seedScenePath: String = "res://subscenes/broadcast/seed_display.tscn"
 const seedFullscreenPath: String = "res://subscenes/broadcast/full_screen_round/seed_full_screen.tscn"
@@ -51,13 +51,13 @@ func start() -> void:
 				newScene = preload(forwardPlayerScenePath)
 			else:
 				continue
-			var roundScene = newScene.instance()
+			var roundScene = newScene.instantiate()
 			roundScene.attachResource(roundRes)
-			roundScene.connect("openFullScreen", self, "openNewSubscreen")
+			roundScene.connect("openFullScreen", Callable(self, "openNewSubscreen"))
 			roundContainers[levelNum-roundStart].add_child(roundScene)
 	if roundStart + 2 >= len(Tournament.rounds):
 		newScene = preload(finalResultScreenPath)
-		var roundScene = newScene.instance()
+		var roundScene = newScene.instantiate()
 		roundScene.attachResource(Tournament.endResult)
 		roundContainers[2].add_child(roundScene)
 		roundNumberLabels[2].text = ""
@@ -72,9 +72,9 @@ func openNewSubscreen(roundRes: RoundResource) -> void:
 		newScene = preload(eliminationFullscreenPath)
 	else:
 		return
-	var fullScreenScene = newScene.instance()
+	var fullScreenScene = newScene.instantiate()
 	fullScreenScene.attachResource(roundRes)
-	fullScreenScene.connect("closeScreen", self, "showAllRounds")
+	fullScreenScene.connect("closeScreen", Callable(self, "showAllRounds"))
 	subScreenPoint.add_child(fullScreenScene)
 	startScreen.visible = false
 	counterFooter.visible = false
