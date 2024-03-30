@@ -1,4 +1,3 @@
-; Project was converted by built-in tool to Godot 4
 ; Engine configuration file.
 ; It's best edited using the editor UI and not directly,
 ; since the parameters that go here are not all obvious.
@@ -9,80 +8,11 @@
 
 config_version=5
 
-_global_script_classes=[ {
-"base": "RoundResource",
-"class": "DualTourneyRound",
-"language": "GDScript",
-"path": "res://resources/dual_tourney_group.gd"
-}, {
-"base": "RoundResource",
-"class": "EliminationRound",
-"language": "GDScript",
-"path": "res://resources/elimination.gd"
-}, {
-"base": "RoundResource",
-"class": "EndResultRound",
-"language": "GDScript",
-"path": "res://resources/end_result_round.gd"
-}, {
-"base": "RoundResource",
-"class": "ForwardRound",
-"language": "GDScript",
-"path": "res://resources/forward_round.gd"
-}, {
-"base": "RoundResource",
-"class": "GroupRound",
-"language": "GDScript",
-"path": "res://resources/groups.gd"
-}, {
-"base": "Resource",
-"class": "MapResource",
-"language": "GDScript",
-"path": "res://resources/map.gd"
-}, {
-"base": "Resource",
-"class": "MatchResource",
-"language": "GDScript",
-"path": "res://resources/match_resource.gd"
-}, {
-"base": "Resource",
-"class": "PlayerResource",
-"language": "GDScript",
-"path": "res://resources/player.gd"
-}, {
-"base": "Resource",
-"class": "RoundResource",
-"language": "GDScript",
-"path": "res://resources/round_base.gd"
-}, {
-"base": "RoundResource",
-"class": "SeedRound",
-"language": "GDScript",
-"path": "res://resources/seed.gd"
-}, {
-"base": "RoundResource",
-"class": "SwissRound",
-"language": "GDScript",
-"path": "res://resources/swiss_round.gd"
-} ]
-_global_script_class_icons={
-"DualTourneyRound": "",
-"EliminationRound": "",
-"EndResultRound": "",
-"ForwardRound": "",
-"GroupRound": "",
-"MapResource": "",
-"MatchResource": "",
-"PlayerResource": "",
-"RoundResource": "",
-"SeedRound": "",
-"SwissRound": ""
-}
-
 [application]
 
 config/name="NML 5"
 run/main_scene="res://start.tscn"
+config/features=PackedStringArray("4.2")
 
 [autoload]
 
@@ -93,8 +23,8 @@ Tournament="*res://globals/tournament.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/fullscreen=true
 mouse_cursor/custom_image="res://assets/cursor.png"
+window/size/fullscreen=true
 
 [gui]
 
