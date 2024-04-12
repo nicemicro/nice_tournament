@@ -5,6 +5,7 @@ var pairNum: int = 2: get = getPairNum, set = setPairNum
 var neededWins: int = 3: get = getNeededWins, set = setNeededWins
 
 func _init() -> void:
+	_type = "elimination"
 	virtualInputMult = 0
 
 func getOutput() -> int:

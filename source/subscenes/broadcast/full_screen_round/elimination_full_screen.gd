@@ -20,7 +20,7 @@ func displayResData():
 	for mapRes in roundRes.mapPool:
 		var newLabel: Label = Label.new()
 		newLabel.text = (mapRes.name)
-		newLabel.align = Label.ALIGNMENT_CENTER
+		newLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		newLabel.size_flags_horizontal = SIZE_SHRINK_CENTER
 		mapPool.add_child(newLabel)
 	_addGroupNodes()

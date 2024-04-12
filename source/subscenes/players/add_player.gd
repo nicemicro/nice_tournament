@@ -38,10 +38,6 @@ func  _ready():
 	for mapId in Global.maps:
 		mapVetoSelector.add_item(Global.maps[mapId].name)
 
-func show():
-	addButton.disabled = true
-	super.show()
-
 func validateInputs():
 	addButton.disabled = true
 	if _avatar == null:
@@ -103,3 +99,8 @@ func _on_SaveButton_pressed():
 	)
 	emit_signal("playerCreated", playerResource)
 	self.hide()
+
+
+func _on_visibility_changed():
+	if visible:
+		addButton.disabled = true

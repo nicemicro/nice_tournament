@@ -1,6 +1,9 @@
 extends RoundResource
 class_name ForwardRound
 
+func _init() -> void:
+	_type = "forward"
+
 func getOutput() -> int:
 	return input
 

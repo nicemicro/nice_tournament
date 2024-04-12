@@ -3,6 +3,7 @@ class_name SeedRound
 
 func _init() -> void:
 	virtualInputMult = 1
+	_type = "seed"
 
 func addPlayer(newPlayer: PlayerResource) -> void:
 	if newPlayer in _players:

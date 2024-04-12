@@ -1,10 +1,10 @@
 extends Node
 
 enum  Race {
-	PROTOSS
-	ZERG
-	TERRAN
-	RANDOM
+	PROTOSS,
+	ZERG,
+	TERRAN,
+	RANDOM,
 }
 
 const RaceName: Dictionary = {
@@ -15,7 +15,9 @@ const RaceName: Dictionary = {
 }
 
 var players: Dictionary = {}: get = getPlayers, set = fail
+var _players: Dictionary = {}
 var maps: Dictionary = {}: get = getMaps, set = fail
+var _maps: Dictionary = {}
 
 func fail(input) -> void:
 	assert (false, "You should not change this on the fly")
@@ -25,57 +27,55 @@ func registerNewPlayer(newPlayer: PlayerResource) -> void:
 	var time_return: int = time.hour * 10000 + time.minute * 100 + time.second
 	var newId: String
 	newId = "%x" % (time_return * 10000 + (randi() % 10000))
-	players[newId] = newPlayer
+	_players[newId] = newPlayer
 
 func registerNewMap(newMap: MapResource) -> void:
 	var time = Time.get_time_dict_from_system(true)
 	var time_return: int = time.hour * 10000 + time.minute * 100 + time.second
 	var newId: String
 	newId = "%x" % (time_return * 10000 + (randi() % 10000))
-	maps[newId] = newMap
+	_maps[newId] = newMap
 	
 func getPlayers() -> Dictionary:
-	return players.duplicate()
+	return _players.duplicate()
 
 func getPlayerId(playerRes: PlayerResource) -> String:
 	if playerRes == null:
 		return ""
-	if not playerRes in players.values():
+	if not playerRes in _players.values():
 		printerr("Trying to get ID for a player not on the list")
 		assert(false)
 		return ""
-	return players.keys()[players.values().find(playerRes)]
+	return _players.keys()[_players.values().find(playerRes)]
 
 func getMapId(mapRes: MapResource) -> String:
-	return maps.keys()[maps.values().find(mapRes)]
+	return _maps.keys()[_maps.values().find(mapRes)]
 
 func getMaps() -> Dictionary:
-	return maps.duplicate()
+	return _maps.duplicate()
 
 func saveMaps() -> void:
 	var mapData: Dictionary = {}
-	for mapId in maps:
-		mapData[mapId] = maps[mapId].toDict()
-		maps[mapId].icon.save_png("user://" + mapId + ".png")
-	var fileSave = File.new()
-	fileSave.open("user://maps.json", File.WRITE)
+	for mapId in _maps:
+		mapData[mapId] = _maps[mapId].toDict()
+		_maps[mapId].icon.save_png("user://" + mapId + ".png")
+	var fileSave = FileAccess.open("user://maps.json", FileAccess.WRITE)
 	fileSave.store_line(JSON.new().stringify(mapData))
 	fileSave.close()
 
 func loadMaps() -> void:
-	var file = File.new()
 	var mapData: Dictionary
 	var icon: Image
-	if not file.file_exists("user://maps.json"):
+	if not FileAccess.file_exists("user://maps.json"):
 		return
-	file.open("user://maps.json", File.READ)
+	var file = FileAccess.open("user://maps.json", FileAccess.READ)
 	var test_json_conv = JSON.new()
 	test_json_conv.parse(file.get_as_text())
 	mapData = test_json_conv.get_data()
 	for id in mapData:
 		icon = Image.new()
 		icon.load("user://" + id + ".png")
-		maps[id] = MapResource.new(
+		_maps[id] = MapResource.new(
 			mapData[id]["name"],
 			icon,
 			processPreviousRecordData(mapData[id]["previousRecord"])
@@ -83,37 +83,35 @@ func loadMaps() -> void:
 
 func savePlayers() -> void:
 	var playerData: Dictionary = {}
-	for playerId in players:
-		playerData[playerId] = players[playerId].toDict()
-		players[playerId].avatar.save_png("user://" + playerId + ".png")
-	var fileSave = File.new()
-	fileSave.open("user://players.json", File.WRITE)
+	for playerId in _players:
+		playerData[playerId] = _players[playerId].toDict()
+		_players[playerId].avatar.save_png("user://" + playerId + ".png")
+	var fileSave = FileAccess.open("user://players.json", FileAccess.WRITE)
 	fileSave.store_line(JSON.new().stringify(playerData))
 	fileSave.close()
 
 func loadPlayers() -> void:
-	var file = File.new()
 	var playerData: Dictionary
 	var avatar: Image
 	var mapVeto: MapResource
-	if not file.file_exists("user://players.json"):
+	if not FileAccess.file_exists("user://players.json"):
 		return
-	file.open("user://players.json", File.READ)
+	var file = FileAccess.open("user://players.json", FileAccess.READ)
 	var test_json_conv = JSON.new()
 	test_json_conv.parse(file.get_as_text())
 	playerData = test_json_conv.get_data()
 	for id in playerData:
 		avatar = Image.new()
 		avatar.load("user://" + id + ".png")
-		mapVeto = maps[playerData[id]["mapVeto"]]
-		players[id] = PlayerResource.new(
+		mapVeto = _maps[playerData[id]["mapVeto"]]
+		_players[id] = PlayerResource.new(
 			playerData[id]["name"],
 			avatar,
 			mapVeto,
 			playerData[id]["races"],
 			playerData[id]["previousRecord"]
 		)
-		players[id].setVirtualPoints(playerData[id]["virtualPoints"])
+		_players[id].setVirtualPoints(playerData[id]["virtualPoints"])
 
 func processPreviousRecordData(data: Dictionary) -> Dictionary:
 	var processedData: Dictionary = {}
@@ -131,17 +129,15 @@ func saveTournament() -> void:
 		for roundIndex in range(len(levelArray)):
 			levelData[roundIndex] = levelArray[roundIndex].toDict()
 		tourneyData[levelIndex] = levelData
-	var fileSave = File.new()
-	fileSave.open("user://tournament.json", File.WRITE)
+	var fileSave = FileAccess.open("user://tournament.json", FileAccess.WRITE)
 	fileSave.store_line(JSON.new().stringify(tourneyData))
 	fileSave.close()
 
 func loadTournament() -> void:
-	var file = File.new()
 	var tourneyData: Dictionary
-	if not file.file_exists("user://tournament.json"):
+	if not FileAccess.file_exists("user://tournament.json"):
 		return
-	file.open("user://tournament.json", File.READ)
+	var file = FileAccess.open("user://tournament.json", FileAccess.READ)
 	var test_json_conv = JSON.new()
 	test_json_conv.parse(file.get_as_text())
 	tourneyData = test_json_conv.get_data()
@@ -172,7 +168,7 @@ func loadTournament() -> void:
 
 func processMapPool(roundRes: RoundResource, mapDict: Dictionary) -> void:
 	for mapId in mapDict.values():
-		roundRes.addMap(maps[mapId])
+		roundRes.addMap(_maps[mapId])
 
 func processPlayers(playerDict: Dictionary) -> Array:
 	var playerList: Array = []
@@ -180,21 +176,21 @@ func processPlayers(playerDict: Dictionary) -> Array:
 		if playerId == "":
 			playerList.append(null)
 			continue
-		playerList.append(players[playerId])
+		playerList.append(_players[playerId])
 	return playerList
 
 func processMatches(matchDict: Dictionary) -> Array:
 	var matchList: Array = []
 	for matchData in matchDict.values():
-		var playerOne: PlayerResource = players[matchData["playerOne"]]
+		var playerOne: PlayerResource = _players[matchData["playerOne"]]
 		var playerTwo: PlayerResource
 		if matchData["playerTwo"] == "":
 			playerTwo = null
 		else:
-			playerTwo = players[matchData["playerTwo"]]
+			playerTwo = _players[matchData["playerTwo"]]
 		var mapList: Array
 		for mapId in matchData["mapPool"].values():
-			mapList.append(maps[mapId])
+			mapList.append(_maps[mapId])
 		var matchRes: MatchResource = MatchResource.new(playerOne, playerTwo, mapList)
 		for matchResult in matchData["results"].values():
 			if matchResult == "1":

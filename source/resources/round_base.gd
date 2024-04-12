@@ -1,18 +1,25 @@
 extends Resource
 class_name RoundResource
 
+var type: String = "": get = getType, set = fail
+var _type: String = ""
 var input: int = 0: get = getInput, set = setInput
 var output: int = 0: get = getOutput, set = setOutput
 var virtualInputMult: float = 0.0
 var mapPool: Array = []: get = getMapPool, set = fail
+var _mapPool: Array = []
 var matchList: Array = []: get = getMatchList, set = fail
+var _matchList: Array = []
 var _players: Array = []
 var _groupings: Array = [] # contains arrays of players who are considered to be groups
 
 signal roundFinished
 
-func fail(input) -> void:
+func fail(_anything) -> void:
 	assert (false, "You should not change this on the fly")
+
+func getType() -> String:
+	return _type
 
 func getOutput() -> int:
 	return output
@@ -27,43 +34,43 @@ func setInput(newInput: int) -> void:
 	input = newInput
 
 func getMapPool() -> Array:
-	return mapPool.duplicate()
+	return _mapPool.duplicate()
 
 func getMatchList() -> Array:
-	return matchList.duplicate()
+	return _matchList.duplicate()
 
 func addMap(newMap: MapResource) -> void:
-	if newMap in mapPool:
+	if newMap in _mapPool:
 		printerr("Trying to add a map already on the list.")
 		return
-	if len(matchList) > 0:
+	if len(_matchList) > 0:
 		printerr("Matches already generated, can't change map pool.")
 		return
-	mapPool.append(newMap)
+	_mapPool.append(newMap)
 
 func removeMap(mapRes: MapResource) -> void:
-	if not mapRes in mapPool:
+	if not mapRes in _mapPool:
 		printerr("Trying to act on a map not on the list.")
 		return
-	if len(matchList) > 0:
+	if len(_matchList) > 0:
 		printerr("Matches already generated, can't change map pool.")
 		return
-	var index: int = mapPool.find(mapRes)
-	mapPool.pop_at(index)
+	var index: int = _mapPool.find(mapRes)
+	_mapPool.pop_at(index)
 
 func moveMap(mapRes: MapResource, position: int) -> void:
-	if position < 0 or position >= len(mapPool):
+	if position < 0 or position >= len(_mapPool):
 		printerr("Trying to move a map to an unavailable position.")
 		return
-	if not mapRes in mapPool:
+	if not mapRes in _mapPool:
 		printerr("Trying to act on a map not on the list.")
 		return
-	if len(matchList) > 0:
+	if len(_matchList) > 0:
 		printerr("Matches already generated, can't change map pool.")
 		return
-	var index: int = mapPool.find(mapRes)
-	mapPool[index] = mapPool[position]
-	mapPool[position] = mapRes
+	var index: int = _mapPool.find(mapRes)
+	_mapPool[index] = _mapPool[position]
+	_mapPool[position] = mapRes
 
 func _allPlayerReceived() -> bool:
 	if len(_players) == 0:
@@ -75,7 +82,7 @@ func _allPlayerReceived() -> bool:
 	return true
 
 func _validMapPool() -> bool:
-	return len(mapPool) > 0
+	return len(_mapPool) > 0
 # Receives an array of players; returns the array of players that don't fit
 # into this round based on the "input" variable
 func receivePlayers(incoming: Array) -> Array:
@@ -119,7 +126,7 @@ func _generateGroupings() -> void:
 func _generateMatches() -> void:
 	# Whenever the matches are generated, their signal "newWinRegistered" should be
 	# connected here with the "_matchChanged" function!
-	if len(matchList) > 0:
+	if len(_matchList) > 0:
 		printerr("Can't generate mathes again")
 		assert(false)
 		return
@@ -131,7 +138,7 @@ func _generateMatches() -> void:
 			var newMatchRes: MatchResource = MatchResource.new(
 				playerGroup[0], null, maplist
 			)
-			matchList.append(newMatchRes)
+			_matchList.append(newMatchRes)
 			continue
 		for index1 in range(len(playerGroup) - 1):
 			for index2 in range(index1 + 1, len(playerGroup), 1):
@@ -143,7 +150,7 @@ func _generateMatches() -> void:
 					playerGroup[index2],
 					maplist
 				)
-				matchList.append(newMatchRes)
+				_matchList.append(newMatchRes)
 
 # This is a prototype map generator that only returns one map! Needs to be
 # overwritten for the specific rounds.
@@ -160,10 +167,10 @@ func _generateMaplistCore(vetoMaps: Array, neededMaps: int) -> Array:
 	var maplist: Array = []
 	var index: int = 0
 	while len(maplist) < neededMaps:
-		if not mapPool[index] in vetoMaps:
-			maplist.append(mapPool[index])
+		if not _mapPool[index] in vetoMaps:
+			maplist.append(_mapPool[index])
 		index += 1
-		if index >= len(mapPool):
+		if index >= len(_mapPool):
 			index = 0
 			if len(maplist) == 0:
 				assert(false, "No non-vetod maps! This would end up in an infinite loop!")
@@ -192,7 +199,7 @@ func getGroupings() -> Array:
 
 func getWins(playerRes: PlayerResource) -> int:
 	var winCount: int = 0
-	for matchRes in matchList:
+	for matchRes in _matchList:
 		if matchRes.playerOne == playerRes or matchRes.playerTwo == playerRes:
 			var matchWins: Dictionary = matchRes.getWins()
 			winCount += matchWins[playerRes]
@@ -200,14 +207,14 @@ func getWins(playerRes: PlayerResource) -> int:
 
 func getLoss(playerRes: PlayerResource) -> int:
 	var winCount: int = 0
-	for matchRes in matchList:
+	for matchRes in _matchList:
 		if matchRes.playerOne == playerRes or matchRes.playerTwo == playerRes:
 			winCount += matchRes.getLoss()[playerRes]
 	return winCount
 
 func getMatchPlayed(playerRes: PlayerResource) -> int:
 	var count: int = 0
-	for matchRes in matchList:
+	for matchRes in _matchList:
 		if matchRes.playerOne == playerRes or matchRes.playerTwo == playerRes:
 			count += matchRes.getPlayedRounds()
 	return count
@@ -246,12 +253,12 @@ func getOutPlayerList() -> Array:
 	return _getOutPlayerList()
 
 func loadPlayersMatches(playerList: Array, newMatchList: Array) -> void:
-	if len(_players) > 0 or len(matchList) > 0:
+	if len(_players) > 0 or len(_matchList) > 0:
 		printerr("Can't load players and matches once they exist")
 		assert(false)
 		return
 	_players = playerList.duplicate()
-	matchList = newMatchList.duplicate()
+	_matchList = newMatchList.duplicate()
 	_generateLoadedGroupings()
 
 func _generateLoadedGroupings() -> void:
@@ -261,8 +268,8 @@ func _toDict(data: Dictionary) -> Dictionary:
 	var mapPoolDict: Dictionary = {}
 	var playerDict: Dictionary = {}
 	var matchDict: Dictionary = {}
-	for mapIndex in range(len(mapPool)):
-		var map: MapResource = mapPool[mapIndex]
+	for mapIndex in range(len(_mapPool)):
+		var map: MapResource = _mapPool[mapIndex]
 		mapPoolDict[mapIndex] = Global.getMapId(map)
 	for playerIndex in range(len(_players)):
 		if _players[playerIndex] is PlayerResource:
@@ -270,14 +277,14 @@ func _toDict(data: Dictionary) -> Dictionary:
 		else:
 			playerDict = {}
 			break
-	for matchIndex in range(len(matchList)):
-		var matchRes: MatchResource = matchList[matchIndex]
+	for matchIndex in range(len(_matchList)):
+		var matchRes: MatchResource = _matchList[matchIndex]
 		matchDict[matchIndex] = matchRes.toDict()
 	data["type"] = Tournament.getRoundType(self)
 	data["input"] = input
 	data["output"] = output
 	data["virtualInputMult"] = virtualInputMult
-	data["mapPool"] = mapPoolDict
+	data["_mapPool"] = mapPoolDict
 	data["players"] = playerDict
 	data["matches"] = matchDict
 	return data

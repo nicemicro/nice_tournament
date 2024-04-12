@@ -6,6 +6,7 @@ var neededWins: Array = [1, 2, 2]: get = getNeededWins, set = setNeededWins
 
 func _init() -> void:
 	virtualInputMult = 0
+	_type = "dual"
 
 func getOutput() -> int:
 	return groupNum * 4

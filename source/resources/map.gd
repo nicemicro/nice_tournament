@@ -2,28 +2,31 @@ extends Resource
 class_name MapResource
 
 var name: String: get = getName, set = fail
+var _name: String
 var icon: Image: get = getIcon, set = fail
+var _icon: Image
 var previousRecord: Dictionary = {}: get = getRecord, set = fail
+var _previousRecord: Dictionary = {}
 
 func _init(newName: String, newIcon: Image, newRecord: Dictionary):
-	name = newName
-	icon = newIcon
-	previousRecord = newRecord
+	_name = newName
+	_icon = newIcon
+	_previousRecord = newRecord
 
 func fail(input) -> void:
 	assert (false, "You should not change this on the fly")
 
 func getName() -> String:
-	return name
+	return _name
 
 func getIcon() -> Image:
-	return icon
+	return _icon
 
 func getRecord() -> Dictionary:
-	return previousRecord.duplicate()
+	return _previousRecord.duplicate()
 
 func toDict() -> Dictionary:
 	var returnDict: Dictionary = {}
-	returnDict["name"] = name
-	returnDict["previousRecord"] = previousRecord
+	returnDict["name"] = _name
+	returnDict["previousRecord"] = _previousRecord
 	return returnDict

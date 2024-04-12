@@ -6,6 +6,7 @@ var neededWins: int = 2: get = getNeededWins, set = setNeededWins
 func _init() -> void:
 	virtualInputMult = 0
 	input = 4
+	_type = "swiss"
 
 func getOutput() -> int:
 	return input

@@ -2,9 +2,13 @@ extends Resource
 class_name MatchResource
 
 var playerOne: PlayerResource: get = getPlayerOne, set = fail
+var _playerOne: PlayerResource
 var playerTwo: PlayerResource: get = getPlayerTwo, set = fail
+var _playerTwo: PlayerResource
 var mapPool: Array = []: get = getMapPool, set = fail
+var _mapPool: Array = []
 var results: Array = []: get = getResults, set = fail
+var _results: Array = []
 
 signal newWinRegistered
 
@@ -17,52 +21,52 @@ func _init(newPlayerOne: PlayerResource, newPlayerTwo: PlayerResource, newMaps: 
 			printerr("All elements of the array should be maps.")
 			assert(false)
 			return
-	playerOne = newPlayerOne
-	playerTwo = newPlayerTwo
-	mapPool = newMaps.duplicate()
-	results = []
+	_playerOne = newPlayerOne
+	_playerTwo = newPlayerTwo
+	_mapPool = newMaps.duplicate()
+	_results = []
 
 func getPlayedRounds() -> int:
 	var count: int = 0
-	for result in results:
+	for result in _results:
 		count += 1
 	return count
 
 func getWins() -> Dictionary:
-	if playerTwo == null:
-		return {playerOne: (len(mapPool) + 1) / 2}
+	if _playerTwo == null:
+		return {_playerOne: (len(_mapPool) + 1) / 2}
 	var winDict: Dictionary = {}
 	var countOne: int = 0
 	var countTwo: int = 0
-	for result in results:
-		if result == playerOne:
+	for result in _results:
+		if result == _playerOne:
 			countOne += 1
-		elif result == playerTwo:
+		elif result == _playerTwo:
 			countTwo += 1
 		else:
 			assert(false, "Unreachable")
-	winDict[playerOne] = countOne
-	winDict[playerTwo] = countTwo
+	winDict[_playerOne] = countOne
+	winDict[_playerTwo] = countTwo
 	return winDict
 
 func getLoss() -> Dictionary:
-	if playerTwo == null:
-		return {playerOne: 0}
+	if _playerTwo == null:
+		return {_playerOne: 0}
 	var lossDict: Dictionary = {}
 	var winDict: Dictionary = getWins()
-	lossDict[playerOne] = winDict[playerTwo]
-	lossDict[playerTwo] = winDict[playerOne]
+	lossDict[_playerOne] = winDict[_playerTwo]
+	lossDict[_playerTwo] = winDict[_playerOne]
 	return lossDict
 
 func getWinner() -> PlayerResource:
-	if playerTwo == null:
-		return playerOne
-	var neededWin: int = (len(mapPool) + 1) / 2
+	if _playerTwo == null:
+		return _playerOne
+	var neededWin: int = (len(_mapPool) + 1) / 2
 	var winDict: Dictionary = getWins()
-	if winDict[playerOne] >= neededWin:
-		return playerOne
-	if winDict[playerTwo] >= neededWin:
-		return playerTwo
+	if winDict[_playerOne] >= neededWin:
+		return _playerOne
+	if winDict[_playerTwo] >= neededWin:
+		return _playerTwo
 	return null
 
 func isOver() -> bool:
@@ -71,44 +75,44 @@ func isOver() -> bool:
 func getNextMap() -> MapResource:
 	if isOver():
 		return null
-	return mapPool[len(results)]
+	return _mapPool[len(_results)]
 
 func addWin(winner: PlayerResource) -> void:
-	if not winner in [playerOne, playerTwo]:
+	if not winner in [_playerOne, _playerTwo]:
 		printerr("Unrelated player trying to be added to a match.")
 		assert(false)
 		return
-	results.append(winner)
+	_results.append(winner)
 	emit_signal("newWinRegistered", self)
 
 func getPlayerOne() -> PlayerResource:
-	return playerOne
+	return _playerOne
 
 func getPlayerTwo() -> PlayerResource:
-	return playerTwo
+	return _playerTwo
 
 func getMapPool() -> Array:
-	return mapPool.duplicate()
+	return _mapPool.duplicate()
 
 func getResults() -> Array:
-	return results.duplicate()
+	return _results.duplicate()
 
 func toDict() -> Dictionary:
 	var matchDict: Dictionary = {}
 	var mapPoolDict: Dictionary = {}
 	var resultDict: Dictionary = {}
-	for mapIndex in range(len(mapPool)):
-		var map: MapResource = mapPool[mapIndex]
+	for mapIndex in range(len(_mapPool)):
+		var map: MapResource = _mapPool[mapIndex]
 		mapPoolDict[mapIndex] = Global.getMapId(map)
-	for resultIndex in range(len(results)):
-		if results[resultIndex] == playerOne:
+	for resultIndex in range(len(_results)):
+		if _results[resultIndex] == _playerOne:
 			resultDict[resultIndex] = "1"
-		elif results[resultIndex] == playerTwo:
+		elif _results[resultIndex] == _playerTwo:
 			resultDict[resultIndex] = "2"
 		else:
 			assert(false, "Unreachable!")
-	matchDict["playerOne"] = Global.getPlayerId(playerOne)
-	matchDict["playerTwo"] = Global.getPlayerId(playerTwo)
+	matchDict["playerOne"] = Global.getPlayerId(_playerOne)
+	matchDict["_playerTwo"] = Global.getPlayerId(playerTwo)
 	matchDict["mapPool"] = mapPoolDict
 	matchDict["results"] = resultDict
 	return matchDict

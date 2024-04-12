@@ -44,10 +44,6 @@ func createLabel(labelText: String) -> Label:
 	#newLabel.theme = preload("res://themes_fonts/default_theme.tres")
 	return newLabel
 
-func show():
-	addButton.disabled = true
-	super.show()
-
 func validateInputs():
 	addButton.disabled = true
 	if _icon == null:
@@ -105,3 +101,7 @@ func _on_SaveButton_pressed():
 	)
 	emit_signal("mapCreated", mapResource)
 	self.hide()
+
+func _on_visibility_changed():
+	if visible:
+		addButton.disabled = true

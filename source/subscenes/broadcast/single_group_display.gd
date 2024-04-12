@@ -119,7 +119,7 @@ func _addTextLabel(text: String, parent: Control, center: bool = false) -> void:
 	var textLabel: Label
 	textLabel = Label.new()
 	textLabel.text = text
-	textLabel.valign = Label.VALIGN_CENTER
+	textLabel.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	if fullScreen:
 		textLabel.theme_type_variation = "LabelLarge"
 		textLabel.custom_minimum_size = Vector2(0, 60)

@@ -7,6 +7,7 @@ var neededWins: int = 2: get = getNeededWins, set = setNeededWins
 
 func _init() -> void:
 	virtualInputMult = 0
+	_type = "group"
 
 func getOutput() -> int:
 	return groupNum * groupSize

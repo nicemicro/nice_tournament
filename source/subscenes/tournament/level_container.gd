@@ -5,16 +5,16 @@ extends VBoxContainer
 @onready var inputNumField: LineEdit = $Footer/FooterBox/InNum
 @onready var outputNumField: LineEdit = $Footer/FooterBox/OutNum
 
-var selected: bool = false
+var isSelected: bool = false
 var level: int = -1: get = getLevel, set = setLevel
 
 signal selected
 
 func _ready():
-	checkbox.button_pressed = selected
+	checkbox.button_pressed = isSelected
 
 func setSelected(what: bool) -> void:
-	selected = what
+	isSelected = what
 	if checkbox != null:
 		checkbox.set_pressed_no_signal(what)
 
@@ -37,7 +37,7 @@ func _on_CheckBox_pressed():
 	if not checkbox.pressed:
 		setSelected(true)
 	else:
-		selected = false
+		isSelected = false
 		emit_signal("selected", level)
 
 func _on_playerNumChange() -> void:
