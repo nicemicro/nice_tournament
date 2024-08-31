@@ -280,11 +280,11 @@ func _toDict(data: Dictionary) -> Dictionary:
 	for matchIndex in range(len(_matchList)):
 		var matchRes: MatchResource = _matchList[matchIndex]
 		matchDict[matchIndex] = matchRes.toDict()
-	data["type"] = Tournament.getRoundType(self)
+	data["type"] = self.type
 	data["input"] = input
 	data["output"] = output
 	data["virtualInputMult"] = virtualInputMult
-	data["_mapPool"] = mapPoolDict
+	data["mapPool"] = mapPoolDict
 	data["players"] = playerDict
 	data["matches"] = matchDict
 	return data

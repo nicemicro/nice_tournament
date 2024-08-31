@@ -1,11 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://bsnlf8tbyenkv"]
 
 [ext_resource type="Script" path="res://subscenes/players/add_player.gd" id="1"]
-[ext_resource type="PackedScene" path="res://subscenes/players/race_selector.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://ckw4glbrtefsc" path="res://subscenes/players/race_selector.tscn" id="2"]
 [ext_resource type="Theme" uid="uid://n4xnq7y5o8cc" path="res://themes_fonts/default_theme.tres" id="3"]
 [ext_resource type="Texture2D" uid="uid://cgv3k0uan0fad" path="res://assets/folder-button.png" id="4"]
 
 [node name="NewPlayer" type="Window"]
+initial_position = 1
+size = Vector2i(1000, 600)
 theme = ExtResource("3")
 script = ExtResource("1")
 
@@ -21,7 +23,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Name" type="HSplitContainer" parent="Columns/Col1"]
+[node name="Name" type="HBoxContainer" parent="Columns/Col1"]
 layout_mode = 2
 size_flags_horizontal = 0
 
@@ -44,7 +46,7 @@ text = "Avatar"
 layout_mode = 2
 texture_normal = ExtResource("4")
 
-[node name="Map" type="HSplitContainer" parent="Columns/Col1"]
+[node name="Map" type="HBoxContainer" parent="Columns/Col1"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Columns/Col1/Map"]
@@ -81,7 +83,7 @@ text = "Previous results"
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Buttons" type="HSplitContainer" parent="."]
+[node name="Buttons" type="HBoxContainer" parent="."]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -109,4 +111,5 @@ filters = PackedStringArray("*.png", "*.jpg", "*.jpeg")
 [connection signal="pressed" from="Columns/Col1/Avatar" to="." method="_on_Avatar_pressed"]
 [connection signal="pressed" from="Buttons/CancelButton" to="." method="_on_CancelButton_pressed"]
 [connection signal="pressed" from="Buttons/SaveButton" to="." method="_on_SaveButton_pressed"]
+[connection signal="canceled" from="FileDialog" to="." method="_on_file_dialog_canceled"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]

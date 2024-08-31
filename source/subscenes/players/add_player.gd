@@ -22,6 +22,7 @@ signal playerCreated
 func  _ready():
 	defRacePicker.setLabel("Default race")
 	defRacePicker.connect("itemSelected", Callable(self, "defRacePicked"))
+	addButton.disabled = true
 	for race in Global.RaceName:
 		var newScene = preload(raceSelectorScenePath)
 		var newNode = newScene.instantiate()
@@ -100,7 +101,12 @@ func _on_SaveButton_pressed():
 	emit_signal("playerCreated", playerResource)
 	self.hide()
 
-
 func _on_visibility_changed():
+	if addButton == null:
+		return
 	if visible:
 		addButton.disabled = true
+
+
+func _on_file_dialog_canceled():
+	mainScreen.show()

@@ -112,7 +112,7 @@ func toDict() -> Dictionary:
 		else:
 			assert(false, "Unreachable!")
 	matchDict["playerOne"] = Global.getPlayerId(_playerOne)
-	matchDict["_playerTwo"] = Global.getPlayerId(playerTwo)
+	matchDict["playerTwo"] = Global.getPlayerId(playerTwo)
 	matchDict["mapPool"] = mapPoolDict
 	matchDict["results"] = resultDict
 	return matchDict

@@ -1,6 +1,6 @@
 extends Control
 
-@onready var playerContainer: GridContainer = $Container
+@onready var playerContainer: GridContainer = %Container
 
 var playerAddWindow: Window = null
 

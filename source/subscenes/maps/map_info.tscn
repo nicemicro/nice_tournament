@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://ku4ou0rpt0f0"]
 
-[ext_resource path="res://themes_fonts/default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://subscenes/maps/map_info.gd" type="Script" id=2]
+[ext_resource type="Theme" uid="uid://n4xnq7y5o8cc" path="res://themes_fonts/default_theme.tres" id="1"]
+[ext_resource type="Script" path="res://subscenes/maps/map_info.gd" id="2"]
 
 [node name="MapInfo" type="VBoxContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2.0
@@ -12,22 +13,18 @@ offset_right = -2.0
 offset_bottom = -2.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource( 1 )
-script = ExtResource( 2 )
+theme = ExtResource("1")
+script = ExtResource("2")
 
 [node name="Name" type="Label" parent="."]
-offset_right = 1916.0
-offset_bottom = 36.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Name"
-align = 1
-autowrap = true
+horizontal_alignment = 1
 
 [node name="IconContainer" type="TextureRect" parent="."]
-offset_top = 40.0
-offset_right = 1916.0
-offset_bottom = 1076.0
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-expand = true
-stretch_mode = 6
+expand_mode = 3
+stretch_mode = 5

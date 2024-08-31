@@ -17,6 +17,5 @@ func setUpPlayer(map: MapResource) -> void:
 
 func setUpUi() -> void:
 	nameField.text = _map.name
-	var texture: ImageTexture = ImageTexture.new()
-	texture.create_from_image(_map.icon)
+	var texture: ImageTexture = ImageTexture.create_from_image(_map.icon)
 	iconPlace.texture = texture

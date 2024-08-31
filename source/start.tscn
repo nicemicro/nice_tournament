@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://b2bqjw3vj8yos"]
 
 [ext_resource type="Theme" uid="uid://n4xnq7y5o8cc" path="res://themes_fonts/default_theme.tres" id="1"]
-[ext_resource type="PackedScene" path="res://subscenes/players/players.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://cn2852htr0rio" path="res://subscenes/players/players.tscn" id="2"]
 [ext_resource type="Script" path="res://start.gd" id="3"]
-[ext_resource type="PackedScene" path="res://subscenes/maps/maps.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://blsrde03xw8aa" path="res://subscenes/maps/maps.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://subscenes/tournament/tournament_editor.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://subscenes/broadcast/broadcast_main.tscn" id="6"]
 
@@ -14,6 +14,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("3")
 
 [node name="Menu" type="VBoxContainer" parent="."]
@@ -75,11 +77,15 @@ text = "Save"
 
 [node name="Players" parent="." instance=ExtResource("2")]
 visible = false
-anchors_preset = 0
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Maps" parent="." instance=ExtResource("4")]
 visible = false
-anchors_preset = 0
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TournamentEditor" parent="." instance=ExtResource("5")]
 visible = false

@@ -14,6 +14,7 @@ signal mapCreated
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	addButton.disabled = true
 	prevRecordGroup.columns = len(Global.Race) + 1
 	prevRecordGroup.add_child(createLabel("Won"))
 	for loserRace in Global.Race.values():
@@ -103,5 +104,7 @@ func _on_SaveButton_pressed():
 	self.hide()
 
 func _on_visibility_changed():
+	if addButton == null:
+		return
 	if visible:
 		addButton.disabled = true

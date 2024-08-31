@@ -1,4 +1,4 @@
-extends HSplitContainer
+extends HBoxContainer
 
 @onready var raceOption = $OptionButton
 @onready var label = $Label

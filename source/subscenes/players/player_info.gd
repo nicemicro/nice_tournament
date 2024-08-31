@@ -19,6 +19,5 @@ func setUpPlayer(player: PlayerResource) -> void:
 func setUpUi() -> void:
 	nameField.text = _player.name
 	raceField.text = _player.getRaceName()
-	var texture: ImageTexture = ImageTexture.new()
-	texture.create_from_image(_player.avatar)
+	var texture: ImageTexture = ImageTexture.create_from_image(_player.avatar)
 	avatarPlace.texture = texture

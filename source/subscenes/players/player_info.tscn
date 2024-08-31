@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bc61g4pdc2nqx"]
 
-[ext_resource path="res://themes_fonts/default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://subscenes/players/player_info.gd" type="Script" id=2]
+[ext_resource type="Theme" uid="uid://n4xnq7y5o8cc" path="res://themes_fonts/default_theme.tres" id="1"]
+[ext_resource type="Script" path="res://subscenes/players/player_info.gd" id="2"]
 
 [node name="PlayerInfo" type="VBoxContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2.0
@@ -12,31 +13,25 @@ offset_right = -2.0
 offset_bottom = -2.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource( 1 )
-script = ExtResource( 2 )
+theme = ExtResource("1")
+script = ExtResource("2")
 
 [node name="Name" type="Label" parent="."]
-offset_right = 1916.0
-offset_bottom = 36.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Name"
-align = 1
-autowrap = true
+horizontal_alignment = 1
 
 [node name="Race" type="Label" parent="."]
-offset_top = 40.0
-offset_right = 1916.0
-offset_bottom = 76.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Protoss"
-align = 1
+horizontal_alignment = 1
 
 [node name="AvatarContainer" type="TextureRect" parent="."]
-offset_top = 80.0
-offset_right = 1916.0
-offset_bottom = 1076.0
-custom_minimum_size = Vector2( 150, 150 )
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-expand = true
+expand_mode = 1
 stretch_mode = 6
