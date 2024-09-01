@@ -13,7 +13,7 @@ func _init(newName: String, newIcon: Image, newRecord: Dictionary):
 	_icon = newIcon
 	_previousRecord = newRecord
 
-func fail(input) -> void:
+func fail(_input) -> void:
 	assert (false, "You should not change this on the fly")
 
 func getName() -> String:

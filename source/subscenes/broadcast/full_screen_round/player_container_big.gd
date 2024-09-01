@@ -57,8 +57,7 @@ func setUpUi() -> void:
 		raceField.text = (
 			Global.RaceName[_player.getPlayedRaceVs(_playerVs.getReprRace())]
 		)
-	var texture: ImageTexture = ImageTexture.new()
-	texture.create_from_image(_player.avatar)
+	var texture: ImageTexture = ImageTexture.create_from_image(_player.avatar)
 	avatarPlace.texture = texture
 	var currentRecord = Tournament.getCurrentRecord(_player)
 	var newLabel: Label =  Label.new()

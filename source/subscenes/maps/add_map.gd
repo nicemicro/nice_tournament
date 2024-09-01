@@ -69,8 +69,7 @@ func _on_FileDialog_file_selected(path):
 	newIcon.load(path)
 	_icon = newIcon.duplicate()
 	newIcon.resize(250, 250)
-	var newButtonTexture: ImageTexture = ImageTexture.new()
-	newButtonTexture.create_from_image(newIcon)
+	var newButtonTexture: ImageTexture = ImageTexture.create_from_image(newIcon)
 	imageButton.texture_normal = newButtonTexture
 	mainScreen.show()
 	validateInputs()

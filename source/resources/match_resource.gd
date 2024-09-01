@@ -12,7 +12,7 @@ var _results: Array = []
 
 signal newWinRegistered
 
-func fail(input) -> void:
+func fail(_input) -> void:
 	assert (false, "You should not change this on the fly")
 
 func _init(newPlayerOne: PlayerResource, newPlayerTwo: PlayerResource, newMaps: Array) -> void:

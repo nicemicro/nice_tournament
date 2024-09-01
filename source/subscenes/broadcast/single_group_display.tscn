@@ -1,69 +1,62 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://07vdoeh4vs4m"]
 
-[ext_resource path="res://themes_fonts/space_theme.tres" type="Theme" id=1]
-[ext_resource path="res://subscenes/broadcast/single_group_display.gd" type="Script" id=2]
-[ext_resource path="res://assets/arrow-up_disabled.png" type="Texture2D" id=3]
-[ext_resource path="res://assets/arrow-up_hover.png" type="Texture2D" id=4]
-[ext_resource path="res://assets/arrow-up.png" type="Texture2D" id=5]
+[ext_resource type="Theme" uid="uid://7tc184hs3sib" path="res://themes_fonts/space_theme.tres" id="1"]
+[ext_resource type="Script" path="res://subscenes/broadcast/single_group_display.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://ddx4oxqtwth81" path="res://assets/arrow-up_disabled.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://rs80yyamjn58" path="res://assets/arrow-up_hover.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bc5hm8ntl1csg" path="res://assets/arrow-up.png" id="5"]
 
 [node name="GroupDisplay" type="VBoxContainer"]
+custom_minimum_size = Vector2(300, 40)
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
 offset_top = 10.0
 offset_right = -10.0
 offset_bottom = -10.0
-custom_minimum_size = Vector2( 300, 40 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme = ExtResource( 1 )
-script = ExtResource( 2 )
+theme = ExtResource("1")
+script = ExtResource("2")
 
 [node name="PlayerList" type="HBoxContainer" parent="."]
-offset_right = 1900.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="Avatars" type="VBoxContainer" parent="PlayerList"]
+layout_mode = 2
 
 [node name="Names" type="VBoxContainer" parent="PlayerList"]
-offset_left = 4.0
-offset_right = 1882.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
 [node name="Wins" type="VBoxContainer" parent="PlayerList"]
-offset_left = 1886.0
-offset_right = 1886.0
+layout_mode = 2
 
 [node name="Colons" type="VBoxContainer" parent="PlayerList"]
-offset_left = 1890.0
-offset_right = 1896.0
-custom_minimum_size = Vector2( 6, 0 )
+custom_minimum_size = Vector2(6, 0)
+layout_mode = 2
 
 [node name="Losses" type="VBoxContainer" parent="PlayerList"]
-offset_left = 1900.0
-offset_right = 1900.0
+layout_mode = 2
 
 [node name="OpenButton" type="TextureButton" parent="."]
 visible = false
-offset_left = 850.0
-offset_top = 1006.0
-offset_right = 1050.0
-offset_bottom = 1046.0
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
-texture_hover = ExtResource( 4 )
-texture_disabled = ExtResource( 3 )
+texture_normal = ExtResource("5")
+texture_pressed = ExtResource("4")
+texture_hover = ExtResource("4")
+texture_disabled = ExtResource("3")
 flip_v = true
 
 [node name="Separator" type="HSeparator" parent="."]
-offset_top = 4.0
-offset_right = 1900.0
-offset_bottom = 14.0
-custom_minimum_size = Vector2( 30, 10 )
+custom_minimum_size = Vector2(30, 10)
+layout_mode = 2
 size_flags_vertical = 4
 
 [connection signal="pressed" from="OpenButton" to="." method="_on_OpenButton_pressed"]

@@ -19,7 +19,8 @@ func _on_Back_pressed():
 
 func _on_AddNew_pressed():
 	var newScene = preload(addPlayerScenePath)
-	var playerAddWindow = newScene.instantiate()
+	#var playerAddWindow = newScene.instantiate()
+	playerAddWindow = newScene.instantiate()
 	playerAddWindow.connect("popup_hide", Callable(self, "removeAddPlayerNode"))
 	playerAddWindow.connect("playerCreated", Callable(self, "savePlayer"))
 	add_child(playerAddWindow)

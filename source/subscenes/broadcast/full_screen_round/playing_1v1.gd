@@ -58,13 +58,12 @@ func displayResData() -> void:
 func showNextMap():
 	if matchRes.getNextMap() != null:
 		currentMapName.text = matchRes.getNextMap().name
-		var texture: ImageTexture = ImageTexture.new()
-		texture.create_from_image(matchRes.getNextMap().icon)
+		var texture: ImageTexture = ImageTexture.create_from_image(matchRes.getNextMap().icon)
 		currentMapImage.texture = texture
 	else:
 		currentMapName.text = "(Match over)"
-		var texture: ImageTexture = ImageTexture.new()
-		texture.create(150, 150, Image.FORMAT_RGB8)
+		var image: Image = Image.create_empty(150, 150, true, Image.FORMAT_RGB8)
+		var texture: ImageTexture = ImageTexture.create_from_image(image)
 		currentMapImage.texture = texture
 
 func playerOneWon() -> void:

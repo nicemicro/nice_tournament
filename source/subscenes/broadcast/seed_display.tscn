@@ -1,10 +1,28 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bex50rpr46djo"]
 
-[ext_resource path="res://subscenes/broadcast/round_display.tscn" type="PackedScene" id=1]
-[ext_resource path="res://subscenes/broadcast/seed_display.gd" type="Script" id=2]
+[ext_resource type="PackedScene" uid="uid://cxe4o3vx17eqh" path="res://subscenes/broadcast/round_display.tscn" id="1"]
+[ext_resource type="Script" path="res://subscenes/broadcast/seed_display.gd" id="2"]
 
-[node name="SeedDisplay" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
+[node name="SeedDisplay" instance=ExtResource("1")]
+anchors_preset = 15
+script = ExtResource("2")
+
+[node name="Main" parent="." index="0"]
+layout_mode = 2
 
 [node name="Title" parent="Main" index="0"]
+layout_mode = 2
 text = "Seeded players"
+horizontal_alignment = 1
+
+[node name="HSeparator" parent="Main" index="1"]
+layout_mode = 2
+
+[node name="Container" parent="Main" index="2"]
+layout_mode = 2
+
+[node name="OpenButton" parent="Main" index="3"]
+layout_mode = 2
+
+[node name="Empty" parent="Main" index="4"]
+layout_mode = 2

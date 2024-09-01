@@ -1,83 +1,66 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://282s1libdd7p"]
 
-[ext_resource path="res://themes_fonts/space_theme.tres" type="Theme" id=1]
-[ext_resource path="res://assets/winbutton_hover.png" type="Texture2D" id=2]
-[ext_resource path="res://assets/winbutton.png" type="Texture2D" id=3]
-[ext_resource path="res://subscenes/broadcast/full_screen_round/map_game_control.gd" type="Script" id=4]
-[ext_resource path="res://assets/winbutton_disabled.png" type="Texture2D" id=5]
+[ext_resource type="Theme" uid="uid://7tc184hs3sib" path="res://themes_fonts/space_theme.tres" id="1"]
+[ext_resource type="Texture2D" uid="uid://hcrn10ywgrh2" path="res://assets/winbutton_hover.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bigvmvv0lrg0r" path="res://assets/winbutton.png" id="3"]
+[ext_resource type="Script" path="res://subscenes/broadcast/full_screen_round/map_game_control.gd" id="4"]
+[ext_resource type="Texture2D" uid="uid://n34o5mbagmfa" path="res://assets/winbutton_disabled.png" id="5"]
 
 [node name="MapGameControl" type="HBoxContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
-theme = ExtResource( 1 )
-script = ExtResource( 4 )
+theme = ExtResource("1")
+script = ExtResource("4")
 
 [node name="Left" type="MarginContainer" parent="."]
-offset_right = 50.0
-offset_bottom = 1080.0
+layout_mode = 2
 
 [node name="WinButton" type="TextureButton" parent="Left"]
-offset_left = 5.0
-offset_top = 520.0
-offset_right = 45.0
-offset_bottom = 560.0
-custom_minimum_size = Vector2( 40, 40 )
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
 disabled = true
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 2 )
-texture_hover = ExtResource( 2 )
-texture_disabled = ExtResource( 5 )
+texture_normal = ExtResource("3")
+texture_pressed = ExtResource("2")
+texture_hover = ExtResource("2")
+texture_disabled = ExtResource("5")
 stretch_mode = 3
 
 [node name="Label" type="Label" parent="Left"]
 visible = false
-offset_left = 5.0
-offset_top = 520.0
-offset_right = 45.0
-offset_bottom = 560.0
-custom_minimum_size = Vector2( 40, 40 )
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
 text = "W"
 
 [node name="MapName" type="Label" parent="."]
-offset_left = 54.0
-offset_top = 520.0
-offset_right = 1866.0
-offset_bottom = 559.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "..."
-align = 1
+horizontal_alignment = 1
 
 [node name="Right" type="MarginContainer" parent="."]
-offset_left = 1870.0
-offset_right = 1920.0
-offset_bottom = 1080.0
+layout_mode = 2
 
 [node name="WinButton" type="TextureButton" parent="Right"]
-offset_left = 5.0
-offset_top = 520.0
-offset_right = 45.0
-offset_bottom = 560.0
-custom_minimum_size = Vector2( 40, 40 )
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
 disabled = true
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 2 )
-texture_hover = ExtResource( 2 )
-texture_disabled = ExtResource( 5 )
+texture_normal = ExtResource("3")
+texture_pressed = ExtResource("2")
+texture_hover = ExtResource("2")
+texture_disabled = ExtResource("5")
 stretch_mode = 3
 flip_h = true
 
 [node name="Label" type="Label" parent="Right"]
 visible = false
-offset_left = 5.0
-offset_top = 520.0
-offset_right = 45.0
-offset_bottom = 560.0
-custom_minimum_size = Vector2( 40, 40 )
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
 text = "W"
 
 [connection signal="pressed" from="Left/WinButton" to="." method="_on_LeftWinButton_pressed"]

@@ -19,7 +19,7 @@ var _players: Dictionary = {}
 var maps: Dictionary = {}: get = getMaps, set = fail
 var _maps: Dictionary = {}
 
-func fail(input) -> void:
+func fail(_input) -> void:
 	assert (false, "You should not change this on the fly")
 
 func registerNewPlayer(newPlayer: PlayerResource) -> void:
@@ -60,7 +60,7 @@ func saveMaps() -> void:
 		mapData[mapId] = _maps[mapId].toDict()
 		_maps[mapId].icon.save_png("user://" + mapId + ".png")
 	var fileSave = FileAccess.open("user://maps.json", FileAccess.WRITE)
-	fileSave.store_line(JSON.new().stringify(mapData))
+	fileSave.store_line(JSON.stringify(mapData))
 	fileSave.close()
 
 func loadMaps() -> void:
@@ -87,7 +87,7 @@ func savePlayers() -> void:
 		playerData[playerId] = _players[playerId].toDict()
 		_players[playerId].avatar.save_png("user://" + playerId + ".png")
 	var fileSave = FileAccess.open("user://players.json", FileAccess.WRITE)
-	fileSave.store_line(JSON.new().stringify(playerData))
+	fileSave.store_line(JSON.stringify(playerData))
 	fileSave.close()
 
 func loadPlayers() -> void:
@@ -130,7 +130,7 @@ func saveTournament() -> void:
 			levelData[roundIndex] = levelArray[roundIndex].toDict()
 		tourneyData[levelIndex] = levelData
 	var fileSave = FileAccess.open("user://tournament.json", FileAccess.WRITE)
-	fileSave.store_line(JSON.new().stringify(tourneyData))
+	fileSave.store_line(JSON.stringify(tourneyData))
 	fileSave.close()
 
 func loadTournament() -> void:

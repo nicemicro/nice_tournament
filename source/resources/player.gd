@@ -29,7 +29,7 @@ func _init(
 		raceRecord["loss"] = int(newRecord[index]["loss"])
 		_previousRecord[int(index)] = raceRecord
 
-func fail(input) -> void:
+func fail(_input) -> void:
 	assert (false, "You should not change this on the fly")
 
 func getName() -> String:

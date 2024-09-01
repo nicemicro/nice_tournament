@@ -97,12 +97,12 @@ func receivePlayers(incoming: Array) -> Array:
 				outgoing.append(playerRes)
 		return outgoing
 	_players = []
-	var outgoing: Array = _receivePlayers(incoming)
+	var outgoings: Array = _receivePlayers(incoming)
 	_groupings = []
 	_generateGroupings()
 	if _allPlayerReceived():
 		_generateMatches()
-	return outgoing
+	return outgoings
 
 func _receivePlayers(incoming: Array) -> Array:
 	var outgoing: Array = []

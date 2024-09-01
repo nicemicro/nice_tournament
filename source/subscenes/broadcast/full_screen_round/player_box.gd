@@ -30,8 +30,7 @@ func setUpUi() -> void:
 			Global.RaceName[_player.getPlayedRaceVs(_playerVs.getReprRace())] +
 			"]"
 		)
-	var texture: ImageTexture = ImageTexture.new()
-	texture.create_from_image(_player.avatar)
+	var texture: ImageTexture = ImageTexture.create_from_image(_player.avatar)
 	avatarPlace.texture = texture
 	for race in Global.Race.values():
 		var newLabel: Label =  Label.new()
@@ -42,9 +41,9 @@ func setUpUi() -> void:
 		)
 		newLabel.theme_type_variation = "LabelSmall"
 		infoContainer.add_child(newLabel)
-	var newLabel: Label =  Label.new()
-	newLabel.text = (
+	var newLabel2: Label =  Label.new()
+	newLabel2.text = (
 		"Veto: " + _player.mapVeto.name
 	)
-	newLabel.theme_type_variation = "LabelSmall"
-	infoContainer.add_child(newLabel)
+	newLabel2.theme_type_variation = "LabelSmall"
+	infoContainer.add_child(newLabel2)

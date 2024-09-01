@@ -91,8 +91,7 @@ func _showGroup():
 		if fullScreen:
 			var miniAvatar: Image = player["player"].avatar.duplicate()
 			miniAvatar.resize(60, 60)
-			var texture: ImageTexture = ImageTexture.new()
-			texture.create_from_image(miniAvatar)
+			var texture: ImageTexture = ImageTexture.create_from_image(miniAvatar)
 			var avatarDisp: TextureRect = TextureRect.new()
 			avatarDisp.custom_minimum_size = Vector2(0, 60)
 			avatarDisp.texture = texture

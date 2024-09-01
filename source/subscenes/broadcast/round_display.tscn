@@ -1,63 +1,50 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://cxe4o3vx17eqh"]
 
-[ext_resource path="res://themes_fonts/space_theme.tres" type="Theme" id=1]
-[ext_resource path="res://subscenes/broadcast/round_display.gd" type="Script" id=2]
-[ext_resource path="res://assets/arrow-up_disabled.png" type="Texture2D" id=3]
-[ext_resource path="res://assets/arrow-up.png" type="Texture2D" id=4]
-[ext_resource path="res://assets/arrow-up_hover.png" type="Texture2D" id=5]
+[ext_resource type="Theme" uid="uid://7tc184hs3sib" path="res://themes_fonts/space_theme.tres" id="1"]
+[ext_resource type="Script" path="res://subscenes/broadcast/round_display.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://ddx4oxqtwth81" path="res://assets/arrow-up_disabled.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bc5hm8ntl1csg" path="res://assets/arrow-up.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://rs80yyamjn58" path="res://assets/arrow-up_hover.png" id="5"]
 
 [node name="RoundDisplay" type="PanelContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
-theme = ExtResource( 1 )
-script = ExtResource( 2 )
+theme = ExtResource("1")
+script = ExtResource("2")
 
 [node name="Main" type="VBoxContainer" parent="."]
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 1918.0
-offset_bottom = 1078.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Title" type="Label" parent="Main"]
-offset_right = 1916.0
-offset_bottom = 39.0
+layout_mode = 2
 text = "Title"
-align = 1
+horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="Main"]
-offset_top = 43.0
-offset_right = 1916.0
-offset_bottom = 53.0
-custom_minimum_size = Vector2( 0, 10 )
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
 
 [node name="Container" type="VBoxContainer" parent="Main"]
-offset_left = 958.0
-offset_top = 57.0
-offset_right = 958.0
-offset_bottom = 1018.0
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
 [node name="OpenButton" type="TextureButton" parent="Main"]
-offset_left = 858.0
-offset_top = 1022.0
-offset_right = 1058.0
-offset_bottom = 1062.0
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 5 )
-texture_hover = ExtResource( 5 )
-texture_disabled = ExtResource( 3 )
+texture_normal = ExtResource("4")
+texture_pressed = ExtResource("5")
+texture_hover = ExtResource("5")
+texture_disabled = ExtResource("3")
 flip_v = true
 
 [node name="Empty" type="Control" parent="Main"]
-offset_top = 1066.0
-offset_right = 1916.0
-offset_bottom = 1076.0
-custom_minimum_size = Vector2( 30, 10 )
+custom_minimum_size = Vector2(30, 10)
+layout_mode = 2
 
 [connection signal="pressed" from="Main/OpenButton" to="." method="_on_OpenButton_pressed"]

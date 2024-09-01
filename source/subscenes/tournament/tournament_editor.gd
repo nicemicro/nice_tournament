@@ -22,8 +22,8 @@ func _ready():
 	addNewMenu.connect("id_pressed", Callable(self, "_on_NewMenu_pressed"))
 
 func addAllRounds():
-	var newScene
-	var newNode
+	#var newScene
+	#var newNode
 	var counter: int = 0
 	var scenePath: String
 	for level in Tournament.rounds:

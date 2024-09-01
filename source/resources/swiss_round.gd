@@ -187,7 +187,7 @@ func _getOutPlayerList() -> Array:
 	return _sortPlayersByPoint(_players, true)
 
 func _generateLoadedGroupings() -> void:
-	var playersCopy: Array = _players.duplicate()
+	#var playersCopy: Array = _players.duplicate()
 	for matchRes in matchList:
 		if matchRes.playerTwo == null:
 			_groupings.append([matchRes.playerOne])
