@@ -4,13 +4,14 @@ import argparse
 import json
 import pandas as pd
 from typing import List, Dict, Tuple, Literal, Any, Optional
+from math import sqrt
 from os import path
 
 PATH: str = path.expanduser("~")+"/.local/share/godot3/app_userdata/NML 5/"
 RACES: List[str] = ["P", "Z", "T", "R", "rp"]
-MINPLAY: int = 5
+MINPLAY: int = 8
 ELOBASE: int = 400
-STARTRANK: int = 2000
+STARTRANK: int = 1000
 UPDATE: int = 32
 
 def makeTable(
@@ -119,7 +120,7 @@ def getMatches(
         ),
         rankTable[["rank"]],
         left_index=True, right_index=True
-    ).fillna(STARTRANK)
+    )
     matchListLost = pd.merge(
         (
             matchListCut[
@@ -130,7 +131,16 @@ def getMatches(
         ),
         rankTable[["rank"]],
         left_index=True, right_index=True
-    ).fillna(STARTRANK)
+    )
+    if (
+        matchListLost["rank"].notna().sum() +
+        matchListWon["rank"].notna().sum() == 0
+    ):
+        matchListWon = matchListWon.fillna(STARTRANK)
+        matchListLost = matchListLost.fillna(STARTRANK)
+    else:
+        matchListWon = matchListWon[(matchListWon["rank"].notna())]
+        matchListLost = matchListLost[(matchListLost["rank"].notna())]
     return matchListWon, matchListLost
 
 
@@ -185,23 +195,26 @@ def updateRanking(
         #print(rankTable)
         assert False
     expected: float = games/(1+10**((currentRank2-currentRank1)/ELOBASE))
-    updateVal: int = int(UPDATE * (wins1 - expected))
+    updateVal: int = int(UPDATE * (wins1 - expected) / sqrt(games))
     #print(f"  > {player1} rank {currentRank1} wins {wins1} (exp {expected})")
     #print(f"  > {player2} rank {currentRank2} wins {wins2}")
     #print(f"    > update: {currentRank1+updateVal}, {currentRank2-updateVal}")
+    rankTable.at[player1, "rank"] += updateVal
     rankTable.at[player2, "rank"] -= updateVal
     return rankTable
 
 def calculateRanking(
     matchList: pd.DataFrame,
-    winLossTable: pd.DataFrame
+    winLossTable: pd.DataFrame,
+    saveHistory: bool = False,
 ) -> pd.DataFrame:
     rankTable = winLossTable[["name", "race"]].copy()
+    rankTable = rankTable.set_index(["name", "race"])
+    rankHistory = rankTable.transpose()
     rankTable["rank"] = pd.NA
     rankTable["rank"] = rankTable["rank"].astype("Int64")
     rankTable["played"] = 0
     rankTable["cleared"] = -1
-    rankTable = rankTable.set_index(["name", "race"])
     for matchNum in matchList.index:
         winner: Tuple[str, str] = (
             matchList.at[matchNum, "wn"], matchList.at[matchNum, "wr"]
@@ -229,6 +242,7 @@ def calculateRanking(
             )
         ):
             continue
+        # If you playe against someone with no ranking, you don't get anything
         if (
             rankTable.at[winner, "rank"] is not pd.NA and
             rankTable.at[loser, "rank"] is pd.NA
@@ -241,18 +255,23 @@ def calculateRanking(
         ):
             #print(f"    > {loser} clrd at ", rankTable.at[loser, "cleared"])
             rankTable.at[loser, "cleared"] = matchNum
+        # If you isn't ranked yet but cleared the req games you get your rank
         if (
             rankTable.at[winner, "played"] >= MINPLAY and
             rankTable.at[winner, "rank"] is pd.NA
         ):
             rankTable = initRanking(winner, rankTable, matchList, matchNum)
             rankTable.at[winner, "cleared"] = matchNum
+            rankHistory.loc[matchNum, winner] = rankTable.at[winner, "rank"]
         if (
             rankTable.at[loser, "played"] >= MINPLAY and
             rankTable.at[loser, "rank"] is pd.NA
         ):
             rankTable = initRanking(loser, rankTable, matchList, matchNum)
             rankTable.at[loser, "cleared"] = matchNum
+            rankHistory.loc[matchNum, loser] = rankTable.at[loser, "rank"]
+        # If both players were already ranked, their rank gets updated
+        # (we don't update you if you just got ranked after this round)
         if (
             rankTable.at[winner, "rank"] is not pd.NA and
             rankTable.at[winner, "cleared"] != matchNum and
@@ -264,8 +283,12 @@ def calculateRanking(
             )
             #print(f"    > {loser} clrd at ", rankTable.at[loser, "cleared"])
             rankTable.at[loser, "cleared"] = matchNum
+            rankHistory.loc[matchNum, loser] = rankTable.at[loser, "rank"]
             #print(f"    > {winner} clrd at ", rankTable.at[winner, "cleared"])
             rankTable.at[winner, "cleared"] = matchNum
+            rankHistory.loc[matchNum, winner] = rankTable.at[winner, "rank"]
+    if saveHistory:
+        rankHistory.astype("Int64").to_csv("rankhistory.csv")
     return rankTable
 
 def processCsv(filename: str) -> None:
