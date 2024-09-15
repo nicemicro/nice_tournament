@@ -40,9 +40,9 @@ func progressTourney() -> void:
 	for level in rounds:
 		for roundRes in level:
 			var playerNumToSend: int = min(len(playersListed), roundRes.input)
-			var playersToSend: Array = playersListed.slice(0, playerNumToSend - 1)
+			var playersToSend: Array = playersListed.slice(0, playerNumToSend)
 			playersListed = playersListed.slice(
-				playerNumToSend, len(playersListed) - 1
+				playerNumToSend, len(playersListed)
 			)
 			playersListed = (
 				roundRes.receivePlayers(playersToSend) + playersListed

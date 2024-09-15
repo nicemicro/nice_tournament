@@ -59,12 +59,16 @@ func _showGroup():
 	for player in groupList:
 		if player == null or player is String:
 			if fullScreen:
-				var texture: ImageTexture = ImageTexture.new()
-				texture.create(60, 60, Image.FORMAT_RGB8)
+				var image: Image = Image.create_empty(
+					60, 60, true, Image.FORMAT_RGB8
+				)
+				var texture: ImageTexture = ImageTexture.create_from_image(
+					image
+				)
 				var avatarDisp: TextureRect = TextureRect.new()
 				avatarDisp.custom_minimum_size = Vector2(0, 60)
 				avatarDisp.texture = texture
-				avatarDisp.size_flags_vertical = SIZE_SHRINK_CENTER
+				avatarDisp.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 				avatarsList.add_child(avatarDisp)
 			var playerString: String
 			if player == null:
