@@ -60,7 +60,7 @@ func  _ready():
 			text += ")"
 			newNode.setLabel(text)
 			newNode.setId(playerIndex)
-			newNode.itemSelected.connect(_onPreviousSelected)
+			newNode.itemSelected.connect(_on_PreviousSelected)
 			findPrevList.add_child(newNode)
 			_previousPlayers[playerIndex] = {
 				"name": playerName, "race": raceNum
@@ -167,7 +167,7 @@ func _on_search_button_pressed():
 	findPrevScreen.show()
 	mainScreen.hide()
 
-func _onPreviousSelected(id: int):
+func _on_PreviousSelected(id: int):
 	var playerName: String = _previousPlayers[id]["name"]
 	var raceId: int = _previousPlayers[id]["race"]
 	nameField.text = playerName

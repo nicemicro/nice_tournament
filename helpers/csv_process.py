@@ -291,13 +291,32 @@ def calculateRanking(
         rankHistory.astype("Int64").to_csv("rankhistory.csv")
     return rankTable
 
+def summarizeMapRecord(matchList: pd.DataFrame) -> Dict:
+    mapRecordDict: Dict = {}
+    matchList = matchList[(matchList["map"].notna())]
+    mapRecord = matchList.groupby(["map", "wr", "lr"]).count()
+    for line in mapRecord.index:
+        name, win, lose = line
+        winNum = RACES.index(win)
+        loseNum = RACES.index(lose)
+        if name not in mapRecordDict:
+            mapRecordDict[name] = {}
+        if winNum not in mapRecordDict[name]:
+            mapRecordDict[name][winNum] = {}
+        mapRecordDict[name][winNum][loseNum] = int(mapRecord.at[line, "wn"])
+    return mapRecordDict
+
 def processCsv(filename: str) -> None:
     matchList = pd.read_csv(filename)
     winLossTable = makeWinLossTable(matchList)
     rankTable = calculateRanking(matchList, winLossTable)
     winLossDict = makeWinLossDict(winLossTable, rankTable)
+    mapDict = summarizeMapRecord(matchList)
     with open('previous_games.json', 'w') as fp:
-        json.dump(winLossDict, fp)
+        json.dump({
+            "players": winLossDict,
+            "maps": mapDict
+        }, fp)
 
 def arguments() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(exit_on_error=True)

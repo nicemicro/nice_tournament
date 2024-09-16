@@ -6,8 +6,13 @@ extends Window
 @onready var imageButton = $Container/Image
 @onready var addButton = $Buttons/SaveButton
 @onready var filedialog = $FileDialog
+@onready var findPrevScreen = $LoadPrevious
+@onready var findPrevList = $LoadPrevious/Scroll/ListOfPlayers
+
+const oldResultSearchScenePath: String = "res://subscenes/players/load_previous.tscn"
 
 var _icon: Image = null
+var _previousMaps: Dictionary = {}
 var inputFields: Dictionary = {}
 
 signal mapCreated
@@ -37,6 +42,18 @@ func _ready():
 			newInput.connect("text_changed", Callable(self, "_on_recordLine_text_changed"))
 			inputFields[winnerRace][loserRace] = newInput
 			prevRecordGroup.add_child(newInput)
+	var mapIndex: int = 0
+	for mapName in Global.previousMaps:
+		if mapName in Global.getMapNames():
+			continue
+		var newScene = preload(oldResultSearchScenePath)
+		var newNode = newScene.instantiate()
+		newNode.setLabel(mapName)
+		newNode.setId(mapIndex)
+		_previousMaps[mapIndex] = mapName
+		newNode.itemSelected.connect(_on_PreviousSelected)
+		findPrevList.add_child(newNode)
+		mapIndex += 1
 
 func createLabel(labelText: String) -> Label:
 	var newLabel: Label
@@ -107,3 +124,25 @@ func _on_visibility_changed():
 		return
 	if visible:
 		addButton.disabled = true
+
+func _on_search_button_pressed():
+	findPrevScreen.show()
+	mainScreen.hide()
+
+func _on_PreviousSelected(id: int):
+	var mapName: String = _previousMaps[id]
+	nameField.text = mapName
+	var currentMap: Dictionary = Global.previousMaps[mapName]
+	for winRace in currentMap:
+		for loseRace in currentMap[winRace]:
+			if winRace == loseRace:
+				continue
+			inputFields[winRace][loseRace].text = str(
+				currentMap[winRace][loseRace]
+			)
+	mainScreen.show()
+	findPrevScreen.hide()
+
+func _on_load_previous_close_requested():
+	mainScreen.show()
+	findPrevScreen.hide()

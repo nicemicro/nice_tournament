@@ -20,6 +20,8 @@ var maps: Dictionary = {}: get = getMaps, set = fail
 var _maps: Dictionary = {}
 var previousResults: Dictionary = {}: get = getPreviousResults, set = fail
 var _previousResults: Dictionary = {}
+var previousMaps: Dictionary = {}: get = getPreviousMaps, set = fail
+var _previousMaps: Dictionary = {}
 
 
 func fail(_input) -> void:
@@ -63,8 +65,17 @@ func getMapId(mapRes: MapResource) -> String:
 func getMaps() -> Dictionary:
 	return _maps.duplicate()
 
+func getMapNames() -> Array:
+	var names: Array = []
+	for mapId in _maps:
+		names.append(_maps[mapId].getName())
+	return names
+
 func getPreviousResults() -> Dictionary:
 	return _previousResults
+
+func getPreviousMaps() -> Dictionary:
+	return _previousMaps
 
 func saveMaps() -> void:
 	var mapData: Dictionary = {}
@@ -108,24 +119,43 @@ func loadPreviousData() -> void:
 	var file = FileAccess.open("user://previous_games.json", FileAccess.READ)
 	var test_json_conv = JSON.new()
 	test_json_conv.parse(file.get_as_text())
-	var tempResults = test_json_conv.get_data()
-	for playerName in tempResults:
+	var allResults = test_json_conv.get_data()
+	var playerResults: Dictionary = {}
+	var mapResults: Dictionary = {}
+	if "players" in allResults:
+		playerResults = allResults["players"]
+	for playerName in playerResults:
 		_previousResults[playerName] = {}
-		for raceId in tempResults[playerName]:
+		for raceId in playerResults[playerName]:
 			var raceNum: int = int(raceId)
 			_previousResults[playerName][raceNum] = {
 				"results": {},
 				"rank": null
 			}
-			if "results" in tempResults[playerName][raceId]:
-				for vsId in tempResults[playerName][raceId]["results"]:
+			if "results" in playerResults[playerName][raceId]:
+				for vsId in playerResults[playerName][raceId]["results"]:
 					var vsNum = int(vsId)
 					_previousResults[playerName][raceNum]["results"][vsNum] = (
-						tempResults[playerName][raceId]["results"][vsId]
+						playerResults[playerName][raceId]["results"][vsId]
 					)
-			if "rank" in tempResults[playerName][raceId]:
+			if "rank" in playerResults[playerName][raceId]:
 				_previousResults[playerName][raceNum]["rank"] = (
-					tempResults[playerName][raceId]["rank"]
+					playerResults[playerName][raceId]["rank"]
+				)
+	if "maps" in allResults:
+		mapResults = allResults["maps"]
+	for mapName in mapResults:
+		_previousMaps[mapName] = {}
+		for raceNum in range(len(Race)):
+			_previousMaps[mapName][raceNum] = {}
+			for raceNumVs in range(len(Race)):
+				_previousMaps[mapName][raceNum][raceNumVs] = 0
+		for raceWinId in mapResults[mapName]:
+			var raceWinNum: int = int(raceWinId)
+			for raceLoseId in mapResults[mapName][raceWinId]:
+				var raceLoseNum: int = int(raceLoseId)
+				_previousMaps[mapName][raceWinNum][raceLoseNum] = (
+					mapResults[mapName][raceWinId][raceLoseId]
 				)
 
 func loadPlayers() -> void:
