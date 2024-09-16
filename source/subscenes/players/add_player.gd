@@ -87,8 +87,7 @@ func _on_FileDialog_file_selected(path):
 	newAvatar.load(path)
 	_avatar = newAvatar.duplicate()
 	newAvatar.resize(250, 250)
-	var newButtonTexture: ImageTexture = ImageTexture.new()
-	newButtonTexture.create_from_image(newAvatar)
+	var newButtonTexture: ImageTexture = ImageTexture.create_from_image(newAvatar)
 	avatarButton.texture_normal = newButtonTexture
 	mainScreen.show()
 	validateInputs()
