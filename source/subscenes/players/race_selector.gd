@@ -4,6 +4,7 @@ extends HBoxContainer
 @onready var label = $Label
 
 var _labelText: String = ""
+var _id: int = -1
 
 signal itemSelected
 
@@ -19,8 +20,14 @@ func setLabel(text: String) -> void:
 		return
 	label.text = text
 
+func setId(newId: int) -> void:
+	_id = newId
+
+func setOption(setTo: int) -> void:
+	raceOption.select(setTo)
+
 func _on_OptionButton_item_selected(index):
-	emit_signal("itemSelected", index)
+	emit_signal("itemSelected", index, _id)
 
 func setSelection(index: int):
 	raceOption.select(index)

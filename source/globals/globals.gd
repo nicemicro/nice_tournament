@@ -18,6 +18,9 @@ var players: Dictionary = {}: get = getPlayers, set = fail
 var _players: Dictionary = {}
 var maps: Dictionary = {}: get = getMaps, set = fail
 var _maps: Dictionary = {}
+var previousResults: Dictionary = {}: get = getPreviousResults, set = fail
+var _previousResults: Dictionary = {}
+
 
 func fail(_input) -> void:
 	assert (false, "You should not change this on the fly")
@@ -39,6 +42,12 @@ func registerNewMap(newMap: MapResource) -> void:
 func getPlayers() -> Dictionary:
 	return _players.duplicate()
 
+func getPlayerNames() -> Array:
+	var names: Array = []
+	for playerId in _players:
+		names.append(_players[playerId].getName())
+	return names
+
 func getPlayerId(playerRes: PlayerResource) -> String:
 	if playerRes == null:
 		return ""
@@ -53,6 +62,9 @@ func getMapId(mapRes: MapResource) -> String:
 
 func getMaps() -> Dictionary:
 	return _maps.duplicate()
+
+func getPreviousResults() -> Dictionary:
+	return _previousResults
 
 func saveMaps() -> void:
 	var mapData: Dictionary = {}
@@ -90,10 +102,37 @@ func savePlayers() -> void:
 	fileSave.store_line(JSON.stringify(playerData))
 	fileSave.close()
 
+func loadPreviousData() -> void:
+	if not FileAccess.file_exists("user://previous_games.json"):
+		return
+	var file = FileAccess.open("user://previous_games.json", FileAccess.READ)
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(file.get_as_text())
+	var tempResults = test_json_conv.get_data()
+	for playerName in tempResults:
+		_previousResults[playerName] = {}
+		for raceId in tempResults[playerName]:
+			var raceNum: int = int(raceId)
+			_previousResults[playerName][raceNum] = {
+				"results": {},
+				"rank": null
+			}
+			if "results" in tempResults[playerName][raceId]:
+				for vsId in tempResults[playerName][raceId]["results"]:
+					var vsNum = int(vsId)
+					_previousResults[playerName][raceNum]["results"][vsNum] = (
+						tempResults[playerName][raceId]["results"][vsId]
+					)
+			if "rank" in tempResults[playerName][raceId]:
+				_previousResults[playerName][raceNum]["rank"] = (
+					tempResults[playerName][raceId]["rank"]
+				)
+
 func loadPlayers() -> void:
 	var playerData: Dictionary
 	var avatar: Image
 	var mapVeto: MapResource
+	loadPreviousData()
 	if not FileAccess.file_exists("user://players.json"):
 		return
 	var file = FileAccess.open("user://players.json", FileAccess.READ)

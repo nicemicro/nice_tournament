@@ -84,7 +84,7 @@ func _on_recordLine_text_changed(new_text):
 	validateInputs()
 
 func _on_CancelButton_pressed():
-	self.hide()
+	queue_free()
 
 func _on_SaveButton_pressed():
 	var previousRecord: Dictionary = {}
@@ -100,7 +100,7 @@ func _on_SaveButton_pressed():
 		previousRecord
 	)
 	emit_signal("mapCreated", mapResource)
-	self.hide()
+	queue_free()
 
 func _on_visibility_changed():
 	if addButton == null:

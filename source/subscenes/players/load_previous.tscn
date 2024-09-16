@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://dibocvtt2v2vt"]
+
+[ext_resource type="Script" path="res://subscenes/players/load_previous.gd" id="1_j86do"]
+
+[node name="LoadPrevious" type="HBoxContainer"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j86do")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "Select"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

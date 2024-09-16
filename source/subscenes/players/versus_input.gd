@@ -31,5 +31,15 @@ func getWin() -> int:
 func getLoss() -> int:
 	return int(loss.text)
 
+func setWinLoss(newWin: int, newLoss: int):
+	if newWin < 0:
+		win.text = ""
+	else:
+		win.text = str(newWin)
+	if newLoss < 0:
+		loss.text = ""
+	else:
+		loss.text = str(newLoss)
+
 func _on_text_changed(new_text):
 	emit_signal("valueChanged")

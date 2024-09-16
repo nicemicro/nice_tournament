@@ -23,6 +23,23 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="FindPrevious" type="HBoxContainer" parent="Columns/Col1"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="Columns/Col1/FindPrevious"]
+layout_mode = 2
+text = "Use previous records:"
+
+[node name="SearchButton" type="Button" parent="Columns/Col1/FindPrevious"]
+layout_mode = 2
+text = "Search & Fill"
+
+[node name="Cancel" type="Button" parent="Columns/Col1/FindPrevious"]
+layout_mode = 2
+disabled = true
+text = "Cancel autofill"
+
 [node name="Name" type="HBoxContainer" parent="Columns/Col1"]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -75,6 +92,21 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="RankScore" type="HBoxContainer" parent="Columns/Col3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Columns/Col3/RankScore"]
+layout_mode = 2
+text = "Ranking (score):"
+
+[node name="LineEdit" type="LineEdit" parent="Columns/Col3/RankScore"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+placeholder_text = "xxxx"
+max_length = 5
+caret_blink = true
+caret_blink_interval = 0.5
+
 [node name="Label3" type="Label" parent="Columns/Col3"]
 layout_mode = 2
 text = "Previous results"
@@ -103,13 +135,38 @@ layout_mode = 2
 text = "Add Player"
 
 [node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+size = Vector2i(842, 500)
+ok_button_text = "Open"
+file_mode = 0
 access = 2
 filters = PackedStringArray("*.png", "*.jpg", "*.jpeg")
 
+[node name="LoadPrevious" type="Window" parent="."]
+initial_position = 2
+size = Vector2i(400, 700)
+visible = false
+exclusive = true
+
+[node name="Scroll" type="ScrollContainer" parent="LoadPrevious"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ListOfPlayers" type="VBoxContainer" parent="LoadPrevious/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Columns/Col1/FindPrevious/SearchButton" to="." method="_on_search_button_pressed"]
+[connection signal="pressed" from="Columns/Col1/FindPrevious/Cancel" to="." method="_on_cancelPrev_pressed"]
 [connection signal="text_changed" from="Columns/Col1/Name/LineEdit" to="." method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="Columns/Col1/Avatar" to="." method="_on_Avatar_pressed"]
 [connection signal="pressed" from="Buttons/CancelButton" to="." method="_on_CancelButton_pressed"]
 [connection signal="pressed" from="Buttons/SaveButton" to="." method="_on_SaveButton_pressed"]
 [connection signal="canceled" from="FileDialog" to="." method="_on_file_dialog_canceled"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]
+[connection signal="close_requested" from="LoadPrevious" to="." method="_on_load_previous_close_requested"]
