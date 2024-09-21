@@ -36,10 +36,17 @@ vertical_alignment = 1
 
 [node name="Race" type="Label" parent="HeaderFooter/Header"]
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_type_variation = &"LabelSmallEmph"
 text = "[Protoss]"
+vertical_alignment = 1
+
+[node name="Ranking" type="Label" parent="HeaderFooter/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_type_variation = &"LabelSmallEmph"
+text = "(ranking)"
 vertical_alignment = 1
 
 [node name="Split" type="HBoxContainer" parent="HeaderFooter"]

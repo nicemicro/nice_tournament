@@ -2,6 +2,7 @@ extends VBoxContainer
 
 @onready var nameField: Label = $Name
 @onready var raceField: Label = $Race
+@onready var rankingField: Label = $Ranking
 @onready var avatarPlace: TextureRect = $AvatarContainer
 
 var _player: PlayerResource
@@ -19,5 +20,9 @@ func setUpPlayer(player: PlayerResource) -> void:
 func setUpUi() -> void:
 	nameField.text = _player.name
 	raceField.text = _player.getRaceName()
+	if _player.ranking > -1:
+		rankingField.text = str(_player.ranking)
+	else:
+		rankingField.text = "Not ranked"
 	var texture: ImageTexture = ImageTexture.create_from_image(_player.avatar)
 	avatarPlace.texture = texture

@@ -178,7 +178,8 @@ func loadPlayers() -> void:
 			avatar,
 			mapVeto,
 			playerData[id]["races"],
-			playerData[id]["previousRecord"]
+			playerData[id]["previousRecord"],
+			playerData[id]["ranking"]
 		)
 		_players[id].setVirtualPoints(playerData[id]["virtualPoints"])
 

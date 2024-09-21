@@ -165,6 +165,7 @@ size_flags_vertical = 3
 [connection signal="pressed" from="Columns/Col1/FindPrevious/Cancel" to="." method="_on_cancelPrev_pressed"]
 [connection signal="text_changed" from="Columns/Col1/Name/LineEdit" to="." method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="Columns/Col1/Avatar" to="." method="_on_Avatar_pressed"]
+[connection signal="text_changed" from="Columns/Col3/RankScore/LineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="pressed" from="Buttons/CancelButton" to="." method="_on_CancelButton_pressed"]
 [connection signal="pressed" from="Buttons/SaveButton" to="." method="_on_SaveButton_pressed"]
 [connection signal="canceled" from="FileDialog" to="." method="_on_file_dialog_canceled"]

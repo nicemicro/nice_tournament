@@ -11,15 +11,23 @@ var previousRecord: Dictionary: get = getRecord, set = fail
 var _previousRecord: Dictionary
 var mapVeto: MapResource: get = getVetodMaps, set = fail
 var _mapVeto: MapResource
+var ranking: int: get = getRanking, set = setRanking
+var _ranking: int = -1
 var virtualPoints: int = 0: get = getVirtualPoints, set = setVirtualPoints
 
 func _init(
-	newName: String, newAvatar: Image, newVeto: MapResource, newRace: Dictionary, newRecord: Dictionary
+	newName: String,
+	newAvatar: Image,
+	newVeto: MapResource,
+	newRace: Dictionary,
+	newRecord: Dictionary,
+	newRanking: int
 ) -> void:
 	_name = newName
 	_avatar = newAvatar
 	_mapVeto = newVeto
 	_races = {}
+	_ranking = newRanking
 	for index in newRace:
 		_races[int(index)] = int(newRace[index])
 	_previousRecord = {}
@@ -79,6 +87,13 @@ func getVirtualPoints() -> int:
 func getRecord() -> Dictionary:
 	return _previousRecord.duplicate()
 
+func getRanking() -> int:
+	return _ranking
+
+func setRanking(newRanking: int) -> void:
+	newRanking = max(newRanking, 0)
+	_ranking = newRanking
+
 func recordVs(race: int, win: bool) -> int:
 	if win:
 		return _previousRecord[race]["win"]
@@ -102,5 +117,6 @@ func toDict() -> Dictionary:
 	returnDict["races"] = _races
 	returnDict["previousRecord"] = _previousRecord
 	returnDict["mapVeto"] = Global.maps.keys()[Global.maps.values().find(_mapVeto)]
+	returnDict["ranking"] = _ranking
 	returnDict["virtualPoints"] = virtualPoints
 	return returnDict

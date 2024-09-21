@@ -73,6 +73,8 @@ func validateInputs():
 		return
 	if nameField.text == "":
 		return
+	if rankField.text != str(int(rankField.text)) and rankField.text != "":
+		return
 	for versusInput in _versusInputs.values():
 		if not versusInput.validate():
 			return
@@ -136,6 +138,7 @@ func _on_SaveButton_pressed():
 	var recordDict: Dictionary = {}
 	var winLoss: Dictionary = {}
 	var vetodMap: MapResource
+	var ranking: int = -1
 	for race in _racePickers:
 		raceDict[race] = _racePickers[race].getSelection()
 	for race in _versusInputs:
@@ -144,12 +147,15 @@ func _on_SaveButton_pressed():
 		winLoss["loss"] = _versusInputs[race].getLoss()
 		recordDict[race] = winLoss
 	vetodMap = Global.maps[Global.maps.keys()[mapVetoSelector.selected]]
+	if rankField.text != "":
+		ranking = int(rankField.text)
 	var playerResource: PlayerResource = PlayerResource.new(
 		nameField.text,
 		_avatar,
 		vetodMap,
 		raceDict,
-		recordDict
+		recordDict,
+		ranking
 	)
 	emit_signal("playerCreated", playerResource)
 	queue_free()
@@ -185,6 +191,7 @@ func _on_PreviousSelected(id: int):
 			_selectedPrevRecs[raceId]["results"][vsRaceId]["loss"]
 		)
 	cancelPrevDataButton.disabled = false
+	validateInputs()
 	mainScreen.show()
 	findPrevScreen.hide()
 
@@ -195,3 +202,7 @@ func _on_load_previous_close_requested():
 func _on_cancelPrev_pressed():
 	_selectedPrevRecs = {}
 	cancelPrevDataButton.disabled = true
+
+
+func _on_line_edit_text_changed(new_text):
+	validateInputs()

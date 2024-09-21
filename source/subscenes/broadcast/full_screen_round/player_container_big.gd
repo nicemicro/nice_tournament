@@ -2,6 +2,7 @@ extends VBoxContainer
 
 @onready var nameField: Label = $Header/Name
 @onready var raceField: Label = $Race
+@onready var rankingField: Label = $Ranking
 @onready var avatarPlace: TextureRect = $PlayerIcon
 @onready var raceNameContainer: VBoxContainer = $Record/RaceName
 @onready var thisTourneyRecord: VBoxContainer = $Record/ThisTourney
@@ -57,6 +58,10 @@ func setUpUi() -> void:
 		raceField.text = (
 			Global.RaceName[_player.getPlayedRaceVs(_playerVs.getReprRace())]
 		)
+	if _player.rating == -1:
+		rankingField.text = "(no ranking)"
+	else:
+		rankingField.text = str(_player.ranking)
 	var texture: ImageTexture = ImageTexture.create_from_image(_player.avatar)
 	avatarPlace.texture = texture
 	var currentRecord = Tournament.getCurrentRecord(_player)

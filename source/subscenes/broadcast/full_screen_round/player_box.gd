@@ -2,6 +2,7 @@ extends MarginContainer
 
 @onready var nameField: Label = $HeaderFooter/Header/Name
 @onready var raceField: Label = $HeaderFooter/Header/Race
+@onready var rankingField: Label = $HeaderFooter/Header/Ranking
 @onready var avatarPlace: TextureRect = $HeaderFooter/Split/AvatarContainer
 @onready var infoContainer: VBoxContainer = $HeaderFooter/Split/InfoContainer
 
@@ -30,6 +31,10 @@ func setUpUi() -> void:
 			Global.RaceName[_player.getPlayedRaceVs(_playerVs.getReprRace())] +
 			"]"
 		)
+	if _player.rating == -1:
+		rankingField.text = "(no ranking)"
+	else:
+		rankingField.text = str(_player.ranking)
 	var texture: ImageTexture = ImageTexture.create_from_image(_player.avatar)
 	avatarPlace.texture = texture
 	for race in Global.Race.values():
