@@ -1,6 +1,6 @@
 extends "res://subscenes/tournament/round_edit_base.gd"
 
-@onready var availableList: PopupMenu = $AvailablePlayers
+@onready var playerButton: MenuButton = $PlayerAddButton
 @onready var addedList: VBoxContainer = $PlayerList
 
 const playerDisplayScenePath: String = "res://subscenes/tournament/seeded_player_display.tscn"
@@ -9,6 +9,7 @@ var availabePlayers: Array = []
 
 func _ready():
 	mapPoolEditor.visible = false
+	playerButton.get_popup().id_pressed.connect(_on_AvailablePlayers_id_pressed)
 	if roundRes != null:
 		for playerRes in roundRes.getSeededPlayers():
 			addPlayerNode(playerRes)
@@ -23,19 +24,16 @@ func attachResource(newRoundRes: RoundResource) -> void:
 			addPlayerNode(playerRes)
 
 func refreshAvailabePlayers() -> void:
-	availableList.clear()
+	playerButton.get_popup().clear()
 	availabePlayers = []
 	for playerRes in Global.players.values():
 		if Tournament.isPlayerSeeded(playerRes):
 			continue
-		availableList.add_item(playerRes.name)
+		playerButton.get_popup().add_item(playerRes.name)
 		availabePlayers.append(playerRes)
 
-func _on_Button_mouse_entered() -> void:
+func _on_player_add_button_about_to_popup():
 	refreshAvailabePlayers()
-
-func _on_Button_pressed() -> void:
-	availableList.show()
 
 func _on_AvailablePlayers_id_pressed(id: int) -> void:
 	roundRes.addPlayer(availabePlayers[id])
@@ -47,7 +45,7 @@ func addPlayerNode(playerRes: PlayerResource) -> void:
 	var newScene: PackedScene = preload(playerDisplayScenePath)
 	var newNode: HBoxContainer = newScene.instantiate()
 	newNode.attachResource(playerRes)
-	newNode.connect("action", Callable(self, "_on_playerAction_pressed"))
+	newNode.action.connect(_on_playerAction_pressed)
 	addedList.add_child(newNode)
 
 func _on_playerAction_pressed(playerRes: PlayerResource, actionId: int) -> void:

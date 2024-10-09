@@ -1,9 +1,9 @@
 extends VBoxContainer
 
 @onready var roundContainer: VBoxContainer = $ScrollContainer/Rounds
-@onready var checkbox: CheckBox = $Footer/FooterBox/CheckBoxContainer/CheckBox
-@onready var inputNumField: LineEdit = $Footer/FooterBox/InNum
-@onready var outputNumField: LineEdit = $Footer/FooterBox/OutNum
+@onready var checkbox: CheckBox = $FooterBox/CheckBoxContainer/CheckBox
+@onready var inputNumField: LineEdit = $FooterBox/InNum
+@onready var outputNumField: LineEdit = $FooterBox/OutNum
 
 var isSelected: bool = false
 var level: int = -1: get = getLevel, set = setLevel

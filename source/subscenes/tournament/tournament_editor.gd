@@ -1,7 +1,7 @@
 extends Control
 
-@onready var addNewButton: MenuButton = $AddNew
-@onready var tournamentContainer: HBoxContainer = $Container/HBoxContainer
+@onready var addNewButton: MenuButton = $Lines/BottomMenu/AddNew
+@onready var tournamentContainer: HBoxContainer = $Lines/Container/HBoxContainer
 
 var addNewMenu: PopupMenu
 var levelContainers: Array = []
@@ -19,7 +19,7 @@ signal backPressed
 
 func _ready():
 	addNewMenu = addNewButton.get_popup()
-	addNewMenu.connect("id_pressed", Callable(self, "_on_NewMenu_pressed"))
+	addNewMenu.id_pressed.connect(_on_NewMenu_pressed)
 
 func addAllRounds():
 	#var newScene

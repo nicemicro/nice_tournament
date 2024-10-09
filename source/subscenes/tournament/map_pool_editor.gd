@@ -1,12 +1,15 @@
 extends VBoxContainer
 
-@onready var availableList: PopupMenu = $AvailableMaps
+@onready var mapButton: MenuButton = $MapChoice
 @onready var addedList: VBoxContainer = $MapPool
 
 var availableMaps: Array
 var roundRes: RoundResource
 
 const mapDisplayScenePath: String = "res://subscenes/tournament/map_in_pool_display.tscn"
+
+func _ready():
+	mapButton.get_popup().id_pressed.connect(_on_AvailableMaps_id_pressed)
 
 func attachResource(newRoundRes: RoundResource) -> void:
 	if roundRes != null:
@@ -16,15 +19,14 @@ func attachResource(newRoundRes: RoundResource) -> void:
 	for mapRes in roundRes.mapPool:
 		addMapNode(mapRes)
 
-func _on_MapChoice_pressed():
-	availableList.clear()
+func refreshAvailableMaps():
+	mapButton.get_popup().clear()
 	availableMaps = []
 	for mapRes in Global.maps.values():
 		if mapRes in roundRes.mapPool:
 			continue
-		availableList.add_item(mapRes.name)
+		mapButton.get_popup().add_item(mapRes.name)
 		availableMaps.append(mapRes)
-	availableList.show()
 
 func _on_AvailableMaps_id_pressed(id):
 	roundRes.addMap(availableMaps[id])
@@ -34,7 +36,7 @@ func addMapNode(mapRes: MapResource):
 	var newScene: PackedScene = preload(mapDisplayScenePath)
 	var newNode: HBoxContainer = newScene.instantiate()
 	newNode.attachResource(mapRes)
-	newNode.connect("action", Callable(self, "_on_mapAction_pressed"))
+	newNode.action.connect(_on_mapAction_pressed)
 	addedList.add_child(newNode)
 
 func _on_mapAction_pressed(mapRes: MapResource, actionId: int) -> void:
@@ -58,3 +60,6 @@ func _on_mapAction_pressed(mapRes: MapResource, actionId: int) -> void:
 		newPos = mapIndex + 1
 	addedList.move_child(nodeToActOn, newPos)
 	roundRes.moveMap(mapRes, newPos)
+
+func _on_map_choice_about_to_popup():
+	refreshAvailableMaps()

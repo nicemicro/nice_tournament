@@ -1,34 +1,35 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://dfmcx8y4kmm85"]
 
-[ext_resource path="res://themes_fonts/default_theme_small.tres" type="Theme" id=1]
-[ext_resource path="res://subscenes/tournament/seeded_player_display.gd" type="Script" id=2]
+[ext_resource type="Theme" uid="uid://deh8vycc4uksh" path="res://themes_fonts/default_theme_small.tres" id="1"]
+[ext_resource type="Script" path="res://subscenes/tournament/seeded_player_display.gd" id="2"]
 
 [node name="SeedPlayerDisplay" type="HBoxContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
-theme = ExtResource( 1 )
-script = ExtResource( 2 )
+theme = ExtResource("1")
+script = ExtResource("2")
 
 [node name="Action" type="MenuButton" parent="."]
-offset_right = 24.0
-offset_bottom = 1080.0
+layout_mode = 2
 text = "..."
 flat = false
-items = [ "Up", null, 0, false, false, 0, 0, null, "", false, "Down", null, 0, false, false, 1, 0, null, "", false, "Del", null, 0, false, false, 2, 0, null, "", false ]
+item_count = 3
+popup/item_0/text = "Up"
+popup/item_1/text = "Down"
+popup/item_1/id = 1
+popup/item_2/text = "Delete"
+popup/item_2/id = 2
 
 [node name="NameRace" type="Label" parent="."]
-offset_left = 28.0
-offset_right = 1858.0
-offset_bottom = 1080.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VirtualPoints" type="LineEdit" parent="."]
-offset_left = 1862.0
-offset_right = 1920.0
-offset_bottom = 1080.0
-max_length = 2
+layout_mode = 2
 placeholder_text = "V.P."
+max_length = 2
 
 [connection signal="text_changed" from="VirtualPoints" to="." method="_on_VirtualPoints_text_changed"]

@@ -16,14 +16,14 @@ func addRound(newRound: RoundResource, level: int) -> bool:
 	if level < 0 or level > len(rounds):
 		assert(false, "Rounds tried to be created at higher levels than possible")
 		return false
-	newRound.connect("roundFinished", Callable(self, "_roundFinished"))
+	newRound.roundFinished.connect(_roundFinished)
 	if level == len(rounds):
 		rounds.append([newRound])
 	else:
 		rounds[level].append(newRound)
 	return true
 
-func _roundFinished(finishedRound: RoundResource) -> void:
+func _roundFinished(_finishedRound: RoundResource) -> void:
 	progressTourney()
 
 func addRoundNum(playersListed: Array, prefix: String):
@@ -77,7 +77,7 @@ func availableInput(refRoundRes: RoundResource) -> int:
 	return sumPrevOut - sumOtherIn
 
 func getPoints(playerRes: PlayerResource, untilRound: int) -> int:
-	assert(untilRound < len(rounds))
+	assert(untilRound <= len(rounds))
 	var counter: int = 0
 	var roundNum: int = 0
 	if untilRound == -1:
@@ -90,7 +90,7 @@ func getPoints(playerRes: PlayerResource, untilRound: int) -> int:
 	return counter
 
 func getGameNumber(playerRes: PlayerResource, untilRound: int) -> int:
-	assert(untilRound < len(rounds))
+	assert(untilRound <= len(rounds))
 	var counter: int = 0
 	var roundNum: int = 0
 	if untilRound == -1:
@@ -103,7 +103,7 @@ func getGameNumber(playerRes: PlayerResource, untilRound: int) -> int:
 	return counter
 
 func getOpponentPointSum(playerRes: PlayerResource, untilRound: int) -> int:
-	assert(untilRound < len(rounds))
+	assert(untilRound <= len(rounds))
 	var counter: int = 0
 	var matchList: Array = getMatches(playerRes, untilRound)
 	for matchRes in matchList:
@@ -134,7 +134,7 @@ func getMatchesCount(playerOne: PlayerResource, playerTwo: PlayerResource) -> in
 	return counter
 
 func getMatches(player: PlayerResource, untilRound: int = -1) -> Array:
-	assert(untilRound < len(rounds))
+	assert(untilRound <= len(rounds))
 	var matchList: Array = []
 	var roundNum: int = 0
 	if untilRound == -1:

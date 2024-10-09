@@ -12,7 +12,7 @@ func _ready():
 	if mapRes != null:
 		showPlayerDetails()
 	var actionList = actionMenuButton.get_popup()
-	actionList.connect("id_pressed", Callable(self, "_on_ActionMenuPoint_pressed"))
+	actionList.id_pressed.connect(_on_ActionMenuPoint_pressed)
 
 func attachResource(newRes: MapResource) -> void:
 	if (mapRes != null):

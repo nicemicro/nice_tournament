@@ -75,7 +75,14 @@ func _sortPlayersByPoint(playerList: Array, noVirtPts: bool = false) -> Array:
 		playerDict["gameNumber"] = playerRes.getGameNumber(currentRound + 1)
 		playerCopy.append(playerDict)
 	playerCopy.sort_custom(Callable(_customSorter, "sortByPointsDesc"))
+	#print("-------------- round ", currentRound, " ----------------")
 	for playerDict in playerCopy:
+		#print(
+			#playerDict["player"].name, " ",
+			#playerDict["points"], " ",
+			#playerDict["opponentPoints"], " ",
+			#playerDict["gameNumber"], " ",
+		#)
 		orderedPlayerList.append(playerDict["player"])
 	return orderedPlayerList
 
@@ -99,18 +106,26 @@ func _createMatchMatrix(playerList: Array) -> Array:
 			var pointOne: float = -1
 			if playerOne != null:
 				pointOne = (
-					playerOne.getPoints(currentRound + 1) +
+					playerOne.getPoints(currentRound) +
 					playerOne.virtualPoints * virtualInputMult
 				)
 			var playerTwo: PlayerResource = playerList[index2]
 			var pointTwo: float = (
-				playerTwo.getPoints(currentRound + 1) +
+				playerTwo.getPoints(currentRound) +
 				playerTwo.virtualPoints * virtualInputMult
 			)
 			var badnessPoint: float = 0.0
 			badnessPoint += Tournament.getMatchesCount(playerOne, playerTwo) * 1000
 			badnessPoint += (pointOne - pointTwo) * (pointOne - pointTwo)
-			badnessPoint += float(index - index2) / 1000
+			#when the virtual points are taken into account, we try to pair the
+			#winners of lower VPs with the losers of higher VPs as a tiebreaker
+			if virtualInputMult > 0 and abs(pointOne - pointTwo) <= 1:
+				badnessPoint += float(int(10 / (abs(float(
+					playerOne.virtualPoints * virtualInputMult -
+					playerTwo.virtualPoints * virtualInputMult
+				)) + 1))) / 1000
+			#the position of the players from the list is used as additional tiebreaker
+			badnessPoint += float(index - index2) / 10000
 			pointList.append(badnessPoint)
 		pointMatrix.append(pointList)
 	return pointMatrix

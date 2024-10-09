@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://vqjpodirmfjh"]
 
-[ext_resource path="res://subscenes/tournament/seeded_players.gd" type="Script" id=2]
-[ext_resource path="res://subscenes/tournament/round_edit_base.tscn" type="PackedScene" id=3]
+[ext_resource type="Script" path="res://subscenes/tournament/seeded_players.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://cw28jtu2we0s0" path="res://subscenes/tournament/round_edit_base.tscn" id="3"]
 
-[node name="SeededPlayers" instance=ExtResource( 3 )]
-script = ExtResource( 2 )
+[node name="SeededPlayers" instance=ExtResource("3")]
+script = ExtResource("2")
 
 [node name="Label" parent="." index="0"]
 text = "Seedded Players"
@@ -13,23 +13,11 @@ text = "Seedded Players"
 visible = false
 
 [node name="PlayerList" type="VBoxContainer" parent="." index="3"]
-offset_top = 70.0
-offset_right = 1920.0
-offset_bottom = 70.0
+layout_mode = 2
 
-[node name="Button" type="Button" parent="." index="4"]
-offset_top = 74.0
-offset_right = 1920.0
-offset_bottom = 96.0
+[node name="PlayerAddButton" type="MenuButton" parent="." index="4"]
+layout_mode = 2
 text = "Add new players"
+flat = false
 
-[node name="AvailablePlayers" type="PopupMenu" parent="." index="5"]
-offset_top = 140.0
-offset_right = 1920.0
-offset_bottom = 1080.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[connection signal="mouse_entered" from="Button" to="." method="_on_Button_mouse_entered"]
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
-[connection signal="id_pressed" from="AvailablePlayers" to="." method="_on_AvailablePlayers_id_pressed"]
+[connection signal="about_to_popup" from="PlayerAddButton" to="." method="_on_player_add_button_about_to_popup"]

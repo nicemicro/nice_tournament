@@ -1,35 +1,27 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bdelo0t3mgh2x"]
 
-[ext_resource path="res://themes_fonts/default_theme_small.tres" type="Theme" id=1]
-[ext_resource path="res://subscenes/tournament/map_pool_editor.gd" type="Script" id=2]
+[ext_resource type="Theme" uid="uid://deh8vycc4uksh" path="res://themes_fonts/default_theme_small.tres" id="1"]
+[ext_resource type="Script" path="res://subscenes/tournament/map_pool_editor.gd" id="2"]
 
 [node name="MapPoolEditor" type="VBoxContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-pivot_offset = Vector2( -625, -483 )
-theme = ExtResource( 1 )
-script = ExtResource( 2 )
+pivot_offset = Vector2(-625, -483)
+theme = ExtResource("1")
+script = ExtResource("2")
 
 [node name="MapPoolHeader" type="Label" parent="."]
-offset_right = 1920.0
-offset_bottom = 16.0
+layout_mode = 2
 text = "Map pool"
-align = 1
+horizontal_alignment = 1
 
 [node name="MapPool" type="VBoxContainer" parent="."]
-offset_top = 20.0
-offset_right = 1920.0
-offset_bottom = 20.0
+layout_mode = 2
 
-[node name="MapChoice" type="Button" parent="."]
-offset_top = 24.0
-offset_right = 1920.0
-offset_bottom = 46.0
+[node name="MapChoice" type="MenuButton" parent="."]
+layout_mode = 2
 text = "Add map"
+flat = false
 
-[node name="AvailableMaps" type="PopupMenu" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[connection signal="pressed" from="MapChoice" to="." method="_on_MapChoice_pressed"]
-[connection signal="id_pressed" from="AvailableMaps" to="." method="_on_AvailableMaps_id_pressed"]
+[connection signal="about_to_popup" from="MapChoice" to="." method="_on_map_choice_about_to_popup"]

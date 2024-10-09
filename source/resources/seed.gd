@@ -10,7 +10,7 @@ func addPlayer(newPlayer: PlayerResource) -> void:
 		printerr("Trying to add a player already on the list")
 	else:
 		_players.append(newPlayer)
-	output = len(_players)
+	_output = len(_players)
 
 func removePlayer(player: PlayerResource) -> void:
 	if not hasPlayer(player):

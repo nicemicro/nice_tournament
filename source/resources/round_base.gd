@@ -4,7 +4,9 @@ class_name RoundResource
 var type: String = "": get = getType, set = fail
 var _type: String = ""
 var input: int = 0: get = getInput, set = setInput
+var _input: int = 0
 var output: int = 0: get = getOutput, set = setOutput
+var _output: int = 0
 var virtualInputMult: float = 0.0
 var mapPool: Array = []: get = getMapPool, set = fail
 var _mapPool: Array = []
@@ -22,16 +24,16 @@ func getType() -> String:
 	return _type
 
 func getOutput() -> int:
-	return output
+	return _output
 
 func setOutput(newOutput: int) -> void:
-	output = newOutput
+	_output = newOutput
 
 func getInput() -> int:
-	return input
+	return _input
 
 func setInput(newInput: int) -> void:
-	input = newInput
+	_input = newInput
 
 func getMapPool() -> Array:
 	return _mapPool.duplicate()

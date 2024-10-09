@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cn2852htr0rio" path="res://subscenes/players/players.tscn" id="2"]
 [ext_resource type="Script" path="res://start.gd" id="3"]
 [ext_resource type="PackedScene" uid="uid://blsrde03xw8aa" path="res://subscenes/maps/maps.tscn" id="4"]
-[ext_resource type="PackedScene" path="res://subscenes/tournament/tournament_editor.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://dv6qdgq53q35t" path="res://subscenes/tournament/tournament_editor.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://dgwo25j4wvng2" path="res://subscenes/broadcast/broadcast_main.tscn" id="6"]
 
 [node name="Start" type="Control"]
@@ -85,7 +85,7 @@ layout_mode = 1
 
 [node name="TournamentEditor" parent="." instance=ExtResource("5")]
 visible = false
-anchors_preset = 0
+layout_mode = 1
 
 [node name="BroadcastBG" parent="." instance=ExtResource("6")]
 visible = false

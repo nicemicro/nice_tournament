@@ -58,7 +58,7 @@ func setUpUi() -> void:
 		raceField.text = (
 			Global.RaceName[_player.getPlayedRaceVs(_playerVs.getReprRace())]
 		)
-	if _player.rating == -1:
+	if _player.ranking == -1:
 		rankingField.text = "(no ranking)"
 	else:
 		rankingField.text = str(_player.ranking)

@@ -13,7 +13,7 @@ func _ready():
 	if player != null:
 		showPlayerDetails()
 	var actionList = actionMenuButton.get_popup()
-	actionList.connect("id_pressed", Callable(self, "_on_ActionMenuPoint_pressed"))
+	actionList.id_pressed.connect(_on_ActionMenuPoint_pressed)
 
 func attachResource(newRes: PlayerResource) -> void:
 	if (player != null):
@@ -24,10 +24,12 @@ func attachResource(newRes: PlayerResource) -> void:
 		showPlayerDetails()
 		
 func showPlayerDetails() -> void:
-	nameLabel.text = (
-		player.name + " (" +
-		player.getRaceName() + ")"
-	)
+	var playertext: String = player.name + " (" + player.getRaceName()
+	if player.ranking == -1:
+		playertext += ")"
+	else:
+		playertext += ", " + str(player.ranking) + ")"
+	nameLabel.text = playertext
 	if player.virtualPoints != 0:
 		virtPointInput.text = str(player.virtualPoints)
 
