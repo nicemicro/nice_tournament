@@ -119,7 +119,11 @@ func _createMatchMatrix(playerList: Array) -> Array:
 			badnessPoint += (pointOne - pointTwo) * (pointOne - pointTwo)
 			#when the virtual points are taken into account, we try to pair the
 			#winners of lower VPs with the losers of higher VPs as a tiebreaker
-			if virtualInputMult > 0 and abs(pointOne - pointTwo) <= 1:
+			if (
+				playerOne != null and
+				virtualInputMult > 0 and
+				abs(pointOne - pointTwo) <= 1
+			):
 				badnessPoint += float(int(10 / (abs(float(
 					playerOne.virtualPoints * virtualInputMult -
 					playerTwo.virtualPoints * virtualInputMult

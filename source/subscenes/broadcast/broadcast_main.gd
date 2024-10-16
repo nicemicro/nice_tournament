@@ -21,9 +21,9 @@ var roundNumberLabels: Array = []
 var roundStart: int = 0
 
 func _ready() -> void:
-	roundContainers.append($Start/Level1)
-	roundContainers.append($Start/Level2)
-	roundContainers.append($Start/Level3)
+	roundContainers.append($Start/Level1/LevelLists)
+	roundContainers.append($Start/Level2/LevelLists)
+	roundContainers.append($Start/Level3/LevelLists)
 	roundNumberLabels.append($Counter/Count1/Panel/Label)
 	roundNumberLabels.append($Counter/Count2/Panel/Label)
 	roundNumberLabels.append($Counter/Count3/Panel/Label)

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://7tc184hs3sib"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://7tc184hs3sib"]
 
 [ext_resource type="FontFile" uid="uid://cqhs4vkc0tbre" path="res://themes_fonts/LiberationSans-Regular.ttf" id="1"]
 [ext_resource type="StyleBox" path="res://themes_fonts/normal_button.tres" id="2"]
@@ -16,6 +16,24 @@ color = Color(0.490196, 0.141176, 0.141176, 1)
 thickness = 2
 
 [sub_resource type="StyleBoxEmpty" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_py6tn"]
+bg_color = Color(0.246229, 0.590885, 0.280387, 0.439216)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mwgj0"]
+bg_color = Color(0.352697, 0.866621, 0.407904, 1)
+
+[sub_resource type="Gradient" id="Gradient_pwyxq"]
+offsets = PackedFloat32Array(0, 0.0404624, 0.0635838, 0.939306, 0.956647, 0.99711)
+colors = PackedColorArray(0.489982, 0.141176, 0.141176, 1, 0.490196, 0.141176, 0.141176, 1, 0.191974, 0.666819, 0.254994, 1, 0.192157, 0.666667, 0.254902, 1, 0.490196, 0.141176, 0.141176, 1, 0.490196, 0.141176, 0.141176, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j3x1l"]
+gradient = SubResource("Gradient_pwyxq")
+fill_from = Vector2(0.529915, 0)
+fill_to = Vector2(0.529915, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cgty8"]
+texture = SubResource("GradientTexture2D_j3x1l")
 
 [sub_resource type="FontFile" id="1"]
 fallbacks = Array[Font]([ExtResource("1")])
@@ -213,3 +231,6 @@ MarginContainer/constants/margin_top = 5
 PanelContTransparent/base_type = &"PanelContainer"
 PanelContTransparent/styles/panel = ExtResource("8")
 PanelContainer/styles/panel = ExtResource("7")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_py6tn")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_mwgj0")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_cgty8")

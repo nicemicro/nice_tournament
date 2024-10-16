@@ -45,7 +45,13 @@ texture_disabled = ExtResource("4")
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 
-[node name="Level1" type="VBoxContainer" parent="Start"]
+[node name="Level1" type="ScrollContainer" parent="Start"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="LevelLists" type="VBoxContainer" parent="Start/Level1"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -54,7 +60,13 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 
-[node name="Level2" type="VBoxContainer" parent="Start"]
+[node name="Level2" type="ScrollContainer" parent="Start"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="LevelLists" type="VBoxContainer" parent="Start/Level2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -63,7 +75,13 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 
-[node name="Level3" type="VBoxContainer" parent="Start"]
+[node name="Level3" type="ScrollContainer" parent="Start"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="LevelLists" type="VBoxContainer" parent="Start/Level3"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
