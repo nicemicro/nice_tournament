@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://drakioy2lqpf2"]
 
-[ext_resource path="res://subscenes/tournament/elimination_edit.gd" type="Script" id=2]
-[ext_resource path="res://subscenes/tournament/round_edit_base.tscn" type="PackedScene" id=3]
+[ext_resource type="Script" path="res://subscenes/tournament/elimination_edit.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://cw28jtu2we0s0" path="res://subscenes/tournament/round_edit_base.tscn" id="3"]
 
-[node name="EliminationEdit" instance=ExtResource( 3 )]
-script = ExtResource( 2 )
+[node name="EliminationEdit" instance=ExtResource("3")]
+script = ExtResource("2")
 
 [node name="Label" parent="." index="0"]
 text = "Elimination"
@@ -12,49 +12,69 @@ text = "Elimination"
 [node name="VirtualPointMult" parent="." index="2"]
 visible = false
 
-[node name="PairNum" type="HBoxContainer" parent="." index="3"]
-offset_top = 70.0
-offset_right = 1920.0
-offset_bottom = 96.0
+[node name="InputType" type="HBoxContainer" parent="." index="3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="InputType" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Receive players by:"
+
+[node name="PairNumInput" type="MenuButton" parent="InputType" index="1"]
+layout_mode = 2
+text = "First-Last"
+flat = false
+item_count = 3
+popup/item_0/text = "First-Last"
+popup/item_1/text = "Straight"
+popup/item_1/id = 1
+popup/item_2/text = "Stacked"
+popup/item_2/id = 2
+
+[node name="InputOrder" type="HBoxContainer" parent="." index="4"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="InputOrder" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Groups order:"
+
+[node name="PairNumInput" type="MenuButton" parent="InputOrder" index="1"]
+layout_mode = 2
+text = "Straight"
+flat = false
+item_count = 2
+popup/item_0/text = "Straight"
+popup/item_1/text = "Reversed"
+popup/item_1/id = 1
+
+[node name="PairNum" type="HBoxContainer" parent="." index="5"]
+layout_mode = 2
 
 [node name="Label" type="Label" parent="PairNum" index="0"]
-offset_top = 5.0
-offset_right = 1858.0
-offset_bottom = 21.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Number of groups:"
 
 [node name="PairNumInput" type="LineEdit" parent="PairNum" index="1"]
-offset_left = 1862.0
-offset_right = 1920.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "2"
-max_length = 2
 placeholder_text = "1"
+max_length = 2
 
-[node name="NeededWins" type="HBoxContainer" parent="." index="4"]
-offset_top = 100.0
-offset_right = 1920.0
-offset_bottom = 126.0
+[node name="NeededWins" type="HBoxContainer" parent="." index="6"]
+layout_mode = 2
 
 [node name="Label" type="Label" parent="NeededWins" index="0"]
-offset_top = 5.0
-offset_right = 1858.0
-offset_bottom = 21.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Wins needed for a 1v1:"
 
 [node name="WinInput" type="LineEdit" parent="NeededWins" index="1"]
-offset_left = 1862.0
-offset_right = 1920.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "2"
-max_length = 1
 placeholder_text = "1"
-
-[node name="MapPoolEditor" parent="." index="5"]
-offset_top = 130.0
-offset_bottom = 176.0
+max_length = 1
 
 [connection signal="text_changed" from="PairNum/PairNumInput" to="." method="_on_PairNumInput_text_changed"]
 [connection signal="text_changed" from="NeededWins/WinInput" to="." method="_on_WinInput_text_changed"]

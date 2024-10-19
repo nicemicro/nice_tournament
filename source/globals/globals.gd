@@ -301,6 +301,10 @@ func processGroup(roundData: Dictionary) -> GroupRound:
 func processElimination(roundData: Dictionary) -> EliminationRound:
 	var roundRes: EliminationRound
 	roundRes = EliminationRound.new()
+	if "inputType" in roundData:
+		roundRes.inputType = int(roundData["inputType"])
+	if "inputOrder" in roundData:
+		roundRes.inputOrder = int(roundData["inputOrder"])
 	roundRes.pairNum = int(roundData["pairNum"])
 	roundRes.neededWins = int(roundData["neededWins"])
 	return roundRes

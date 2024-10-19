@@ -3,6 +3,8 @@ class_name EliminationRound
 
 var pairNum: int = 2: get = getPairNum, set = setPairNum
 var neededWins: int = 3: get = getNeededWins, set = setNeededWins
+var inputType: int = 0: get = getInputType, set = changeInputType
+var inputOrder: int = 0: get = getInputOrder, set = changeInputOrder
 
 func _init() -> void:
 	_type = "elimination"
@@ -36,27 +38,64 @@ func setNeededWins(newNum: int) -> void:
 func getNeededWins() -> int:
 	return neededWins
 
+func getInputType() -> int:
+	return inputType
+
+func changeInputType(newType: int) -> void:
+	if newType >= 0 and newType <= 2:
+		inputType = newType
+
+func getInputOrder() -> int:
+	return inputOrder
+
+func changeInputOrder(newOrder: int) -> void:
+	if newOrder >= 0 and newOrder <= 1:
+		inputOrder = newOrder
+
 func _receivePlayers(incoming: Array) -> Array:
 	var outgoing: Array  = super._receivePlayers(incoming)
 	var playerOriginal: Array = _players.duplicate()
 	#TODO: deal with the possiblity of having odd number of players
 	_players = []
-	if len(playerOriginal) % 2 == 1:
+	if len(playerOriginal) % 2 == 1 and inputType == 0:
 		_players.append(playerOriginal.pop_front())
 	while len(playerOriginal) >= 2:
-		_players.append(playerOriginal.pop_front())
+		if inputType == 0:
+			_players.append(playerOriginal.pop_front())
+			_players.append(playerOriginal.pop_back())
+		elif inputType == 1:
+			_players.append(playerOriginal.pop_front())
+			_players.append(playerOriginal.pop_front())
+		elif inputType == 2:
+			_players.append(playerOriginal.pop_front())
+			_players.append(playerOriginal.pop_at(
+				int(len(playerOriginal) / 2)
+			))
+	if len(playerOriginal) % 2 == 1 and inputType > 0:
+		# In case of a stacked or straight system, the last player is alone.
 		_players.append(playerOriginal.pop_back())
 	return outgoing
 
 func _generateGroupings() -> void:
 	var playersCopy: Array = _players.duplicate()
-	if len(_players) % 2 == 1:
+	if len(_players) % 2 == 1 and inputType == 0:
 		_groupings.append([playersCopy.pop_front()])
 	while len(playersCopy) >= 2:
-		_groupings.append([
-			playersCopy.pop_front(),
-			playersCopy.pop_front(),
-		])
+		if inputOrder == 0:
+			_groupings.append([
+				playersCopy.pop_front(),
+				playersCopy.pop_front(),
+			])
+		else:
+			_groupings.push_front([
+				playersCopy.pop_front(),
+				playersCopy.pop_front(),
+			])
+	if len(_players) % 2 == 1 and inputType > 0:
+		if inputOrder == 0:
+			_groupings.append([playersCopy.pop_front()])
+		else:
+			_groupings.push_front([playersCopy.pop_front()])
 
 func _generateMaplist(playerList: Array) -> Array:
 	var mapVetoList: Array = []
@@ -123,4 +162,6 @@ func toDict() -> Dictionary:
 	returnDict = _toDict(returnDict)
 	returnDict["pairNum"] = pairNum
 	returnDict["neededWins"] = neededWins
+	returnDict["inputType"] = inputType
+	returnDict["inputOrder"] = inputOrder
 	return returnDict
