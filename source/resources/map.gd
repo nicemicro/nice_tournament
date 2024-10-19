@@ -25,6 +25,20 @@ func getIcon() -> Image:
 func getRecord() -> Dictionary:
 	return _previousRecord.duplicate()
 
+func getFullRecord() -> Dictionary:
+	var fullRecord: Dictionary
+	var newRecord: Dictionary = Tournament.getMapRecord(self)
+	for race in Global.Race.values():
+		fullRecord[int(race)] = {}
+		for vsRace in Global.Race.values():
+			if race == vsRace:
+				continue
+			fullRecord[int(race)][int(vsRace)] = (
+				newRecord[int(race)][int(vsRace)] +
+				_previousRecord[int(race)][int(vsRace)]
+			)
+	return fullRecord
+
 func toDict() -> Dictionary:
 	var returnDict: Dictionary = {}
 	returnDict["name"] = _name

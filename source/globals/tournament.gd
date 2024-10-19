@@ -171,6 +171,38 @@ func getCurrentRecord(player: PlayerResource) -> Dictionary:
 		recordDict[vsRace]["loss"] += matchRes.getLoss()[player]
 	return recordDict
 
+func getMapMatches(mapRes: MapResource, untilRound: int = -1) -> Array:
+	assert(untilRound <= len(rounds))
+	var matchList: Array = []
+	var roundNum: int = 0
+	if untilRound == -1:
+		untilRound = len(rounds)
+	while roundNum < untilRound:
+		var level: Array = rounds[roundNum]
+		for roundRes in level:
+			for matchRes in roundRes.matchList:
+				var mapInRound: int = matchRes.mapPool.find(mapRes)
+				if (mapInRound > -1 and mapInRound < len(matchRes.results)):
+					matchList.append(matchRes)
+		roundNum += 1
+	return matchList
+
+func getMapRecord(mapRes: MapResource) -> Dictionary:
+	var recordDict: Dictionary = {}
+	var matchList: Array = getMapMatches(mapRes)
+	for race in Global.Race.values():
+		recordDict[int(race)] = {}
+		for vsRace in Global.Race.values():
+			recordDict[int(race)][int(vsRace)] = 0
+	for matchRes in matchList:
+		var mapInRound: int = matchRes.mapPool.find(mapRes)
+		var winner: PlayerResource = matchRes.results[mapInRound]
+		var loser: PlayerResource = matchRes.getLosers()[mapInRound]
+		var winRace: int = winner.getPlayedRaceVs(loser.getReprRace())
+		var loseRace: int = loser.getPlayedRaceVs(winner.getReprRace())
+		recordDict[winRace][loseRace] += 1
+	return recordDict
+
 func getRoundName(roundRes: RoundResource) -> String:
 	var roundIndex: int
 	for levelIndex in range(len(rounds)):

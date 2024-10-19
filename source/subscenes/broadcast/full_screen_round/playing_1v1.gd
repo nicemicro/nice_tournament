@@ -5,6 +5,7 @@ extends VBoxContainer
 @onready var mapPoolContainer: VBoxContainer = $Container/Middle/MapPool
 @onready var currentMapName: Label = $Container/Middle/MapName
 @onready var currentMapImage: TextureRect = $Container/Middle/MapImage
+@onready var currentMapVs: Label = $Container/Middle/VsData
 
 var matchRes: MatchResource
 var matchControlNodes: Array = []
@@ -60,11 +61,29 @@ func showNextMap():
 		currentMapName.text = matchRes.getNextMap().name
 		var texture: ImageTexture = ImageTexture.create_from_image(matchRes.getNextMap().icon)
 		currentMapImage.texture = texture
-	else:
-		currentMapName.text = "(Match over)"
-		var image: Image = Image.create_empty(150, 150, true, Image.FORMAT_RGB8)
-		var texture: ImageTexture = ImageTexture.create_from_image(image)
-		currentMapImage.texture = texture
+		var raceOne: int = (
+			matchRes.playerOne.getPlayedRaceVs(matchRes.playerTwo.getReprRace())
+		)
+		var raceTwo: int = (
+			matchRes.playerTwo.getPlayedRaceVs(matchRes.playerOne.getReprRace())
+		)
+		if raceOne == raceTwo:
+			currentMapVs.text = ""
+			return
+		currentMapVs.text = (
+			Global.RaceName[raceOne][0] + " " +
+			str(int(matchRes.getNextMap().getFullRecord()[raceOne][raceTwo])) +
+			":" +
+			str(int(matchRes.getNextMap().getFullRecord()[raceTwo][raceOne])) +
+			" " +
+			Global.RaceName[raceTwo][0]
+		)
+		return
+	currentMapName.text = "(Match over)"
+	var image: Image = Image.create_empty(150, 150, true, Image.FORMAT_RGB8)
+	var texture: ImageTexture = ImageTexture.create_from_image(image)
+	currentMapImage.texture = texture
+	currentMapVs.text = ""
 
 func playerOneWon() -> void:
 	disconnectControlSignal()

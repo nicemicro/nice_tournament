@@ -97,6 +97,17 @@ func getMapPool() -> Array:
 func getResults() -> Array:
 	return _results.duplicate()
 
+func getLosers() -> Array:
+	var losers: Array = []
+	if playerTwo == null:
+		return losers
+	for winner in _results:
+		if winner == playerOne:
+			losers.append(playerTwo)
+		else:
+			losers.append(playerOne)
+	return losers
+
 func toDict() -> Dictionary:
 	var matchDict: Dictionary = {}
 	var mapPoolDict: Dictionary = {}
