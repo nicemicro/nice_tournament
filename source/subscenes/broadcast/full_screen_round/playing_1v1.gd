@@ -1,11 +1,15 @@
-extends VBoxContainer
+extends MarginContainer
 
-@onready var playerOneContainer: MarginContainer = $Container/PlayerOne
-@onready var playerTwoContainer: MarginContainer = $Container/PlayerTwo
-@onready var mapPoolContainer: VBoxContainer = $Container/Middle/MapPool
-@onready var currentMapName: Label = $Container/Middle/MapName
-@onready var currentMapImage: TextureRect = $Container/Middle/MapImage
-@onready var currentMapVs: Label = $Container/Middle/VsData
+@onready var mainScreen: VBoxContainer = $Main
+@onready var playerOneContainer: MarginContainer = $Main/Container/PlayerOne
+@onready var playerTwoContainer: MarginContainer = $Main/Container/PlayerTwo
+@onready var mapPoolContainer: VBoxContainer = $Main/Container/Middle/MapPool
+@onready var currentMapName: Label = $Main/Container/Middle/MapName
+@onready var currentMapImage: TextureRect = $Main/Container/Middle/MapImage
+@onready var currentMapVs: Label = $Main/Container/Middle/VsData
+@onready var winnerScreen: PanelContainer = $WinnerPanel
+@onready var winnerName: Label = $WinnerPanel/List/Name
+@onready var winnerAvatar: TextureRect = $WinnerPanel/List/Avatar
 
 var matchRes: MatchResource
 var matchControlNodes: Array = []
@@ -91,6 +95,11 @@ func playerOneWon() -> void:
 	playerNodes[0].setMatchPoint(matchRes.getWins()[matchRes.playerOne])
 	showNextMap()
 	connectControlSignals()
+	mainScreen.modulate = Color(1, 1, 1, 0.1)
+	winnerName.text = matchRes.playerOne.name
+	var texture: ImageTexture = ImageTexture.create_from_image(matchRes.playerOne.avatar)
+	winnerAvatar.texture = texture
+	winnerScreen.show()
 
 func playerTwoWon() -> void:
 	disconnectControlSignal()
@@ -98,6 +107,11 @@ func playerTwoWon() -> void:
 	playerNodes[1].setMatchPoint(matchRes.getWins()[matchRes.playerTwo])
 	showNextMap()
 	connectControlSignals()
+	mainScreen.modulate = Color(1, 1, 1, 0.1)
+	winnerName.text = matchRes.playerTwo.name
+	var texture: ImageTexture = ImageTexture.create_from_image(matchRes.playerTwo.avatar)
+	winnerAvatar.texture = texture
+	winnerScreen.show()
 
 func disconnectControlSignal() -> void:
 	matchControlNodes[len(matchRes.results)].disconnect("leftWon", Callable(self, "playerOneWon"))
@@ -108,3 +122,7 @@ func connectControlSignals():
 		matchControlNodes[len(matchRes.results)].connect("leftWon", Callable(self, "playerOneWon"))
 		matchControlNodes[len(matchRes.results)].connect("rightWon", Callable(self, "playerTwoWon"))
 		matchControlNodes[len(matchRes.results)].setActive()
+
+func _on_hide_button_pressed():
+	mainScreen.modulate = Color(1, 1, 1, 1)
+	winnerScreen.hide()
