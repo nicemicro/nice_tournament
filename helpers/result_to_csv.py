@@ -5,7 +5,7 @@ import pandas as pd
 from typing import List, Dict, Any
 from os import path
 
-PATH: str = path.expanduser("~")+"/.local/share/godot3/app_userdata/NML 5/"
+PATH: str = path.expanduser("~")+"/.local/share/godot/app_userdata/NML 5/"
 RACES: List[str] = ["P", "Z", "T", "R", "rp"]
 
 def get_json(filename: str) -> Dict[str, Any]:
