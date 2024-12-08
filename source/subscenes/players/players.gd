@@ -39,3 +39,15 @@ func displayPlayer(playerRes: PlayerResource):
 	var playerInfo = newScene.instantiate()
 	playerInfo.setUpPlayer(playerRes)
 	playerContainer.add_child(playerInfo)
+
+
+func _on_refresh_ranking_pressed():
+	for playerId in Global.players:
+		var name: String = Global.players[playerId].name
+		var raceId: int = Global.players[playerId].getReprRace()
+		if not name in Global.previousResults or not raceId in Global.previousResults[name]:
+			continue
+		if Global.previousResults[name][raceId]["rank"] != null:
+			Global.players[playerId].setRanking(Global.previousResults[name][raceId]["rank"])
+	for playerInfoScene in playerContainer.get_children():
+		playerInfoScene.setUpUi()
