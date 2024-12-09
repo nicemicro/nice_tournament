@@ -72,7 +72,7 @@ func _sortPlayersByPoint(playerList: Array, noVirtPts: bool = false) -> Array:
 		playerDict["opponentPoints"] = (
 			playerRes.getOpponentPointSum(currentRound + 1)
 		)
-		playerDict["gameNumber"] = playerRes.getGameNumber(currentRound + 1)
+		playerDict["gameNumber"] = playerRes.getGameNumber(currentRound + 1, true)
 		playerCopy.append(playerDict)
 	playerCopy.sort_custom(Callable(_customSorter, "sortByPointsDesc"))
 	#print("-------------- round ", currentRound, " ----------------")
@@ -127,9 +127,11 @@ func _createMatchMatrix(playerList: Array) -> Array:
 				badnessPoint += float(int(10 / (abs(float(
 					playerOne.virtualPoints * virtualInputMult -
 					playerTwo.virtualPoints * virtualInputMult
-				)) + 1))) / 1000
+				)) + 1))) / 1000.0
 			#the position of the players from the list is used as additional tiebreaker
-			badnessPoint += float(index - index2) / 10000
+			badnessPoint += float(index - index2) / 10000.0
+			if playerList[index] == null:
+				badnessPoint += float(index - index2) / 5000.0
 			pointList.append(badnessPoint)
 		pointMatrix.append(pointList)
 	return pointMatrix
@@ -212,6 +214,18 @@ func _generateLoadedGroupings() -> void:
 			_groupings.append([matchRes.playerOne])
 			continue
 		_groupings.append([matchRes.playerOne, matchRes.playerTwo])
+
+func getMatchPlayed(playerRes: PlayerResource, countUnpaired: bool) -> int:
+	var count: int = super.getMatchPlayed(playerRes, countUnpaired)
+	if count > 0 or not countUnpaired:
+		return count
+	for matchRes in _matchList:
+		if (
+			matchRes.playerTwo == playerRes or matchRes.playerOne == playerRes and
+			matchRes.playerTwo == null or matchRes.playerOne == null
+		):
+			count += int(neededWins + neededWins / 2)
+	return count
 
 func toDict() -> Dictionary:
 	var returnDict: Dictionary = {}

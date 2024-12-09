@@ -102,8 +102,8 @@ func recordVs(race: int, win: bool) -> int:
 func getPoints(untilRound: int) -> int:
 	return Tournament.getPoints(self, untilRound)
 
-func getGameNumber(untilRound: int) -> int:
-	return Tournament.getGameNumber(self, untilRound)
+func getGameNumber(untilRound: int, countUnpaired: bool = false) -> int:
+	return Tournament.getGameNumber(self, untilRound, countUnpaired)
 
 func getOpponentPointSum(untilRound: int) -> int:
 	return Tournament.getOpponentPointSum(self, untilRound)

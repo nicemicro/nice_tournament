@@ -214,7 +214,7 @@ func getLoss(playerRes: PlayerResource) -> int:
 			winCount += matchRes.getLoss()[playerRes]
 	return winCount
 
-func getMatchPlayed(playerRes: PlayerResource) -> int:
+func getMatchPlayed(playerRes: PlayerResource, countUnpaired: bool) -> int:
 	var count: int = 0
 	for matchRes in _matchList:
 		if matchRes.playerOne == playerRes or matchRes.playerTwo == playerRes:

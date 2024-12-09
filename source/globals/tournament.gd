@@ -89,7 +89,7 @@ func getPoints(playerRes: PlayerResource, untilRound: int) -> int:
 		roundNum += 1
 	return counter
 
-func getGameNumber(playerRes: PlayerResource, untilRound: int) -> int:
+func getGameNumber(playerRes: PlayerResource, untilRound: int, countUnpaired: bool) -> int:
 	assert(untilRound <= len(rounds))
 	var counter: int = 0
 	var roundNum: int = 0
@@ -98,7 +98,7 @@ func getGameNumber(playerRes: PlayerResource, untilRound: int) -> int:
 	while roundNum < untilRound:
 		var level: Array = rounds[roundNum]
 		for roundRes in level:
-			counter += roundRes.getMatchPlayed(playerRes)
+			counter += roundRes.getMatchPlayed(playerRes, countUnpaired)
 		roundNum += 1
 	return counter
 
