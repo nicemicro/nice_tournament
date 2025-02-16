@@ -1,10 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5ogkrw882yc4"]
+[gd_scene load_steps=6 format=3 uid="uid://b5ogkrw882yc4"]
 
 [ext_resource type="PackedScene" uid="uid://cxe4o3vx17eqh" path="res://subscenes/broadcast/round_display.tscn" id="1"]
 [ext_resource type="Script" path="res://subscenes/broadcast/swiss_display.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://bc5hm8ntl1csg" path="res://assets/arrow-up.png" id="3_wojxd"]
+[ext_resource type="Texture2D" uid="uid://rs80yyamjn58" path="res://assets/arrow-up_hover.png" id="4_6v6b5"]
+[ext_resource type="Texture2D" uid="uid://ddx4oxqtwth81" path="res://assets/arrow-up_disabled.png" id="5_fm7vb"]
 
 [node name="SwissDisplay" instance=ExtResource("1")]
 script = ExtResource("2")
 
 [node name="Title" parent="Main" index="0"]
 text = "Swiss Round"
+
+[node name="OrderedContainer" type="GridContainer" parent="Main" index="2"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+columns = 4
+
+[node name="OrderButtonContainer" type="VBoxContainer" parent="Main" index="3"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="OpenOrderedButton" type="TextureButton" parent="Main/OrderButtonContainer" index="0"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("3_wojxd")
+texture_pressed = ExtResource("4_6v6b5")
+texture_hover = ExtResource("4_6v6b5")
+texture_disabled = ExtResource("5_fm7vb")
+flip_v = true
+
+[node name="HSeparator2" type="HSeparator" parent="Main/OrderButtonContainer" index="1"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Container" parent="Main" index="4"]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="Main/OrderButtonContainer/OpenOrderedButton" to="." method="_on_open_ordered_button_pressed"]

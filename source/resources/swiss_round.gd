@@ -57,7 +57,11 @@ class _customSorter:
 					bMax = player.getPoints(-1)
 		return aMax > bMax
 
-func _sortPlayersByPoint(playerList: Array, noVirtPts: bool = false) -> Array:
+func sortPlayersByPoint(
+	noVirtPts: bool = false,
+	givePoints: bool = false
+) -> Array:
+	var playerList: Array = _players.duplicate()
 	var playerCopy: Array = []
 	var orderedPlayerList: Array = []
 	var currentRound: int = Tournament.getLevelNum(self)
@@ -75,13 +79,15 @@ func _sortPlayersByPoint(playerList: Array, noVirtPts: bool = false) -> Array:
 		playerDict["gameNumber"] = playerRes.getGameNumber(currentRound + 1, true)
 		playerCopy.append(playerDict)
 	playerCopy.sort_custom(Callable(_customSorter, "sortByPointsDesc"))
+	if givePoints:
+		return playerCopy
 	#print("-------------- round ", currentRound, " ----------------")
 	for playerDict in playerCopy:
 		#print(
 			#playerDict["player"].name, " ",
 			#playerDict["points"], " ",
-			#playerDict["opponentPoints"], " ",
 			#playerDict["gameNumber"], " ",
+			#playerDict["opponentPoints"], " ",
 		#)
 		orderedPlayerList.append(playerDict["player"])
 	return orderedPlayerList
@@ -205,7 +211,7 @@ func isOver() -> bool:
 func _getOutPlayerList() -> Array:
 	if not isOver():
 		return _getProvisinalOutPlayerList()
-	return _sortPlayersByPoint(_players, true)
+	return sortPlayersByPoint(true)
 
 func _generateLoadedGroupings() -> void:
 	#var playersCopy: Array = _players.duplicate()
